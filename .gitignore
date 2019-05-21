@@ -4,6 +4,8 @@
 classes/
 
 # Eclipse
+/*.launch
+/.metadata
 /.classpath
 /.project
 /.settings

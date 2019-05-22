@@ -24,8 +24,7 @@ import net.minecraft.entity.*;
 
 import java.util.List;
 
-public interface IEntityPlayerMP extends IPacketSender
-{
+public interface IEntityPlayerMP extends IPacketSender {
 	void sendPacketToTrackedPlayers(FMLProxyPacket packet);
 
 	String getUsername();

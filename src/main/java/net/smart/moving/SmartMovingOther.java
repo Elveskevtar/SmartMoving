@@ -19,21 +19,18 @@ package net.smart.moving;
 
 import net.minecraft.client.entity.*;
 
-public class SmartMovingOther extends SmartMoving
-{
+public class SmartMovingOther extends SmartMoving {
 	public boolean foundAlive;
 
-	public SmartMovingOther(EntityOtherPlayerMP sp)
-	{
+	public SmartMovingOther(EntityOtherPlayerMP sp) {
 		super(sp, null);
 	}
 
-	public void processStatePacket(long state)
-	{
-		actualFeetClimbType = (int)(state & 15);
+	public void processStatePacket(long state) {
+		actualFeetClimbType = (int) (state & 15);
 		state >>>= 4;
 
-		actualHandsClimbType = (int)(state & 15);
+		actualHandsClimbType = (int) (state & 15);
 		state >>>= 4;
 
 		_isJumping = (state & 1) != 0;
@@ -80,7 +77,7 @@ public class SmartMovingOther extends SmartMoving
 		isSliding = (state & 1) != 0;
 		state >>>= 1;
 
-		angleJumpType = (int)(state & 7);
+		angleJumpType = (int) (state & 7);
 		state >>>= 3;
 
 		isFeetVineClimbing = (state & 1) != 0;
@@ -94,7 +91,7 @@ public class SmartMovingOther extends SmartMoving
 
 		boolean wasClimbBackJumping = isClimbBackJumping;
 		isClimbBackJumping = (state & 1) != 0;
-		if(!wasClimbBackJumping && isClimbBackJumping)
+		if (!wasClimbBackJumping && isClimbBackJumping)
 			onStartClimbBackJump();
 		state >>>= 1;
 
@@ -106,7 +103,7 @@ public class SmartMovingOther extends SmartMoving
 
 		boolean wasWallJumping = isWallJumping;
 		isWallJumping = (state & 1) != 0;
-		if(!wasWallJumping && isWallJumping)
+		if (!wasWallJumping && isWallJumping)
 			onStartWallJump(null);
 		state >>>= 1;
 
@@ -114,20 +111,17 @@ public class SmartMovingOther extends SmartMoving
 	}
 
 	@Override
-	public boolean isJumping()
-	{
+	public boolean isJumping() {
 		return _isJumping;
 	}
 
 	@Override
-	public boolean doFlyingAnimation()
-	{
+	public boolean doFlyingAnimation() {
 		return _doFlyingAnimation;
 	}
 
 	@Override
-	public boolean doFallingAnimation()
-	{
+	public boolean doFallingAnimation() {
 		return _doFallingAnimation;
 	}
 

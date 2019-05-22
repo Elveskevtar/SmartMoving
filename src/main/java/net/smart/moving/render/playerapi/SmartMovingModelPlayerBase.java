@@ -22,7 +22,8 @@ import api.player.model.ModelPlayerBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.smart.moving.render.IModelPlayer;
 import net.smart.moving.render.SmartMovingModel;
-import net.smart.render.playerapi.SmartRenderRenderPlayerBase;
+import net.smart.render.SRContext;
+import net.smart.render.render.SRRenderPlayerBase;
 
 public class SmartMovingModelPlayerBase extends ModelPlayerBase
 		implements IModelPlayer {
@@ -35,8 +36,7 @@ public class SmartMovingModelPlayerBase extends ModelPlayerBase
 	@Override
 	public SmartMovingModel getMovingModel() {
 		if (model == null)
-			model = new SmartMovingModel(
-					SmartRenderRenderPlayerBase.getPlayerBase(modelBiped),
+			model = new SmartMovingModel(SRContext.getPlayerBase(modelBiped),
 					this);
 		return model;
 	}

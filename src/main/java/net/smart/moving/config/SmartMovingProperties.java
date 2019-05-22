@@ -23,8 +23,7 @@ import java.util.*;
 import net.smart.properties.*;
 import net.smart.properties.Properties;
 
-public abstract class SmartMovingProperties extends Properties
-{
+public abstract class SmartMovingProperties extends Properties {
 	public final static String Enabled = "enabled";
 	public final static String Disabled = "disabled";
 	private final static String[] _defaultKeys = new String[1];
@@ -34,21 +33,18 @@ public abstract class SmartMovingProperties extends Properties
 
 	public boolean enabled;
 
-	protected void load(Properties... propertiesList) throws Exception
-	{
+	protected void load(Properties... propertiesList) throws Exception {
 		List<Property<?>> propertiesToLoad = getProperties();
-		if(toggler != -2)
-		{
+		if (toggler != -2) {
 			Iterator<Property<?>> iterator = propertiesToLoad.iterator();
-			while(iterator.hasNext())
+			while (iterator.hasNext())
 				iterator.next().reset();
 		}
 
-		while (propertiesToLoad.size() > 0)
-		{
+		while (propertiesToLoad.size() > 0) {
 			Iterator<Property<?>> iterator = propertiesToLoad.iterator();
-			while(iterator.hasNext())
-				if(iterator.next().load(propertiesList))
+			while (iterator.hasNext())
+				if (iterator.next().load(propertiesList))
 					iterator.remove();
 		}
 
@@ -56,119 +52,112 @@ public abstract class SmartMovingProperties extends Properties
 		update();
 	}
 
-	protected void save(File file, String version, boolean header, boolean comments) throws Exception
-	{
+	protected void save(File file, String version, boolean header,
+			boolean comments) throws Exception {
 		List<Property<?>> propertiesToSave = getProperties();
 
 		FileOutputStream stream = new FileOutputStream(file);
 		PrintWriter printer = new PrintWriter(stream);
 
-		if(header)
+		if (header)
 			printHeader(printer);
 
-		if(version != null)
+		if (version != null)
 			printVersion(printer, version, comments);
 
-		for(int i = 0; i < propertiesToSave.size(); i++)
-			if(propertiesToSave.get(i).print(printer, keys, version, comments) && i < propertiesToSave.size() - 1)
+		for (int i = 0; i < propertiesToSave.size(); i++)
+			if (propertiesToSave.get(i).print(printer, keys, version, comments)
+					&& i < propertiesToSave.size() - 1)
 				printer.println();
 
 		printer.close();
 	}
 
-	protected abstract void printVersion(PrintWriter printer, String version, boolean comments);
+	protected abstract void printVersion(PrintWriter printer, String version,
+			boolean comments);
 
 	protected abstract void printHeader(PrintWriter printer);
 
-	public void toggle()
-	{
+	public void toggle() {
 		int length = keys == null ? 0 : keys.length;
 		toggler++;
-		if(toggler == length)
+		if (toggler == length)
 			toggler = -1;
 		update();
 	}
 
-	public void setKeys(String[] keys)
-	{
-		if(keys == null || keys.length == 0)
+	public void setKeys(String[] keys) {
+		if (keys == null || keys.length == 0)
 			keys = _defaultKeys;
 		this.keys = keys;
 		toggler = 0;
 		update();
 	}
 
-	public String getKey(int index)
-	{
-		if(keys[index] == null)
+	public String getKey(int index) {
+		if (keys[index] == null)
 			return Enabled;
 		return keys[index];
 	}
 
-	public String getNextKey(String key)
-	{
-		if(key == null || key.equals("disabled"))
+	public String getNextKey(String key) {
+		if (key == null || key.equals("disabled"))
 			return getKey(0);
 		int index;
-		for(index = 0; index < keys.length; index++)
-			if(key.equals(keys[index]))
+		for (index = 0; index < keys.length; index++)
+			if (key.equals(keys[index]))
 				break;
 		index++;
-		if(index < keys.length)
+		if (index < keys.length)
 			return keys[index];
 		return Disabled;
 	}
 
-	public void setCurrentKey(String key)
-	{
-		if(key == null || key.equals(Disabled))
+	public void setCurrentKey(String key) {
+		if (key == null || key.equals(Disabled))
 			toggler = -1;
-		else if(keys.length == 1 && keys[0] == null && key.equals(Enabled))
+		else if (keys.length == 1 && keys[0] == null && key.equals(Enabled))
 			toggler = 0;
-		else
-		{
-			for(toggler = 0; toggler < keys.length; toggler++)
-				if(key.equals(keys[toggler]))
+		else {
+			for (toggler = 0; toggler < keys.length; toggler++)
+				if (key.equals(keys[toggler]))
 					break;
 
-			if(toggler == keys.length)
+			if (toggler == keys.length)
 				toggler = -1;
 		}
 		update();
 	}
 
-	public String getCurrentKey()
-	{
-		if(toggler == -1)
+	public String getCurrentKey() {
+		if (toggler == -1)
 			return Disabled;
 		return keys[toggler];
 	}
 
-	public boolean hasKey(String key)
-	{
-		if(Enabled.equals(key))
+	public boolean hasKey(String key) {
+		if (Enabled.equals(key))
 			return keys[0] == null;
-		if(Disabled.equals(key))
+		if (Disabled.equals(key))
 			return true;
 
-		for(int i = 0; i < keys.length; i++)
-			if(key == null && keys[i] == null || key != null && key.equals(keys[i]))
+		for (int i = 0; i < keys.length; i++)
+			if (key == null && keys[i] == null
+					|| key != null && key.equals(keys[i]))
 				return true;
 		return false;
 	}
 
-	public int getKeyCount()
-	{
+	public int getKeyCount() {
 		return keys.length;
 	}
 
-	protected void update()
-	{
+	protected void update() {
 		List<Property<?>> properties = getProperties();
 		Iterator<Property<?>> iterator = properties.iterator();
 
 		String currentKey = getCurrentKey();
-		while(iterator.hasNext())
+		while (iterator.hasNext())
 			iterator.next().update(currentKey);
 		enabled = toggler != -1;
 	}

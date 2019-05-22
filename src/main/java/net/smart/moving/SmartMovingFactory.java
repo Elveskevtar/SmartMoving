@@ -24,120 +24,110 @@ import net.minecraft.client.entity.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
 
-public class SmartMovingFactory extends SmartMovingContext
-{
+public class SmartMovingFactory extends SmartMovingContext {
 	private static SmartMovingFactory factory;
 
 	private Hashtable<Integer, SmartMovingOther> otherSmartMovings;
 
-	public SmartMovingFactory()
-	{
-		if(factory != null)
-			throw new RuntimeException("FATAL: Can only create one instance of type 'SmartMovingFactory'");
+	public SmartMovingFactory() {
+		if (factory != null)
+			throw new RuntimeException(
+					"FATAL: Can only create one instance of type 'SmartMovingFactory'");
 		factory = this;
 	}
 
-	protected static boolean isInitialized()
-	{
+	protected static boolean isInitialized() {
 		return factory != null;
 	}
 
-	public static void initialize()
-	{
-		if(!isInitialized())
+	public static void initialize() {
+		if (!isInitialized())
 			new SmartMovingFactory();
 	}
 
-	public static void handleMultiPlayerTick(Minecraft minecraft)
-	{
+	public static void handleMultiPlayerTick(Minecraft minecraft) {
 		factory.doHandleMultiPlayerTick(minecraft);
 	}
 
-	public static SmartMoving getInstance(EntityPlayer entityPlayer)
-	{
+	public static SmartMoving getInstance(EntityPlayer entityPlayer) {
 		return factory.doGetInstance(entityPlayer);
 	}
 
-	public static SmartMoving getOtherSmartMoving(int entityId)
-	{
+	public static SmartMoving getOtherSmartMoving(int entityId) {
 		return factory.doGetOtherSmartMoving(entityId);
 	}
 
-	public static SmartMovingOther getOtherSmartMoving(EntityOtherPlayerMP entity)
-	{
+	public static SmartMovingOther getOtherSmartMoving(
+			EntityOtherPlayerMP entity) {
 		return factory.doGetOtherSmartMoving(entity);
 	}
 
-	protected void doHandleMultiPlayerTick(Minecraft minecraft)
-	{
+	protected void doHandleMultiPlayerTick(Minecraft minecraft) {
 		Iterator<?> others = minecraft.world.playerEntities.iterator();
-		while(others.hasNext())
-		{
-			Entity player = (Entity)others.next();
-			if(player instanceof EntityOtherPlayerMP)
-			{
-				EntityOtherPlayerMP otherPlayer = (EntityOtherPlayerMP)player;
+		while (others.hasNext()) {
+			Entity player = (Entity) others.next();
+			if (player instanceof EntityOtherPlayerMP) {
+				EntityOtherPlayerMP otherPlayer = (EntityOtherPlayerMP) player;
 				SmartMovingOther moving = doGetOtherSmartMoving(otherPlayer);
-				moving.spawnParticles(minecraft, otherPlayer.posX - otherPlayer.prevPosX, otherPlayer.posZ - otherPlayer.prevPosZ);
+				moving.spawnParticles(minecraft,
+						otherPlayer.posX - otherPlayer.prevPosX,
+						otherPlayer.posZ - otherPlayer.prevPosZ);
 				moving.foundAlive = true;
 			}
 		}
 
-		if(otherSmartMovings == null || otherSmartMovings.isEmpty())
+		if (otherSmartMovings == null || otherSmartMovings.isEmpty())
 			return;
 
 		Iterator<Integer> entityIds = otherSmartMovings.keySet().iterator();
-		while(entityIds.hasNext())
-		{
+		while (entityIds.hasNext()) {
 			Integer entityId = entityIds.next();
 			SmartMovingOther moving = otherSmartMovings.get(entityId);
-			if(moving.foundAlive)
+			if (moving.foundAlive)
 				moving.foundAlive = false;
 			else
 				entityIds.remove();
 		}
 	}
 
-	protected SmartMoving doGetInstance(EntityPlayer entityPlayer)
-	{
-		if(entityPlayer instanceof EntityOtherPlayerMP)
+	protected SmartMoving doGetInstance(EntityPlayer entityPlayer) {
+		if (entityPlayer instanceof EntityOtherPlayerMP)
 			return doGetOtherSmartMoving(entityPlayer.getEntityId());
-		else if(entityPlayer instanceof IEntityPlayerSP)
-			return ((IEntityPlayerSP)entityPlayer).getMoving();
-		if(entityPlayer instanceof EntityPlayerSP)
-			return SmartMovingPlayerBase.getPlayerBase((EntityPlayerSP)entityPlayer).getMoving();
+		else if (entityPlayer instanceof IEntityPlayerSP)
+			return ((IEntityPlayerSP) entityPlayer).getMoving();
+		if (entityPlayer instanceof EntityPlayerSP)
+			return SmartMovingPlayerBase
+					.getPlayerBase((EntityPlayerSP) entityPlayer).getMoving();
 		return null;
 	}
 
-	protected SmartMoving doGetOtherSmartMoving(int entityId)
-	{
+	protected SmartMoving doGetOtherSmartMoving(int entityId) {
 		SmartMoving moving = tryGetOtherSmartMoving(entityId);
-		if(moving == null)
-		{
-			Entity entity = Minecraft.getMinecraft().world.getEntityByID(entityId);
-			if(entity != null && entity instanceof EntityOtherPlayerMP)
-				moving = addOtherSmartMoving((EntityOtherPlayerMP)entity);
+		if (moving == null) {
+			Entity entity = Minecraft.getMinecraft().world
+					.getEntityByID(entityId);
+			if (entity != null && entity instanceof EntityOtherPlayerMP)
+				moving = addOtherSmartMoving((EntityOtherPlayerMP) entity);
 		}
 		return moving;
 	}
 
-	protected SmartMovingOther doGetOtherSmartMoving(EntityOtherPlayerMP entity)
-	{
+	protected SmartMovingOther doGetOtherSmartMoving(
+			EntityOtherPlayerMP entity) {
 		SmartMovingOther moving = tryGetOtherSmartMoving(entity.getEntityId());
-		if(moving == null)
+		if (moving == null)
 			moving = addOtherSmartMoving(entity);
 		return moving;
 	}
 
-	protected final SmartMovingOther tryGetOtherSmartMoving(int entityId)
-	{
-		if(otherSmartMovings == null)
+	protected final SmartMovingOther tryGetOtherSmartMoving(int entityId) {
+		if (otherSmartMovings == null)
 			otherSmartMovings = new Hashtable<Integer, SmartMovingOther>();
 		return otherSmartMovings.get(entityId);
 	}
 
-	protected final SmartMovingOther addOtherSmartMoving(EntityOtherPlayerMP entity)
-	{
+	protected final SmartMovingOther addOtherSmartMoving(
+			EntityOtherPlayerMP entity) {
 		SmartMovingOther moving = new SmartMovingOther(entity);
 		otherSmartMovings.put(entity.getEntityId(), moving);
 		return moving;

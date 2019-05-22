@@ -17,8 +17,7 @@
 
 package net.smart.moving;
 
-public interface ISmartMovingClient
-{
+public interface ISmartMovingClient {
 	float getMaximumExhaustion();
 
 	float getMaximumUpJumpCharge();

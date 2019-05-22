@@ -21,32 +21,26 @@ import java.util.Iterator;
 
 import net.smart.properties.*;
 
-public class SmartMovingServerConfig extends SmartMovingClientConfig
-{
+public class SmartMovingServerConfig extends SmartMovingClientConfig {
 	private Properties properties = new Properties();
 	private Properties topProperties = new Properties();
 
-	public void loadFromProperties(String[] propertyArray, boolean top)
-	{
-		for(int i = 0; i < propertyArray.length - 1; i += 2)
-		{
+	public void loadFromProperties(String[] propertyArray, boolean top) {
+		for (int i = 0; i < propertyArray.length - 1; i += 2) {
 			String key = propertyArray[i];
 			String value = propertyArray[i + 1];
 			properties.put(key, value);
-			if(top)
+			if (top)
 				topProperties.put(key, value);
 		}
 
 		load(top);
 	}
 
-	public void load(boolean top)
-	{
-		if(!top && !topProperties.isEmpty())
-		{
+	public void load(boolean top) {
+		if (!top && !topProperties.isEmpty()) {
 			Iterator<?> iterator = topProperties.keySet().iterator();
-			while(iterator.hasNext())
-			{
+			while (iterator.hasNext()) {
 				Object topKey = iterator.next();
 				properties.put(topKey, topProperties.get(topKey));
 			}
@@ -54,8 +48,7 @@ public class SmartMovingServerConfig extends SmartMovingClientConfig
 		super.loadFromProperties(properties);
 	}
 
-	public void reset()
-	{
+	public void reset() {
 		properties.clear();
 		topProperties.clear();
 	}

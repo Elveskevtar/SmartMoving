@@ -19,12 +19,10 @@ package net.smart.render.statistics;
 
 import net.minecraft.client.entity.*;
 
-public class SmartStatisticsOther extends SmartStatistics
-{
+public class SmartStatisticsOther extends SmartStatistics {
 	public boolean foundAlive;
 
-	public SmartStatisticsOther(EntityOtherPlayerMP sp)
-	{
+	public SmartStatisticsOther(EntityOtherPlayerMP sp) {
 		super(sp);
 	}
 }

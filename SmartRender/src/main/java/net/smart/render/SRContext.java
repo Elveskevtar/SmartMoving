@@ -17,13 +17,13 @@
 
 package net.smart.render;
 
-import net.minecraft.client.entity.*;
-import net.minecraft.client.renderer.entity.*;
+import api.player.model.IModelPlayerAPI;
+import net.smart.render.model.SRModelPlayerBase;
 
-public abstract class SmartRenderContext extends SmartRenderUtilities
-{
-	public static <T extends Render<AbstractClientPlayer>> void registerRenderers(final Class<T> type)
-	{
-		SmartRenderFactory.registerRenderers(type);
+public class SRContext {
+	public static SRModelPlayerBase getPlayerBase(
+			net.minecraft.client.model.ModelBiped modelPlayer) {
+		return (SRModelPlayerBase) ((IModelPlayerAPI) modelPlayer)
+				.getModelPlayerBase(SRInfo.ModName);
 	}
 }

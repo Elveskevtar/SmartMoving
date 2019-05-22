@@ -19,17 +19,19 @@ package net.smart.moving;
 
 import net.minecraft.client.*;
 
-public class LocalUserNameProvider extends SmartMovingContext implements ILocalUserNameProvider
-{
+public class LocalUserNameProvider extends SmartMovingContext
+		implements ILocalUserNameProvider {
 	@Override
-	public String getLocalConfigUserName()
-	{
-		return Options._localUserHasChangeConfigRight.value ? Minecraft.getMinecraft().player.getGameProfile().getName() : null;
+	public String getLocalConfigUserName() {
+		return Options._localUserHasChangeConfigRight.value
+				? Minecraft.getMinecraft().player.getGameProfile().getName()
+				: null;
 	}
 
 	@Override
-	public String getLocalSpeedUserName()
-	{
-		return Options._localUserHasChangeSpeedRight.value ? Minecraft.getMinecraft().player.getGameProfile().getName() : null;
+	public String getLocalSpeedUserName() {
+		return Options._localUserHasChangeSpeedRight.value
+				? Minecraft.getMinecraft().player.getGameProfile().getName()
+				: null;
 	}
 }

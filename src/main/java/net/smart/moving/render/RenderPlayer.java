@@ -20,99 +20,95 @@ package net.smart.moving.render;
 import net.minecraft.client.entity.*;
 import net.minecraft.client.renderer.entity.*;
 
-public class RenderPlayer extends net.smart.render.RenderPlayer implements IRenderPlayer
-{
-	public RenderPlayer(RenderManager renderManager)
-	{
+public class RenderPlayer extends net.smart.render.render.SRRenderPlayer
+		implements IRenderPlayer {
+	public RenderPlayer(RenderManager renderManager) {
 		this(renderManager, false);
 	}
 
-	public RenderPlayer(RenderManager renderManager, boolean b)
-	{
+	public RenderPlayer(RenderManager renderManager, boolean b) {
 		super(renderManager, b);
 
 		render = new SmartMovingRender(this);
 	}
 
 	@Override
-	public net.smart.render.IModelPlayer createModel(net.minecraft.client.model.ModelBiped existing, float f, boolean b)
-	{
-		if(existing instanceof net.minecraft.client.model.ModelPlayer)
+	public net.smart.render.model.IModelPlayer createModel(
+			net.minecraft.client.model.ModelBiped existing, float f,
+			boolean b) {
+		if (existing instanceof net.minecraft.client.model.ModelPlayer)
 			return new net.smart.moving.render.ModelPlayer(existing, f, b);
 		return new net.smart.moving.render.ModelBiped(existing, f);
 	}
 
 	@Override
-	public void doRender(AbstractClientPlayer entityplayer, double d, double d1, double d2, float f, float renderPartialTicks)
-	{
+	public void doRender(AbstractClientPlayer entityplayer, double d, double d1,
+			double d2, float f, float renderPartialTicks) {
 		render.doRender(entityplayer, d, d1, d2, f, renderPartialTicks);
 	}
 
 	@Override
-	public void superRenderDoRender(AbstractClientPlayer entityplayer, double d, double d1, double d2, float f, float renderPartialTicks)
-	{
+	public void superRenderDoRender(AbstractClientPlayer entityplayer, double d,
+			double d1, double d2, float f, float renderPartialTicks) {
 		super.doRender(entityplayer, d, d1, d2, f, renderPartialTicks);
 	}
 
 	@Override
-	protected void applyRotations(AbstractClientPlayer entityplayer, float totalTime, float actualRotation, float f2)
-	{
+	protected void applyRotations(AbstractClientPlayer entityplayer,
+			float totalTime, float actualRotation, float f2) {
 		render.rotateCorpse(entityplayer, totalTime, actualRotation, f2);
 	}
 
 	@Override
-	public void superRenderRotateCorpse(AbstractClientPlayer entityplayer, float totalTime, float actualRotation, float f2)
-	{
+	public void superRenderRotateCorpse(AbstractClientPlayer entityplayer,
+			float totalTime, float actualRotation, float f2) {
 		super.applyRotations(entityplayer, totalTime, actualRotation, f2);
 	}
 
 	@Override
-	protected void renderLivingAt(AbstractClientPlayer entityplayer, double d, double d1, double d2)
-	{
+	protected void renderLivingAt(AbstractClientPlayer entityplayer, double d,
+			double d1, double d2) {
 		render.renderLivingAt(entityplayer, d, d1, d2);
 	}
 
 	@Override
-	public void superRenderRenderLivingAt(AbstractClientPlayer entityplayer, double d, double d1, double d2)
-	{
+	public void superRenderRenderLivingAt(AbstractClientPlayer entityplayer,
+			double d, double d1, double d2) {
 		super.renderLivingAt(entityplayer, d, d1, d2);
 	}
 
 	@Override
-	public void renderName(AbstractClientPlayer entityplayer, double par2, double par4, double par6)
-	{
+	public void renderName(AbstractClientPlayer entityplayer, double par2,
+			double par4, double par6) {
 		render.renderName(entityplayer, par2, par4, par6);
 	}
 
 	@Override
-	public void superRenderRenderName(AbstractClientPlayer entityplayer, double par2, double par4, double par6)
-	{
+	public void superRenderRenderName(AbstractClientPlayer entityplayer,
+			double par2, double par4, double par6) {
 		super.renderName(entityplayer, par2, par4, par6);
 	}
 
 	@Override
-	public RenderManager getMovingRenderManager()
-	{
+	public RenderManager getMovingRenderManager() {
 		return renderManager;
 	}
 
 	@Override
-	public IModelPlayer getMovingModelBipedMain()
-	{
-		return (IModelPlayer)super.getModelBipedMain();
+	public IModelPlayer getMovingModelBipedMain() {
+		return (IModelPlayer) super.getModelBipedMain();
 	}
 
 	@Override
-	public IModelPlayer getMovingModelArmor()
-	{
-		return (IModelPlayer)super.getModelArmor();
+	public IModelPlayer getMovingModelArmor() {
+		return (IModelPlayer) super.getModelArmor();
 	}
 
 	@Override
-	public IModelPlayer[] getMovingModels()
-	{
-		if(allIModelPlayers == null)
-			allIModelPlayers = new IModelPlayer[] { getMovingModelBipedMain(), getMovingModelArmor() };
+	public IModelPlayer[] getMovingModels() {
+		if (allIModelPlayers == null)
+			allIModelPlayers = new IModelPlayer[] { getMovingModelBipedMain(),
+					getMovingModelArmor() };
 		return allIModelPlayers;
 	}
 

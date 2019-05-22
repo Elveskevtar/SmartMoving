@@ -17,7 +17,6 @@
 
 package net.smart.moving;
 
-
 import api.player.server.IServerPlayerAPI;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -31,8 +30,7 @@ import net.smart.properties.Property;
 import java.io.File;
 import java.util.List;
 
-public class SmartMovingServer
-{
+public class SmartMovingServer {
 	public static final float SmallSizeItemGrabHeight = 0.25F;
 
 	protected final IEntityPlayerMP mp;
@@ -47,27 +45,27 @@ public class SmartMovingServer
 
 	private boolean isSneakButtonPressed;
 
-	public SmartMovingServer(IEntityPlayerMP mp, boolean onTheFly)
-	{
+	public SmartMovingServer(IEntityPlayerMP mp, boolean onTheFly) {
 		this.mp = mp;
 		if (onTheFly)
 			initialize(true);
 	}
 
-	public void initialize(boolean alwaysSendMessage)
-	{
-		if(Options._globalConfig.value)
-			SmartMovingPacketStream.sendConfigContent(mp, optionsHandler.writeToProperties(), null);
-		else if(Options._serverConfig.value)
-			SmartMovingPacketStream.sendConfigContent(mp, optionsHandler.writeToProperties(mp, false), null);
-		else if(alwaysSendMessage)
-			SmartMovingPacketStream.sendConfigContent(mp, Options.enabled ? new String[0] : null, null);
+	public void initialize(boolean alwaysSendMessage) {
+		if (Options._globalConfig.value)
+			SmartMovingPacketStream.sendConfigContent(mp,
+					optionsHandler.writeToProperties(), null);
+		else if (Options._serverConfig.value)
+			SmartMovingPacketStream.sendConfigContent(mp,
+					optionsHandler.writeToProperties(mp, false), null);
+		else if (alwaysSendMessage)
+			SmartMovingPacketStream.sendConfigContent(mp,
+					Options.enabled ? new String[0] : null, null);
 		initialized = true;
 	}
 
-	public void processStatePacket(FMLProxyPacket packet, long state)
-	{
-		if(!initialized)
+	public void processStatePacket(FMLProxyPacket packet, long state) {
+		if (!initialized)
 			initialize(false);
 
 		boolean isCrawling = ((state >>> 13) & 1) != 0;
@@ -84,54 +82,52 @@ public class SmartMovingServer
 
 		isSneakButtonPressed = ((state >>> 33) & 1) != 0;
 
-		resetFallDistance = isClimbing || isCrawlClimbing || isCeilingClimbing || isWallJumping;
-		resetTicksForFloatKick = isClimbing || isCrawlClimbing || isCeilingClimbing;
+		resetFallDistance = isClimbing || isCrawlClimbing || isCeilingClimbing
+				|| isWallJumping;
+		resetTicksForFloatKick = isClimbing || isCrawlClimbing
+				|| isCeilingClimbing;
 		mp.sendPacketToTrackedPlayers(packet);
 	}
 
-	public void processConfigPacket(String clientConfigurationVersion)
-	{
+	public void processConfigPacket(String clientConfigurationVersion) {
 		boolean warn = true;
 		String type = "unknown";
-		if(clientConfigurationVersion != null)
-			for(int i = 0; i < SmartMovingConfig._all.length; i++)
-				if(clientConfigurationVersion.equals(SmartMovingConfig._all[i]))
-				{
+		if (clientConfigurationVersion != null)
+			for (int i = 0; i < SmartMovingConfig._all.length; i++)
+				if (clientConfigurationVersion
+						.equals(SmartMovingConfig._all[i])) {
 					warn = i > 0;
 					type = warn ? "outdated" : "matching";
 					break;
 				}
 
-		String message = "Smart Moving player \"" + mp.getUsername() + "\" connected with " + type + " configuration system";
-		if(clientConfigurationVersion != null)
+		String message = "Smart Moving player \"" + mp.getUsername()
+				+ "\" connected with " + type + " configuration system";
+		if (clientConfigurationVersion != null)
 			message += " version \"" + clientConfigurationVersion + "\"";
 
-		if(warn)
+		if (warn)
 			FMLLog.warning(message);
 		else
 			FMLLog.info(message);
 	}
 
-	public void processConfigChangePacket(String localUserName)
-	{
-		if(!Options._globalConfig.value)
-		{
+	public void processConfigChangePacket(String localUserName) {
+		if (!Options._globalConfig.value) {
 			toggleSingleConfig();
 			return;
 		}
 
 		String username = mp.getUsername();
 
-		if(localUserName == username)
-		{
+		if (localUserName == username) {
 			toggleConfig();
 			return;
 		}
 
 		String[] rightPlayerNames = Options._usersWithChangeConfigRights.value;
-		for(int i=0; i<rightPlayerNames.length; i++)
-			if(rightPlayerNames[i].equals(username))
-			{
+		for (int i = 0; i < rightPlayerNames.length; i++)
+			if (rightPlayerNames[i].equals(username)) {
 				toggleConfig();
 				return;
 			}
@@ -139,134 +135,123 @@ public class SmartMovingServer
 		SmartMovingPacketStream.sendConfigChange(mp);
 	}
 
-	public void processSpeedChangePacket(int difference, String localUserName)
-	{
-		if(!Options._globalConfig.value)
-		{
+	public void processSpeedChangePacket(int difference, String localUserName) {
+		if (!Options._globalConfig.value) {
 			changeSingleSpeed(difference);
 			return;
 		}
 
-		if(!hasRight(localUserName, Options._usersWithChangeSpeedRights))
+		if (!hasRight(localUserName, Options._usersWithChangeSpeedRights))
 			SmartMovingPacketStream.sendSpeedChange(mp, 0, null);
 		else
 			changeSpeed(difference);
 	}
 
-	public void processHungerChangePacket(float hunger)
-	{
+	public void processHungerChangePacket(float hunger) {
 		mp.localAddExhaustion(hunger);
 	}
 
-	public void processSoundPacket(String soundId, float volume, float pitch)
-	{
+	public void processSoundPacket(String soundId, float volume, float pitch) {
 		mp.localPlaySound(soundId, volume, pitch);
 	}
 
-	private boolean hasRight(String localUserName, Property<String[]> rights)
-	{
+	private boolean hasRight(String localUserName, Property<String[]> rights) {
 		String username = mp.getUsername();
 
-		if(localUserName == username)
+		if (localUserName == username)
 			return true;
 
 		String[] rightPlayerNames = rights.value;
-		for(int i=0; i<rightPlayerNames.length; i++)
-			if(rightPlayerNames[i].equals(username))
+		for (int i = 0; i < rightPlayerNames.length; i++)
+			if (rightPlayerNames[i].equals(username))
 				return true;
 
 		return false;
 	}
 
-	public void toggleSingleConfig()
-	{
-		SmartMovingPacketStream.sendConfigContent(mp, optionsHandler.writeToProperties(mp, true), mp.getUsername());
+	public void toggleSingleConfig() {
+		SmartMovingPacketStream.sendConfigContent(mp,
+				optionsHandler.writeToProperties(mp, true), mp.getUsername());
 	}
 
 	public IEntityPlayerMP[] getAllPlayers() {
-		List<?> playerEntityList = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayers();
+		List<?> playerEntityList = FMLCommonHandler.instance()
+				.getMinecraftServerInstance().getPlayerList().getPlayers();
 		IEntityPlayerMP[] result = new IEntityPlayerMP[playerEntityList.size()];
-		for(int i=0; i<playerEntityList.size(); i++)
-			result[i] = (IEntityPlayerMP)((IServerPlayerAPI)playerEntityList.get(i)).getServerPlayerBase(SmartMovingInfo.ModName);
+		for (int i = 0; i < playerEntityList.size(); i++)
+			result[i] = (IEntityPlayerMP) ((IServerPlayerAPI) playerEntityList
+					.get(i)).getServerPlayerBase(SmartMovingInfo.ModName);
 		return result;
 	}
 
-	public void toggleConfig()
-	{
+	public void toggleConfig() {
 		optionsHandler.toggle(mp);
 		String[] config = optionsHandler.writeToProperties();
 
 		IEntityPlayerMP[] players = getAllPlayers();
-		for(int n=0; n<players.length; n++)
-			SmartMovingPacketStream.sendConfigContent(players[n], config, mp.getUsername());
+		for (int n = 0; n < players.length; n++)
+			SmartMovingPacketStream.sendConfigContent(players[n], config,
+					mp.getUsername());
 	}
 
-	public void changeSingleSpeed(int difference)
-	{
+	public void changeSingleSpeed(int difference) {
 		optionsHandler.changeSingleSpeed(mp, difference);
-		SmartMovingPacketStream.sendSpeedChange(mp, difference, mp.getUsername());
+		SmartMovingPacketStream.sendSpeedChange(mp, difference,
+				mp.getUsername());
 	}
 
-	public void changeSpeed(int difference)
-	{
+	public void changeSpeed(int difference) {
 		optionsHandler.changeSpeed(difference, mp);
 		IEntityPlayerMP[] players = getAllPlayers();
-		for(int n=0; n<players.length; n++)
-			SmartMovingPacketStream.sendSpeedChange(players[n], difference, mp.getUsername());
+		for (int n = 0; n < players.length; n++)
+			SmartMovingPacketStream.sendSpeedChange(players[n], difference,
+					mp.getUsername());
 	}
 
-	public void afterOnUpdate()
-	{
-		if(resetFallDistance)
+	public void afterOnUpdate() {
+		if (resetFallDistance)
 			mp.resetFallDistance();
-		if(resetTicksForFloatKick)
+		if (resetTicksForFloatKick)
 			mp.resetTicksForFloatKick();
 	}
 
-	public static void initialize(File optionsPath, int gameType, SmartMovingConfig config)
-	{
+	public static void initialize(File optionsPath, int gameType,
+			SmartMovingConfig config) {
 		Options = config;
-		optionsHandler = new SmartMovingServerOptions(Options, optionsPath, gameType);
+		optionsHandler = new SmartMovingServerOptions(Options, optionsPath,
+				gameType);
 	}
 
-	public void setCrawling(boolean crawling)
-	{
-		if(!crawling && isCrawling)
+	public void setCrawling(boolean crawling) {
+		if (!crawling && isCrawling)
 			crawlingCooldown = 10;
 		isCrawling = crawling;
 	}
 
-	public void setSmall(boolean isSmall)
-	{
+	public void setSmall(boolean isSmall) {
 		mp.setHeight(isSmall ? 0.8F : 1.8F);
 		this.isSmall = isSmall;
 	}
 
-	@SuppressWarnings("unused")
-	public void afterSetPosition(double d, double d1, double d2)
-	{
-		if(!crawlingInitialized)
+	public void afterSetPosition(double d, double d1, double d2) {
+		if (!crawlingInitialized)
 			mp.setMaxY(mp.getMinY() + mp.getHeight() - 1);
 	}
 
-	public void beforeIsPlayerSleeping()
-	{
-		if(!crawlingInitialized)
-		{
+	public void beforeIsPlayerSleeping() {
+		if (!crawlingInitialized) {
 			mp.setMaxY(mp.getMinY() + mp.getHeight());
 			crawlingInitialized = true;
 		}
 	}
 
-	public void beforeOnUpdate()
-	{
+	public void beforeOnUpdate() {
 		if (crawlingCooldown > 0)
-			crawlingCooldown --;
+			crawlingCooldown--;
 	}
 
-	public void afterOnLivingUpdate()
-	{
-		if(!isSmall)
+	public void afterOnLivingUpdate() {
+		if (!isSmall)
 			return;
 
 		if (mp.doGetHealth() <= 0)
@@ -276,17 +261,16 @@ public class SmartMovingServer
 		AxisAlignedBB box = mp.expandBox(mp.getBox(), 1, offset, 1);
 
 		List<?> offsetEntities = mp.getEntitiesExcludingPlayer(box);
-		if (offsetEntities != null && offsetEntities.size() > 0)
-		{
+		if (offsetEntities != null && offsetEntities.size() > 0) {
 			Object[] offsetEntityArray = offsetEntities.toArray();
 
 			box = mp.expandBox(box, 0, -offset, 0);
 			List<?> standardEntities = mp.getEntitiesExcludingPlayer(box);
 
-			for (int i=0; i<offsetEntityArray.length; i++)
-			{
-				Entity offsetEntity = (Entity)offsetEntityArray[i];
-				if(standardEntities != null && standardEntities.contains(offsetEntity))
+			for (int i = 0; i < offsetEntityArray.length; i++) {
+				Entity offsetEntity = (Entity) offsetEntityArray[i];
+				if (standardEntities != null
+						&& standardEntities.contains(offsetEntity))
 					continue;
 
 				if (!mp.isDeadEntity(offsetEntity))
@@ -295,28 +279,22 @@ public class SmartMovingServer
 		}
 	}
 
-	public boolean isEntityInsideOpaqueBlock()
-	{
-		if(crawlingCooldown > 0)
+	public boolean isEntityInsideOpaqueBlock() {
+		if (crawlingCooldown > 0)
 			return false;
 
 		return mp.localIsEntityInsideOpaqueBlock();
 	}
 
-	public void addMovementStat(double var1, double var3, double var5)
-	{
+	public void addMovementStat(double var1, double var3, double var5) {
 		mp.localAddMovementStat(var1, var3, var5);
 	}
 
-
-	public void addExhaustion(float exhaustion)
-	{
+	public void addExhaustion(float exhaustion) {
 		mp.localAddExhaustion(exhaustion);
 	}
 
-
-	public boolean isSneaking()
-	{
+	public boolean isSneaking() {
 		return mp.getItemInUseCount() > 0 || mp.localIsSneaking();
 	}
 

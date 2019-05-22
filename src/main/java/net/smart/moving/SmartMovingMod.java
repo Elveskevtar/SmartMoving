@@ -85,8 +85,7 @@ public class SmartMovingMod {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		if (!isClient)
-			net.smart.moving.SmartMovingServerPlayerBase
-					.registerPlayerBase();
+			net.smart.moving.SmartMovingServerPlayerBase.registerPlayerBase();
 	}
 
 	@SubscribeEvent
@@ -98,9 +97,8 @@ public class SmartMovingMod {
 	public void onPacketData(ServerCustomPacketEvent event) {
 		SmartMovingPacketStream.receivePacket(event.getPacket(),
 				SmartMovingServerComm.instance,
-				net.smart.moving.SmartMovingServerPlayerBase
-						.getPlayerBase(((NetHandlerPlayServer) event
-								.getHandler()).player));
+				net.smart.moving.SmartMovingServerPlayerBase.getPlayerBase(
+						((NetHandlerPlayServer) event.getHandler()).player));
 	}
 
 	@SubscribeEvent

@@ -19,8 +19,7 @@ package net.smart.moving;
 
 import java.io.*;
 
-public class HandsClimbing
-{
+public class HandsClimbing {
 	public static final int MiddleGrab = 2;
 	public static final int UpGrab = 1;
 	public static final int NoGrab = 0;
@@ -34,44 +33,37 @@ public class HandsClimbing
 
 	private int _value;
 
-	private HandsClimbing(int value)
-	{
+	private HandsClimbing(int value) {
 		_value = value;
 	}
 
-	public boolean IsRelevant()
-	{
+	public boolean IsRelevant() {
 		return _value > None._value;
 	}
 
-	public boolean IsUp()
-	{
+	public boolean IsUp() {
 		return this == Up || this == FastUp;
 	}
 
-	public HandsClimbing ToUp()
-	{
-		if(this == BottomHold)
+	public HandsClimbing ToUp() {
+		if (this == BottomHold)
 			return Up;
 		return this;
 	}
 
-	public HandsClimbing ToDown()
-	{
-		if(this == TopHold)
+	public HandsClimbing ToDown() {
+		if (this == TopHold)
 			return Sink;
 		return this;
 	}
 
-	public HandsClimbing max(HandsClimbing other, ClimbGap inout_thisClimbGap, ClimbGap otherClimbGap)
-	{
-		if(!otherClimbGap.SkipGaps)
-		{
+	public HandsClimbing max(HandsClimbing other, ClimbGap inout_thisClimbGap,
+			ClimbGap otherClimbGap) {
+		if (!otherClimbGap.SkipGaps) {
 			inout_thisClimbGap.CanStand |= otherClimbGap.CanStand;
 			inout_thisClimbGap.MustCrawl |= otherClimbGap.MustCrawl;
 		}
-		if(_value < other._value)
-		{
+		if (_value < other._value) {
 			inout_thisClimbGap.Block = otherClimbGap.Block;
 			inout_thisClimbGap.Meta = otherClimbGap.Meta;
 			inout_thisClimbGap.Direction = otherClimbGap.Direction;
@@ -80,40 +72,37 @@ public class HandsClimbing
 	}
 
 	@Override
-	public String toString()
-	{
-		if(_value <= None._value)
+	public String toString() {
+		if (_value <= None._value)
 			return "None";
-		if(_value == Sink._value)
+		if (_value == Sink._value)
 			return "Sink";
-		if(_value == BottomHold._value)
+		if (_value == BottomHold._value)
 			return "BottomHold";
-		if(_value == TopHold._value)
+		if (_value == TopHold._value)
 			return "TopHold";
-		if(_value == Up._value)
+		if (_value == Up._value)
 			return "Up";
 		return "FastUp";
 	}
 
-	public void print(String name)
-	{
+	public void print(String name) {
 		PrintStream stream = System.err;
-		if(name != null)
+		if (name != null)
 			stream.print(name + " = ");
 		stream.println(this);
 	}
 
-	private static HandsClimbing get(int value)
-	{
-		if(value <= None._value)
+	private static HandsClimbing get(int value) {
+		if (value <= None._value)
 			return None;
-		if(value == Sink._value)
+		if (value == Sink._value)
 			return Sink;
-		if(value == BottomHold._value)
+		if (value == BottomHold._value)
 			return BottomHold;
-		if(value == TopHold._value)
+		if (value == TopHold._value)
 			return TopHold;
-		if(value == Up._value)
+		if (value == Up._value)
 			return Up;
 		return FastUp;
 	}

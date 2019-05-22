@@ -17,19 +17,61 @@
 
 package net.smart.moving.render;
 
-public interface IModelPlayer
-{
+public interface IModelPlayer {
 	SmartMovingModel getMovingModel();
 
-	void superAnimateHeadRotation(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
-	void superAnimateSleeping(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
-	void superAnimateArmSwinging(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
-	void superAnimateRiding(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
-	void superAnimateLeftArmItemHolding(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
-	void superAnimateRightArmItemHolding(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
-	void superAnimateWorkingBody(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
-	void superAnimateWorkingArms(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
-	void superAnimateSneaking(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
-	void superApplyAnimationOffsets(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
-	void superAnimateBowAiming(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
+	void superAnimateHeadRotation(float totalHorizontalDistance,
+			float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+			float factor);
+
+	void superAnimateSleeping(float totalHorizontalDistance,
+			float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+			float factor);
+
+	void superAnimateArmSwinging(float totalHorizontalDistance,
+			float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+			float factor);
+
+	void superAnimateRiding(float totalHorizontalDistance,
+			float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+			float factor);
+
+	void superAnimateLeftArmItemHolding(float totalHorizontalDistance,
+			float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+			float factor);
+
+	void superAnimateRightArmItemHolding(float totalHorizontalDistance,
+			float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+			float factor);
+
+	void superAnimateWorkingBody(float totalHorizontalDistance,
+			float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+			float factor);
+
+	void superAnimateWorkingArms(float totalHorizontalDistance,
+			float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+			float factor);
+
+	void superAnimateSneaking(float totalHorizontalDistance,
+			float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+			float factor);
+
+	void superApplyAnimationOffsets(float totalHorizontalDistance,
+			float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+			float factor);
+
+	void superAnimateBowAiming(float totalHorizontalDistance,
+			float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+			float factor);
 }

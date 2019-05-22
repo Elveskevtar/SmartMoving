@@ -15,15 +15,17 @@
 // along with Smart Render. If not, see <http://www.gnu.org/licenses/>.
 // ==================================================================
 
-package net.smart.render;
+package net.smart.render.render;
 
-import net.minecraftforge.fml.common.*;
-
-public class SmartRenderInfo
-{
-	private static final Mod Mod = SmartRenderMod.class.getAnnotation(Mod.class);
-
-	public static final String ModId = Mod.modid();
-	public static final String ModName = Mod.name();
-	public static final String ModVersion = Mod.version();
+public class SRRenderData {
+	public float offsetX;
+	public float offsetY;
+	public float offsetZ;
+	public float rotateAngleX;
+	public float rotateAngleY;
+	public float rotateAngleZ;
+	public float rotationPointX;
+	public float rotationPointY;
+	public float rotationPointZ;
+	public float totalTime = Float.MIN_VALUE;
 }

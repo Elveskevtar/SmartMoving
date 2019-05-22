@@ -19,63 +19,55 @@ package net.smart.moving;
 
 import java.util.*;
 
-public class SmartMovingClient extends SmartMovingContext implements ISmartMovingClient
-{
+public class SmartMovingClient extends SmartMovingContext
+		implements ISmartMovingClient {
 	private final Map<String, Float> maximumExhaustionValues = new HashMap<String, Float>();
 	private boolean nativeUserInterfaceDrawing = true;
 
 	@Override
-	public float getMaximumExhaustion()
-	{
+	public float getMaximumExhaustion() {
 		float maxExhaustion = Config.getMaxExhaustion();
-		if(maximumExhaustionValues.size() > 0)
-		{
-			Iterator<Float> iterator = maximumExhaustionValues.values().iterator();
-			while(iterator.hasNext())
+		if (maximumExhaustionValues.size() > 0) {
+			Iterator<Float> iterator = maximumExhaustionValues.values()
+					.iterator();
+			while (iterator.hasNext())
 				maxExhaustion = Math.max(iterator.next(), maxExhaustion);
 		}
 		return maxExhaustion;
 	}
 
 	@Override
-	public float getMaximumUpJumpCharge()
-	{
+	public float getMaximumUpJumpCharge() {
 		return Config._jumpChargeMaximum.value;
 	}
 
 	@Override
-	public float getMaximumHeadJumpCharge()
-	{
+	public float getMaximumHeadJumpCharge() {
 		return Config._headJumpChargeMaximum.value;
 	}
 
 	@Override
-	public void setMaximumExhaustionValue(String key, float value)
-	{
+	public void setMaximumExhaustionValue(String key, float value) {
 		maximumExhaustionValues.put(key, value);
 	}
 
 	@Override
-	public float getMaximumExhaustionValue(String key)
-	{
+	public float getMaximumExhaustionValue(String key) {
 		return maximumExhaustionValues.get(key);
 	}
 
 	@Override
-	public boolean removeMaximumExhaustionValue(String key)
-	{
+	public boolean removeMaximumExhaustionValue(String key) {
 		return maximumExhaustionValues.remove(key) != null;
 	}
 
 	@Override
-	public void setNativeUserInterfaceDrawing(boolean value)
-	{
+	public void setNativeUserInterfaceDrawing(boolean value) {
 		nativeUserInterfaceDrawing = value;
 	}
 
 	@Override
-	public boolean getNativeUserInterfaceDrawing()
-	{
+	public boolean getNativeUserInterfaceDrawing() {
 		return nativeUserInterfaceDrawing;
 	}
 }

@@ -21,22 +21,20 @@ import api.player.client.ClientPlayerAPI;
 import api.player.client.IClientPlayerAPI;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
-import net.smart.render.SmartRenderInfo;
+import net.smart.render.SRInfo;
 import net.smart.render.statistics.IEntityPlayerSP;
 
-public abstract class SmartStatistics
-{
-	public final static String ID = SmartRenderInfo.ModName;
+public abstract class SmartStatistics {
+	public final static String ID = SRInfo.ModName;
 
-	public static void register()
-	{
+	public static void register() {
 		ClientPlayerAPI.register(ID, SmartStatisticsPlayerBase.class);
 	}
 
-	public static IEntityPlayerSP getPlayerBase(EntityPlayer entityPlayer)
-	{
-		if(entityPlayer instanceof EntityPlayerSP)
-			return (SmartStatisticsPlayerBase)((IClientPlayerAPI)entityPlayer).getClientPlayerBase(ID);
+	public static IEntityPlayerSP getPlayerBase(EntityPlayer entityPlayer) {
+		if (entityPlayer instanceof EntityPlayerSP)
+			return (SmartStatisticsPlayerBase) ((IClientPlayerAPI) entityPlayer)
+					.getClientPlayerBase(ID);
 		return null;
 	}
 }

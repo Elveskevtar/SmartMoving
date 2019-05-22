@@ -17,56 +17,46 @@
 
 package net.smart.render.statistics;
 
-public class SmartStatisticsDatas
-{
+public class SmartStatisticsDatas {
 	public final SmartStatisticsData horizontal = new SmartStatisticsData();
 	public final SmartStatisticsData vertical = new SmartStatisticsData();
 	public final SmartStatisticsData all = new SmartStatisticsData();
 
 	private float renderPartialTicks;
 
-	public float getTotalHorizontalDistance()
-	{
+	public float getTotalHorizontalDistance() {
 		return horizontal.getTotalDistance(renderPartialTicks);
 	}
 
-	public float getTotalVerticalDistance()
-	{
+	public float getTotalVerticalDistance() {
 		return vertical.getTotalDistance(renderPartialTicks);
 	}
 
-	public float getTotalDistance()
-	{
+	public float getTotalDistance() {
 		return all.getTotalDistance(renderPartialTicks);
 	}
 
-	public float getCurrentHorizontalSpeed()
-	{
+	public float getCurrentHorizontalSpeed() {
 		return horizontal.getCurrentSpeed(renderPartialTicks);
 	}
 
-	public float getCurrentVerticalSpeed()
-	{
+	public float getCurrentVerticalSpeed() {
 		return vertical.getCurrentSpeed(renderPartialTicks);
 	}
 
-	public float getCurrentSpeed()
-	{
+	public float getCurrentSpeed() {
 		return all.getCurrentSpeed(renderPartialTicks);
 	}
 
-	public void setReady(float renderPartialTicks)
-	{
+	public void setReady(float renderPartialTicks) {
 		this.renderPartialTicks = renderPartialTicks;
 	}
 
-	public boolean isReady()
-	{
+	public boolean isReady() {
 		return !Float.isNaN(renderPartialTicks);
 	}
 
-	public void initialize(SmartStatisticsDatas previous)
-	{
+	public void initialize(SmartStatisticsDatas previous) {
 		renderPartialTicks = Float.NaN;
 
 		horizontal.initialize(previous.horizontal);

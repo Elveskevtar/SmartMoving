@@ -15,42 +15,43 @@
 // along with Smart Render. If not, see <http://www.gnu.org/licenses/>.
 // ==================================================================
 
-package net.smart.render;
+package net.smart.render.model;
 
 import org.lwjgl.opengl.GL11;
 
-import net.minecraft.client.entity.*;
-import net.minecraft.client.model.*;
-import net.minecraft.entity.player.*;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.entity.player.EntityPlayer;
 
-public class ModelEarsRenderer extends ModelSpecialRenderer
-{
+public class SRModelEarsRenderer extends SRModelSpecialRenderer {
 	private int _i = 0;
 	private EntityPlayer entityplayer;
 
-	public ModelEarsRenderer(ModelBase modelBase, int i, int j, ModelRotationRenderer baseRenderer)
-	{
+	public SRModelEarsRenderer(ModelBase modelBase, int i, int j,
+			SRModelRotationRenderer baseRenderer) {
 		super(modelBase, i, j, baseRenderer);
 	}
 
-	public void beforeRender(EntityPlayer entityplayer)
-	{
+	public void beforeRender(EntityPlayer entityplayer) {
 		super.beforeRender(true);
 		this.entityplayer = entityplayer;
 	}
 
 	@Override
-	public void doRender(float f, boolean useParentTransformations)
-	{
+	public void doRender(float f, boolean useParentTransformations) {
 		reset();
 		super.doRender(f, useParentTransformations);
 	}
 
 	@Override
-	public void preTransform(float factor, boolean push)
-	{
-		if(entityplayer.isSneaking())
-			GL11.glTranslated(0.0F, 0.2F * (entityplayer instanceof EntityPlayerSP ? Math.cos(entityplayer.rotationPitch / RadiantToAngle) : 1), 0.0F);
+	public void preTransform(float factor, boolean push) {
+		if (entityplayer.isSneaking())
+			GL11.glTranslated(0.0F,
+					0.2F * (entityplayer instanceof EntityPlayerSP
+							? Math.cos(
+									entityplayer.rotationPitch / RadiantToAngle)
+							: 1),
+					0.0F);
 
 		super.preTransform(factor, push);
 
@@ -61,8 +62,7 @@ public class ModelEarsRenderer extends ModelSpecialRenderer
 	}
 
 	@Override
-	public boolean canBeRandomBoxSource()
-	{
+	public boolean canBeRandomBoxSource() {
 		return false;
 	}
 }

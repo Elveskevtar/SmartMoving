@@ -41,9 +41,9 @@ import net.smart.moving.config.*;
 import net.smart.moving.render.*;
 import net.smart.utilities.*;
 
-import static net.smart.render.SmartRenderUtilities.RadiantToAngle;
-import static net.smart.render.SmartRenderUtilities.getAngle;
-import static net.smart.render.SmartRenderUtilities.getHorizontalCollisionangle;
+import static net.smart.render.SRUtilities.RadiantToAngle;
+import static net.smart.render.SRUtilities.getAngle;
+import static net.smart.render.SRUtilities.getHorizontalCollisionAngle;
 
 public class SmartMovingSelf extends SmartMoving implements ISmartMovingSelf {
 	private static final float ClimbPullMotion = 0.3F;
@@ -1684,7 +1684,7 @@ public class SmartMovingSelf extends SmartMoving implements ISmartMovingSelf {
 
 		if (wantWallJumping) {
 			int collisions = calculateSeparateCollisions(d, d1, d2);
-			horizontalCollisionAngle = getHorizontalCollisionangle(
+			horizontalCollisionAngle = getHorizontalCollisionAngle(
 					(collisions & CollidedPositiveZ) != 0,
 					(collisions & CollidedNegativeZ) != 0,
 					(collisions & CollidedPositiveX) != 0,

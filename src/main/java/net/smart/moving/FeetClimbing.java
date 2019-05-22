@@ -19,8 +19,7 @@ package net.smart.moving;
 
 import java.io.*;
 
-public class FeetClimbing
-{
+public class FeetClimbing {
 	public static final int DownStep = 1;
 	public static final int NoStep = 0;
 
@@ -34,35 +33,30 @@ public class FeetClimbing
 
 	private int _value;
 
-	private FeetClimbing(int value)
-	{
+	private FeetClimbing(int value) {
 		_value = value;
 	}
 
-	public boolean IsRelevant()
-	{
+	public boolean IsRelevant() {
 		return _value > None._value;
 	}
 
-	public boolean IsIndependentlyRelevant()
-	{
+	public boolean IsIndependentlyRelevant() {
 		return _value > BaseWithHands._value;
 	}
 
-	public boolean IsUp()
-	{
-		return this == SlowUpWithHoldWithoutHands || this == SlowUpWithSinkWithoutHands || this == FastUp;
+	public boolean IsUp() {
+		return this == SlowUpWithHoldWithoutHands
+				|| this == SlowUpWithSinkWithoutHands || this == FastUp;
 	}
 
-	public FeetClimbing max(FeetClimbing other, ClimbGap inout_thisClimbGap, ClimbGap otherClimbGap)
-	{
-		if(!otherClimbGap.SkipGaps)
-		{
+	public FeetClimbing max(FeetClimbing other, ClimbGap inout_thisClimbGap,
+			ClimbGap otherClimbGap) {
+		if (!otherClimbGap.SkipGaps) {
 			inout_thisClimbGap.CanStand |= otherClimbGap.CanStand;
 			inout_thisClimbGap.MustCrawl |= otherClimbGap.MustCrawl;
 		}
-		if(_value < other._value)
-		{
+		if (_value < other._value) {
 			inout_thisClimbGap.Block = otherClimbGap.Block;
 			inout_thisClimbGap.Meta = otherClimbGap.Meta;
 			inout_thisClimbGap.Direction = otherClimbGap.Direction;
@@ -71,44 +65,41 @@ public class FeetClimbing
 	}
 
 	@Override
-	public String toString()
-	{
-		if(_value <= None._value)
+	public String toString() {
+		if (_value <= None._value)
 			return "None";
-		if(_value == BaseHold._value)
+		if (_value == BaseHold._value)
 			return "BaseHold";
-		if(_value == BaseWithHands._value)
+		if (_value == BaseWithHands._value)
 			return "BaseWithHands";
-		if(_value == TopWithHands._value)
+		if (_value == TopWithHands._value)
 			return "TopWithHands";
-		if(_value == SlowUpWithHoldWithoutHands._value)
+		if (_value == SlowUpWithHoldWithoutHands._value)
 			return "SlowUpWithHoldWithoutHands";
-		if(_value == SlowUpWithSinkWithoutHands._value)
+		if (_value == SlowUpWithSinkWithoutHands._value)
 			return "SlowUpWithSinkWithoutHands";
 		return "FastUp";
 	}
 
-	public void print(String name)
-	{
+	public void print(String name) {
 		PrintStream stream = System.err;
-		if(name != null)
+		if (name != null)
 			stream.print(name + " = ");
 		stream.println(this);
 	}
 
-	private static FeetClimbing get(int value)
-	{
-		if(value <= None._value)
+	private static FeetClimbing get(int value) {
+		if (value <= None._value)
 			return None;
-		if(value == BaseHold._value)
+		if (value == BaseHold._value)
 			return BaseHold;
-		if(value == BaseWithHands._value)
+		if (value == BaseWithHands._value)
 			return BaseWithHands;
-		if(value == TopWithHands._value)
+		if (value == TopWithHands._value)
 			return TopWithHands;
-		if(value == SlowUpWithHoldWithoutHands._value)
+		if (value == SlowUpWithHoldWithoutHands._value)
 			return SlowUpWithHoldWithoutHands;
-		if(value == SlowUpWithSinkWithoutHands._value)
+		if (value == SlowUpWithSinkWithoutHands._value)
 			return SlowUpWithSinkWithoutHands;
 		return FastUp;
 	}

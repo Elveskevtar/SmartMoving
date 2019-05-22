@@ -17,8 +17,7 @@
 
 package net.smart.moving;
 
-public interface ISmartMovingSelf
-{
+public interface ISmartMovingSelf {
 	float getExhaustion();
 
 	float getUpJumpCharge();

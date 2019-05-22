@@ -31,213 +31,189 @@ import net.smart.utilities.SoundUtil;
 
 import java.util.List;
 
-public class SmartMovingServerPlayerBase extends ServerPlayerBase implements IEntityPlayerMP
-{
+public class SmartMovingServerPlayerBase extends ServerPlayerBase
+		implements IEntityPlayerMP {
 	public final SmartMovingServer moving;
 
-	public static void registerPlayerBase()
-	{
-		ServerPlayerAPI.register(SmartMovingInfo.ModName, SmartMovingServerPlayerBase.class);
+	public static void registerPlayerBase() {
+		ServerPlayerAPI.register(SmartMovingInfo.ModName,
+				SmartMovingServerPlayerBase.class);
 	}
 
-	public static SmartMovingServerPlayerBase getPlayerBase(Object player)
-	{
-		return (SmartMovingServerPlayerBase)((IServerPlayerAPI)player).getServerPlayerBase(SmartMovingInfo.ModName);
+	public static SmartMovingServerPlayerBase getPlayerBase(Object player) {
+		return (SmartMovingServerPlayerBase) ((IServerPlayerAPI) player)
+				.getServerPlayerBase(SmartMovingInfo.ModName);
 	}
 
-	public SmartMovingServerPlayerBase(ServerPlayerAPI playerApi)
-	{
+	public SmartMovingServerPlayerBase(ServerPlayerAPI playerApi) {
 		super(playerApi);
 		moving = new SmartMovingServer(this, false);
 	}
 
 	@Override
-	public float getHeight()
-	{
+	public float getHeight() {
 		return player.height;
 	}
 
 	@Override
-	public double getMinY()
-	{
+	public double getMinY() {
 		return player.getEntityBoundingBox().minY;
 	}
 
 	@Override
-	public void setMaxY(double maxY)
-	{
+	public void setMaxY(double maxY) {
 		AxisAlignedBB box = player.getEntityBoundingBox();
-		player.setEntityBoundingBox(new AxisAlignedBB(box.minX, box.minY, box.minZ, box.maxX, maxY, box.maxZ));
+		player.setEntityBoundingBox(new AxisAlignedBB(box.minX, box.minY,
+				box.minZ, box.maxX, maxY, box.maxZ));
 	}
 
 	@Override
-	public void afterSetPosition(double d, double d1, double d2)
-	{
+	public void afterSetPosition(double d, double d1, double d2) {
 		moving.afterSetPosition(d, d1, d2);
 	}
 
 	@Override
-	public void beforeIsPlayerSleeping()
-	{
+	public void beforeIsPlayerSleeping() {
 		moving.beforeIsPlayerSleeping();
 	}
 
 	@Override
-	public void beforeOnUpdate()
-	{
+	public void beforeOnUpdate() {
 		moving.beforeOnUpdate();
 	}
 
 	@Override
-	public void afterOnUpdate()
-	{
+	public void afterOnUpdate() {
 		moving.afterOnUpdate();
 	}
 
 	@Override
-	public void afterOnLivingUpdate()
-	{
+	public void afterOnLivingUpdate() {
 		moving.afterOnLivingUpdate();
 	}
 
 	@Override
-	public float doGetHealth()
-	{
+	public float doGetHealth() {
 		return player.getHealth();
 	}
 
 	@Override
-	public AxisAlignedBB getBox()
-	{
+	public AxisAlignedBB getBox() {
 		return player.getEntityBoundingBox();
 	}
 
 	@Override
-	public AxisAlignedBB expandBox(AxisAlignedBB box, double x, double y, double z)
-	{
+	public AxisAlignedBB expandBox(AxisAlignedBB box, double x, double y,
+			double z) {
 		return box.expand(x, y, z);
 	}
 
 	@Override
-	public List<?> getEntitiesExcludingPlayer(AxisAlignedBB box)
-	{
+	public List<?> getEntitiesExcludingPlayer(AxisAlignedBB box) {
 		return player.world.getEntitiesWithinAABBExcludingEntity(player, box);
 	}
 
 	@Override
-	public boolean isDeadEntity(Entity entity)
-	{
+	public boolean isDeadEntity(Entity entity) {
 		return entity.isDead;
 	}
 
 	@Override
-	public void onCollideWithPlayer(Entity entity)
-	{
+	public void onCollideWithPlayer(Entity entity) {
 		entity.onCollideWithPlayer(player);
 	}
 
 	@Override
-	public float getEyeHeight()
-	{
+	public float getEyeHeight() {
 		return player.height - 0.18F;
 	}
 
 	@Override
-	public boolean isEntityInsideOpaqueBlock()
-	{
+	public boolean isEntityInsideOpaqueBlock() {
 		return moving.isEntityInsideOpaqueBlock();
 	}
 
 	@Override
-	public boolean localIsEntityInsideOpaqueBlock()
-	{
+	public boolean localIsEntityInsideOpaqueBlock() {
 		return super.isEntityInsideOpaqueBlock();
 	}
 
 	@Override
-	public void addExhaustion(float exhaustion)
-	{
+	public void addExhaustion(float exhaustion) {
 		moving.addExhaustion(exhaustion);
 	}
 
 	@Override
-	public void localAddExhaustion(float exhaustion)
-	{
+	public void localAddExhaustion(float exhaustion) {
 		player.getFoodStats().addExhaustion(exhaustion);
 	}
 
 	@Override
-	public void addMovementStat(double x, double y, double z)
-	{
+	public void addMovementStat(double x, double y, double z) {
 		moving.addMovementStat(x, y, z);
 	}
 
 	@Override
-	public void localAddMovementStat(double x, double y, double z)
-	{
+	public void localAddMovementStat(double x, double y, double z) {
 		super.addMovementStat(x, y, z);
 	}
 
 	@Override
-	public void localPlaySound(String soundId, float volume, float pitch)
-	{
+	public void localPlaySound(String soundId, float volume, float pitch) {
 		SoundEvent soundEvent = SoundUtil.getSoundEvent(soundId);
-		if(soundEvent != null)
+		if (soundEvent != null)
 			player.playSound(soundEvent, volume, pitch);
 	}
 
 	@Override
-	public boolean isSneaking()
-	{
+	public boolean isSneaking() {
 		return moving.isSneaking();
 	}
 
 	@Override
-	public boolean localIsSneaking()
-	{
+	public boolean localIsSneaking() {
 		return playerAPI.localIsSneaking();
 	}
 
 	@Override
-	public void setHeight(float height)
-	{
+	public void setHeight(float height) {
 		player.height = height;
 	}
 
 	@Override
-	public void sendPacket(byte[] data)
-	{
-		playerAPI.getPlayerNetServerHandlerField().sendPacket(new FMLProxyPacket(new PacketBuffer(Unpooled.wrappedBuffer(data)), SmartMovingPacketStream.Id));
+	public void sendPacket(byte[] data) {
+		playerAPI.getPlayerNetServerHandlerField()
+				.sendPacket(new FMLProxyPacket(
+						new PacketBuffer(Unpooled.wrappedBuffer(data)),
+						SmartMovingPacketStream.Id));
 	}
 
 	@Override
-	public String getUsername()
-	{
+	public String getUsername() {
 		return player.getGameProfile().getName();
 	}
 
 	@Override
-	public void resetFallDistance()
-	{
+	public void resetFallDistance() {
 		player.fallDistance = 0;
 		player.motionY = 0.08;
 	}
 
 	@Override
-	public void resetTicksForFloatKick()
-	{
-		Reflect.SetField(net.minecraft.network.NetHandlerPlayServer.class, playerAPI.getPlayerNetServerHandlerField(), SmartMovingInstall.NetServerHandler_ticksForFloatKick, 0);
+	public void resetTicksForFloatKick() {
+		Reflect.SetField(net.minecraft.network.NetHandlerPlayServer.class,
+				playerAPI.getPlayerNetServerHandlerField(),
+				SmartMovingInstall.NetServerHandler_ticksForFloatKick, 0);
 	}
 
 	@Override
-	public void sendPacketToTrackedPlayers(FMLProxyPacket packet)
-	{
-		player.mcServer.getWorld(player.dimension).getEntityTracker().sendToTracking(player, packet);
+	public void sendPacketToTrackedPlayers(FMLProxyPacket packet) {
+		player.mcServer.getWorld(player.dimension).getEntityTracker()
+				.sendToTracking(player, packet);
 	}
 
 	@Override
-	public SmartMovingServer getMoving()
-	{
+	public SmartMovingServer getMoving() {
 		return moving;
 	}
 

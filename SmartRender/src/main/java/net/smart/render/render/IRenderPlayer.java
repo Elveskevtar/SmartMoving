@@ -15,17 +15,18 @@
 // along with Smart Render. If not, see <http://www.gnu.org/licenses/>.
 // ==================================================================
 
-package net.smart.render;
+package net.smart.render.render;
 
-import net.minecraft.client.entity.*;
-import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.model.ModelPlayer;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.smart.render.model.IModelPlayer;
 
 public interface IRenderPlayer {
-	IModelPlayer createModel(net.minecraft.client.model.ModelBiped existing,
-			float f, boolean b);
+	IModelPlayer createModel(ModelBiped existing, float f, boolean b);
 
-	void initialize(net.minecraft.client.model.ModelPlayer modelBipedMain,
-			net.minecraft.client.model.ModelBiped mb);
+	void initialize(ModelPlayer modelBipedMain, ModelBiped mb);
 
 	void superDoRender(AbstractClientPlayer entityplayer, double d, double d1,
 			double d2, float f, float renderPartialTicks);
@@ -38,9 +39,9 @@ public interface IRenderPlayer {
 
 	RenderManager getRenderRenderManager();
 
-	net.minecraft.client.model.ModelPlayer getModelBipedMain();
+	ModelPlayer getModelBipedMain();
 
-	net.minecraft.client.model.ModelBiped getModelArmor();
+	ModelBiped getModelArmor();
 
 	boolean getSmallArms();
 

@@ -19,8 +19,7 @@ package net.smart.moving;
 
 import net.minecraft.block.*;
 
-public class ClimbGap
-{
+public class ClimbGap {
 	public Block Block;
 	public int Meta;
 	public boolean CanStand;
@@ -28,13 +27,11 @@ public class ClimbGap
 	public Orientation Direction;
 	public boolean SkipGaps;
 
-	public ClimbGap()
-	{
+	public ClimbGap() {
 		reset();
 	}
 
-	public void reset()
-	{
+	public void reset() {
 		Block = null;
 		Meta = -1;
 		CanStand = false;

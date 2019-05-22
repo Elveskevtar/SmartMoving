@@ -19,24 +19,37 @@ package net.smart.moving;
 
 import net.smart.utilities.*;
 
-public class SmartMovingInstall
-{
-	public final static Name RopesPlusCore = new Name("atomicstryker.ropesplus.common.RopesPlusCore");
-	public final static Name ModBlockFence = new Name("net.minecraft.src.modBlockFence", "modBlockFence");
-	public final static Name MacroModCore = new Name("net.eq2online.macros.core.MacroModCore");
-	public final static Name BlockSturdyLadder = new Name("mods.chupmacabre.ladderKit.sturdyLadders.BlockSturdyLadder");
-	public final static Name BlockRopeLadder = new Name("mods.chupmacabre.ladderKit.ropeLadders.BlockRopeLadder");
+public class SmartMovingInstall {
+	public final static Name RopesPlusCore = new Name(
+			"atomicstryker.ropesplus.common.RopesPlusCore");
+	public final static Name ModBlockFence = new Name(
+			"net.minecraft.src.modBlockFence", "modBlockFence");
+	public final static Name MacroModCore = new Name(
+			"net.eq2online.macros.core.MacroModCore");
+	public final static Name BlockSturdyLadder = new Name(
+			"mods.chupmacabre.ladderKit.sturdyLadders.BlockSturdyLadder");
+	public final static Name BlockRopeLadder = new Name(
+			"mods.chupmacabre.ladderKit.ropeLadders.BlockRopeLadder");
 
-	public final static Name RopesPlusClient = new Name("atomicstryker.ropesplus.client.RopesPlusClient");
+	public final static Name RopesPlusClient = new Name(
+			"atomicstryker.ropesplus.client.RopesPlusClient");
 	public final static Name RopesPlusClient_onZipLine = new Name("onZipLine");
 
-	public final static Name CarpentersBlockLadder = new Name("carpentersblocks.block.BlockCarpentersLadder");
-	public final static Name CarpentersBlockProperties = new Name("carpentersblocks.util.BlockProperties");
-	public final static Name CarpentersTEBaseBlock = new Name("carpentersblocks.tileentity.TEBase");
-	public final static Name CarpentersBlockProperties_getMetadata = new Name("getMetadata");
+	public final static Name CarpentersBlockLadder = new Name(
+			"carpentersblocks.block.BlockCarpentersLadder");
+	public final static Name CarpentersBlockProperties = new Name(
+			"carpentersblocks.util.BlockProperties");
+	public final static Name CarpentersTEBaseBlock = new Name(
+			"carpentersblocks.tileentity.TEBase");
+	public final static Name CarpentersBlockProperties_getMetadata = new Name(
+			"getMetadata");
 
-	public final static Name NetServerHandler_ticksForFloatKick = new Name("floatingTickCount", "field_147365_f", "f");
-	public final static Name GuiNewChat_chatMessageList = new Name("chatLines", "field_146252_h", "h");
-	public final static Name PlayerControllerMP_currentGameType = new Name("currentGameType", "field_78779_k", "k");
-	public final static Name ModifiableAttributeInstance_attributeValue = new Name("cachedValue", "field_111139_h", "h");
+	public final static Name NetServerHandler_ticksForFloatKick = new Name(
+			"floatingTickCount", "field_147365_f", "f");
+	public final static Name GuiNewChat_chatMessageList = new Name("chatLines",
+			"field_146252_h", "h");
+	public final static Name PlayerControllerMP_currentGameType = new Name(
+			"currentGameType", "field_78779_k", "k");
+	public final static Name ModifiableAttributeInstance_attributeValue = new Name(
+			"cachedValue", "field_111139_h", "h");
 }

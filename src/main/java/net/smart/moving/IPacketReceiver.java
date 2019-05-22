@@ -19,19 +19,25 @@ package net.smart.moving;
 
 import net.minecraftforge.fml.common.network.internal.*;
 
-public interface IPacketReceiver
-{
-	boolean processStatePacket(FMLProxyPacket packet, IEntityPlayerMP player, int entityId, long state);
+public interface IPacketReceiver {
+	boolean processStatePacket(FMLProxyPacket packet, IEntityPlayerMP player,
+			int entityId, long state);
 
-	boolean processConfigInfoPacket(FMLProxyPacket packet, IEntityPlayerMP player, String info);
+	boolean processConfigInfoPacket(FMLProxyPacket packet,
+			IEntityPlayerMP player, String info);
 
-	boolean processConfigContentPacket(FMLProxyPacket packet, IEntityPlayerMP player, String[] content, String username);
+	boolean processConfigContentPacket(FMLProxyPacket packet,
+			IEntityPlayerMP player, String[] content, String username);
 
-	boolean processConfigChangePacket(FMLProxyPacket packet, IEntityPlayerMP player);
+	boolean processConfigChangePacket(FMLProxyPacket packet,
+			IEntityPlayerMP player);
 
-	boolean processSpeedChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, int difference, String username);
+	boolean processSpeedChangePacket(FMLProxyPacket packet,
+			IEntityPlayerMP player, int difference, String username);
 
-	boolean processHungerChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, float hunger);
+	boolean processHungerChangePacket(FMLProxyPacket packet,
+			IEntityPlayerMP player, float hunger);
 
-	boolean processSoundPacket(FMLProxyPacket packet, IEntityPlayerMP player, String soundId, float distance, float pitch);
+	boolean processSoundPacket(FMLProxyPacket packet, IEntityPlayerMP player,
+			String soundId, float distance, float pitch);
 }

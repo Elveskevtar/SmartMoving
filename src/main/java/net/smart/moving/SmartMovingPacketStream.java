@@ -22,192 +22,173 @@ import java.util.*;
 
 import net.minecraftforge.fml.common.network.internal.*;
 
-public class SmartMovingPacketStream
-{
+public class SmartMovingPacketStream {
 	public static final String Id;
 	public static final Set<StackTraceElement> errors;
 
-	static
-	{
+	static {
 		String id = SmartMovingInfo.ModComId;
-		if(id.length() > 15)
+		if (id.length() > 15)
 			id = id.substring(0, 15);
 		Id = id;
 		errors = new HashSet<StackTraceElement>();
 	}
 
-	public static void receivePacket(FMLProxyPacket packet, IPacketReceiver comm, IEntityPlayerMP player)
-	{
-		try
-		{
-			ByteArrayInputStream byteInput = new ByteArrayInputStream(packet.payload().array());
+	public static void receivePacket(FMLProxyPacket packet,
+			IPacketReceiver comm, IEntityPlayerMP player) {
+		try {
+			ByteArrayInputStream byteInput = new ByteArrayInputStream(
+					packet.payload().array());
 			ObjectInputStream objectInput = new ObjectInputStream(byteInput);
 			byte packetId = objectInput.readByte();
-			switch(packetId)
-			{
-				case SmartMovingInfo.StatePacketId:
-					int entityId = objectInput.readInt();
-					long state = objectInput.readLong();
-					comm.processStatePacket(packet, player, entityId, state);
-					break;
-				case SmartMovingInfo.ConfigInfoPacketId:
-					String info = (String)objectInput.readObject();
-					comm.processConfigInfoPacket(packet, player, info);
-					break;
-				case SmartMovingInfo.ConfigContentPacketId:
-					String[] content = (String[])objectInput.readObject();
-					String username = (String)objectInput.readObject();
-					comm.processConfigContentPacket(packet, player, content, username);
-					break;
-				case SmartMovingInfo.ConfigChangePacketId:
-					comm.processConfigChangePacket(packet, player);
-					break;
-				case SmartMovingInfo.SpeedChangePacketId:
-					int difference = objectInput.readInt();
-					username = (String)objectInput.readObject();
-					comm.processSpeedChangePacket(packet, player, difference, username);
-					break;
-				case SmartMovingInfo.HungerChangePacketId:
-					float hunger = objectInput.readFloat();
-					comm.processHungerChangePacket(packet, player, hunger);
-					break;
-				case SmartMovingInfo.SoundPacketId:
-					String soundId = (String)objectInput.readObject();
-					float volume = objectInput.readFloat();
-					float pitch = objectInput.readFloat();
-					comm.processSoundPacket(packet, player, soundId, volume, pitch);
-					break;
-				default:
-					throw new RuntimeException("Unknown packet id '" + packetId + "' found");
+			switch (packetId) {
+			case SmartMovingInfo.StatePacketId:
+				int entityId = objectInput.readInt();
+				long state = objectInput.readLong();
+				comm.processStatePacket(packet, player, entityId, state);
+				break;
+			case SmartMovingInfo.ConfigInfoPacketId:
+				String info = (String) objectInput.readObject();
+				comm.processConfigInfoPacket(packet, player, info);
+				break;
+			case SmartMovingInfo.ConfigContentPacketId:
+				String[] content = (String[]) objectInput.readObject();
+				String username = (String) objectInput.readObject();
+				comm.processConfigContentPacket(packet, player, content,
+						username);
+				break;
+			case SmartMovingInfo.ConfigChangePacketId:
+				comm.processConfigChangePacket(packet, player);
+				break;
+			case SmartMovingInfo.SpeedChangePacketId:
+				int difference = objectInput.readInt();
+				username = (String) objectInput.readObject();
+				comm.processSpeedChangePacket(packet, player, difference,
+						username);
+				break;
+			case SmartMovingInfo.HungerChangePacketId:
+				float hunger = objectInput.readFloat();
+				comm.processHungerChangePacket(packet, player, hunger);
+				break;
+			case SmartMovingInfo.SoundPacketId:
+				String soundId = (String) objectInput.readObject();
+				float volume = objectInput.readFloat();
+				float pitch = objectInput.readFloat();
+				comm.processSoundPacket(packet, player, soundId, volume, pitch);
+				break;
+			default:
+				throw new RuntimeException(
+						"Unknown packet id '" + packetId + "' found");
 			}
-		}
-		catch(Throwable t)
-		{
-			if(errors.add(t.getStackTrace()[0]))
+		} catch (Throwable t) {
+			if (errors.add(t.getStackTrace()[0]))
 				t.printStackTrace();
 			else
-				System.err.println(t.getClass().getName() + ": " + t.getMessage());
+				System.err.println(
+						t.getClass().getName() + ": " + t.getMessage());
 		}
 	}
 
-	public static void sendState(IPacketSender comm, int entityId, long state)
-	{
+	public static void sendState(IPacketSender comm, int entityId, long state) {
 		ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
-		try
-		{
-			ObjectOutputStream objectOutput = new ObjectOutputStream(byteOutput);
+		try {
+			ObjectOutputStream objectOutput = new ObjectOutputStream(
+					byteOutput);
 			objectOutput.writeByte(SmartMovingInfo.StatePacketId);
 			objectOutput.writeInt(entityId);
 			objectOutput.writeLong(state);
 			objectOutput.flush();
-		}
-		catch(Throwable t)
-		{
+		} catch (Throwable t) {
 			throw new RuntimeException(t);
 		}
 		comm.sendPacket(byteOutput.toByteArray());
 	}
 
-	public static void sendConfigInfo(IPacketSender comm, String info)
-	{
+	public static void sendConfigInfo(IPacketSender comm, String info) {
 		ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
-		try
-		{
-			ObjectOutputStream objectOutput = new ObjectOutputStream(byteOutput);
+		try {
+			ObjectOutputStream objectOutput = new ObjectOutputStream(
+					byteOutput);
 			objectOutput.writeByte(SmartMovingInfo.ConfigInfoPacketId);
 			objectOutput.writeObject(info);
 			objectOutput.flush();
-		}
-		catch(Throwable t)
-		{
+		} catch (Throwable t) {
 			throw new RuntimeException(t);
 		}
 		comm.sendPacket(byteOutput.toByteArray());
 	}
 
-	public static void sendConfigContent(IPacketSender comm, String[] content, String username)
-	{
+	public static void sendConfigContent(IPacketSender comm, String[] content,
+			String username) {
 		ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
-		try
-		{
-			ObjectOutputStream objectOutput = new ObjectOutputStream(byteOutput);
+		try {
+			ObjectOutputStream objectOutput = new ObjectOutputStream(
+					byteOutput);
 			objectOutput.writeByte(SmartMovingInfo.ConfigContentPacketId);
 			objectOutput.writeObject(content);
 			objectOutput.writeObject(username);
 			objectOutput.flush();
-		}
-		catch(Throwable t)
-		{
+		} catch (Throwable t) {
 			throw new RuntimeException(t);
 		}
 		comm.sendPacket(byteOutput.toByteArray());
 	}
 
-	public static void sendConfigChange(IPacketSender comm)
-	{
+	public static void sendConfigChange(IPacketSender comm) {
 		ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
-		try
-		{
-			ObjectOutputStream objectOutput = new ObjectOutputStream(byteOutput);
+		try {
+			ObjectOutputStream objectOutput = new ObjectOutputStream(
+					byteOutput);
 			objectOutput.writeByte(SmartMovingInfo.ConfigChangePacketId);
 			objectOutput.flush();
-		}
-		catch(Throwable t)
-		{
+		} catch (Throwable t) {
 			throw new RuntimeException(t);
 		}
 		comm.sendPacket(byteOutput.toByteArray());
 	}
 
-	public static void sendSpeedChange(IPacketSender comm, int difference, String username)
-	{
+	public static void sendSpeedChange(IPacketSender comm, int difference,
+			String username) {
 		ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
-		try
-		{
-			ObjectOutputStream objectOutput = new ObjectOutputStream(byteOutput);
+		try {
+			ObjectOutputStream objectOutput = new ObjectOutputStream(
+					byteOutput);
 			objectOutput.writeByte(SmartMovingInfo.SpeedChangePacketId);
 			objectOutput.writeInt(difference);
 			objectOutput.writeObject(username);
 			objectOutput.flush();
-		}
-		catch(Throwable t)
-		{
+		} catch (Throwable t) {
 			throw new RuntimeException(t);
 		}
 		comm.sendPacket(byteOutput.toByteArray());
 	}
 
-	public static void sendHungerChange(IPacketSender comm, float hunger)
-	{
+	public static void sendHungerChange(IPacketSender comm, float hunger) {
 		ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
-		try
-		{
-			ObjectOutputStream objectOutput = new ObjectOutputStream(byteOutput);
+		try {
+			ObjectOutputStream objectOutput = new ObjectOutputStream(
+					byteOutput);
 			objectOutput.writeByte(SmartMovingInfo.HungerChangePacketId);
 			objectOutput.writeFloat(hunger);
 			objectOutput.flush();
-		}
-		catch(Throwable t)
-		{
+		} catch (Throwable t) {
 			throw new RuntimeException(t);
 		}
 		comm.sendPacket(byteOutput.toByteArray());
 	}
 
-	public static void sendSound(IPacketSender comm, String soundId, float volume, float pitch)
-	{
+	public static void sendSound(IPacketSender comm, String soundId,
+			float volume, float pitch) {
 		ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
-		try
-		{
-			ObjectOutputStream objectOutput = new ObjectOutputStream(byteOutput);
+		try {
+			ObjectOutputStream objectOutput = new ObjectOutputStream(
+					byteOutput);
 			objectOutput.writeByte(SmartMovingInfo.SoundPacketId);
 			objectOutput.writeObject(soundId);
 			objectOutput.writeFloat(volume);
 			objectOutput.writeFloat(pitch);
 			objectOutput.flush();
-		}
-		catch(Throwable t)
-		{
+		} catch (Throwable t) {
 			throw new RuntimeException(t);
 		}
 		comm.sendPacket(byteOutput.toByteArray());

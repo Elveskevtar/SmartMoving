@@ -17,7 +17,6 @@
 
 package net.smart.moving;
 
-public interface IPacketSender
-{
+public interface IPacketSender {
 	void sendPacket(byte[] byteArray);
 }

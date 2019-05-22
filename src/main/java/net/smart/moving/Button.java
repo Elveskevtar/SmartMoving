@@ -24,26 +24,22 @@ import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.settings.*;
 
-public class Button extends SmartMovingContext
-{
+public class Button extends SmartMovingContext {
 	public boolean Pressed;
 	public boolean WasPressed;
 
 	public boolean StartPressed;
 	public boolean StopPressed;
 
-	public void update(KeyBinding binding)
-	{
+	public void update(KeyBinding binding) {
 		update(Minecraft.getMinecraft().inGameHasFocus && isKeyDown(binding));
 	}
 
-	public void update(int keyCode)
-	{
+	public void update(int keyCode) {
 		update(Minecraft.getMinecraft().inGameHasFocus && isKeyDown(keyCode));
 	}
 
-	public void update(boolean pressed)
-	{
+	public void update(boolean pressed) {
 		WasPressed = Pressed;
 		Pressed = pressed;
 
@@ -51,22 +47,19 @@ public class Button extends SmartMovingContext
 		StopPressed = WasPressed && !Pressed;
 	}
 
-	private static boolean isKeyDown(KeyBinding keyBinding)
-	{
+	private static boolean isKeyDown(KeyBinding keyBinding) {
 		return isKeyDown(keyBinding, keyBinding.isPressed());
 	}
 
-	private static boolean isKeyDown(KeyBinding keyBinding, boolean wasDown)
-	{
+	private static boolean isKeyDown(KeyBinding keyBinding, boolean wasDown) {
 		GuiScreen currentScreen = Minecraft.getMinecraft().currentScreen;
-		if(currentScreen == null || currentScreen.allowUserInput)
+		if (currentScreen == null || currentScreen.allowUserInput)
 			return isKeyDown(keyBinding.getKeyCode());
 		return wasDown;
 	}
 
-	private static boolean isKeyDown(int keyCode)
-	{
-		if(keyCode >= 0)
+	private static boolean isKeyDown(int keyCode) {
+		if (keyCode >= 0)
 			return Keyboard.isKeyDown(keyCode);
 		return Mouse.isButtonDown(keyCode + 100);
 	}

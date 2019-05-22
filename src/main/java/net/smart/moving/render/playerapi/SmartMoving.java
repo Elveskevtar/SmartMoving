@@ -24,13 +24,13 @@ import api.player.render.IRenderPlayerAPI;
 import api.player.render.RenderPlayerAPI;
 import api.player.render.RenderPlayerBaseSorting;
 import net.smart.moving.SmartMovingInfo;
-import net.smart.render.SmartRenderInfo;
+import net.smart.render.SRInfo;
 
 public abstract class SmartMoving {
 	public static final String ID = SmartMovingInfo.ModName;
 
 	public static void register() {
-		String[] inferiors = new String[] { SmartRenderInfo.ModName };
+		String[] inferiors = new String[] { SRInfo.ModName };
 
 		RenderPlayerBaseSorting renderSorting = new RenderPlayerBaseSorting();
 		renderSorting.setAfterLocalConstructingInferiors(inferiors);

@@ -17,18 +17,21 @@
 
 package net.smart.moving.render;
 
-import net.minecraft.client.entity.*;
-import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.renderer.entity.RenderManager;
 
-public interface IRenderPlayer
-{
-	void superRenderDoRender(AbstractClientPlayer entityplayer, double d, double d1, double d2, float f, float renderPartialTicks);
+public interface IRenderPlayer {
+	void superRenderDoRender(AbstractClientPlayer entityplayer, double d,
+			double d1, double d2, float f, float renderPartialTicks);
 
-	void superRenderRotateCorpse(AbstractClientPlayer entityplayer, float totalTime, float actualRotation, float f2);
+	void superRenderRotateCorpse(AbstractClientPlayer entityplayer,
+			float totalTime, float actualRotation, float f2);
 
-	void superRenderRenderLivingAt(AbstractClientPlayer entityplayer, double d, double d1, double d2);
+	void superRenderRenderLivingAt(AbstractClientPlayer entityplayer, double d,
+			double d1, double d2);
 
-	void superRenderRenderName(AbstractClientPlayer par1EntityPlayer, double par2, double par4, double par6);
+	void superRenderRenderName(AbstractClientPlayer par1EntityPlayer,
+			double par2, double par4, double par6);
 
 	RenderManager getMovingRenderManager();
 

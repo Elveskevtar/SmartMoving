@@ -19,8 +19,7 @@ package net.smart.moving;
 
 import net.minecraftforge.fml.common.*;
 
-public class SmartMovingInfo
-{
+public class SmartMovingInfo {
 	public static final byte StatePacketId = 0;
 	public static final byte ConfigInfoPacketId = 1;
 	public static final byte ConfigContentPacketId = 2;
@@ -29,15 +28,18 @@ public class SmartMovingInfo
 	public static final byte HungerChangePacketId = 5;
 	public static final byte SoundPacketId = 6;
 
-	private static final Mod Mod = SmartMovingMod.class.getAnnotation(Mod.class);
+	private static final Mod Mod = SmartMovingMod.class
+			.getAnnotation(Mod.class);
 
 	public static final String ModId = Mod.modid();
 	public static final String ModName = Mod.name();
 	public static final String ModVersion = Mod.version();
 	public static final String ModComVersion = SmartMovingMod.ModComVersion;
 
-	public static final String ModComMessage = ModName + " uses communication protocol " + ModComVersion;
-	public static final String ModComId = ModName.replace(" ", "") + " " + ModComVersion;
+	public static final String ModComMessage = ModName
+			+ " uses communication protocol " + ModComVersion;
+	public static final String ModComId = ModName.replace(" ", "") + " "
+			+ ModComVersion;
 
 	public static final int DefaultChatId = 0;
 	public static final int ConfigChatId = ModName.hashCode();

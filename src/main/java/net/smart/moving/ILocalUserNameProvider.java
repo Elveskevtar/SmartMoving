@@ -17,8 +17,7 @@
 
 package net.smart.moving;
 
-public interface ILocalUserNameProvider
-{
+public interface ILocalUserNameProvider {
 	String getLocalConfigUserName();
 
 	String getLocalSpeedUserName();

@@ -15,27 +15,27 @@
 // along with Smart Render. If not, see <http://www.gnu.org/licenses/>.
 // ==================================================================
 
-package net.smart.render;
+package net.smart.render.model;
 
-import net.minecraft.client.model.*;
-import net.minecraft.entity.*;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
 
 public interface IModelPlayer {
-	SmartRenderModel getRenderModel();
+	SRModel getRenderModel();
 
-	void initialize(ModelRotationRenderer bipedBody,
-			ModelRotationRenderer bipedBodywear,
-			ModelRotationRenderer bipedHead,
-			ModelRotationRenderer bipedHeadwear,
-			ModelRotationRenderer bipedRightArm,
-			ModelRotationRenderer bipedRightArmwear,
-			ModelRotationRenderer bipedLeftArm,
-			ModelRotationRenderer bipedLeftArmwear,
-			ModelRotationRenderer bipedRightLeg,
-			ModelRotationRenderer bipedRightLegwear,
-			ModelRotationRenderer bipedLeftLeg,
-			ModelRotationRenderer bipedLeftLegwear,
-			ModelCapeRenderer bipedCloak, ModelEarsRenderer bipedEars);
+	void initialize(SRModelRotationRenderer bipedBody,
+			SRModelRotationRenderer bipedBodywear,
+			SRModelRotationRenderer bipedHead,
+			SRModelRotationRenderer bipedHeadwear,
+			SRModelRotationRenderer bipedRightArm,
+			SRModelRotationRenderer bipedRightArmwear,
+			SRModelRotationRenderer bipedLeftArm,
+			SRModelRotationRenderer bipedLeftArmwear,
+			SRModelRotationRenderer bipedRightLeg,
+			SRModelRotationRenderer bipedRightLegwear,
+			SRModelRotationRenderer bipedLeftLeg,
+			SRModelRotationRenderer bipedLeftLegwear,
+			SRModelCapeRenderer bipedCloak, SRModelEarsRenderer bipedEars);
 
 	void superRender(Entity entity, float totalHorizontalDistance,
 			float currentHorizontalSpeed, float totalTime,

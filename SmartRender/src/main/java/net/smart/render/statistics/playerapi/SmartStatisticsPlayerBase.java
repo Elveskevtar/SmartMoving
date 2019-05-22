@@ -21,29 +21,25 @@ import api.player.client.*;
 
 import net.smart.render.statistics.*;
 
-public class SmartStatisticsPlayerBase extends ClientPlayerBase implements IEntityPlayerSP
-{
-	public SmartStatisticsPlayerBase(ClientPlayerAPI playerApi)
-	{
+public class SmartStatisticsPlayerBase extends ClientPlayerBase
+		implements IEntityPlayerSP {
+	public SmartStatisticsPlayerBase(ClientPlayerAPI playerApi) {
 		super(playerApi);
 		statistics = new net.smart.render.statistics.SmartStatistics(player);
 	}
 
 	@Override
-	public void afterMoveEntityWithHeading(float f, float f1, float f2)
-	{
+	public void afterMoveEntityWithHeading(float f, float f1, float f2) {
 		statistics.calculateAllStats(false);
 	}
 
 	@Override
-	public void afterUpdateRidden()
-	{
+	public void afterUpdateRidden() {
 		statistics.calculateRiddenStats();
 	}
 
 	@Override
-	public net.smart.render.statistics.SmartStatistics getStatistics()
-	{
+	public net.smart.render.statistics.SmartStatistics getStatistics() {
 		return statistics;
 	}
 

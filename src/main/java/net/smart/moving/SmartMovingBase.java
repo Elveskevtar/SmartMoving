@@ -38,7 +38,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import static net.smart.render.SmartRenderUtilities.RadiantToAngle;
+import static net.smart.render.SRUtilities.RadiantToAngle;
 
 public abstract class SmartMovingBase {
 	public final EntityPlayer sp;

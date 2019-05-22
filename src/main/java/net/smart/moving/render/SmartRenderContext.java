@@ -17,8 +17,7 @@
 
 package net.smart.moving.render;
 
-public abstract class SmartRenderContext
-{
+public abstract class SmartRenderContext {
 	public static final int Scale = 0;
 	public static final int NoScaleStart = 1;
 	public static final int NoScaleEnd = 2;

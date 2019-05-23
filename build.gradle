@@ -34,9 +34,9 @@ configurations {
 }
 
 dependencies {
-    compile files("libs/PlayerAPI-1.12.2-1.0.jar")
-    compile files("libs/RenderPlayerAPI-1.12.2-1.0.jar")
     compile project(":SmartRender")
+    compile project(":PlayerAPI")
+    compile project(":RenderPlayerAPI")
 }
 
 minecraft {

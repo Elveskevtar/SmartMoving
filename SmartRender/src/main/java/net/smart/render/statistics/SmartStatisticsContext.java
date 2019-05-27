@@ -17,7 +17,7 @@
 
 package net.smart.render.statistics;
 
-import net.minecraft.client.*;
+import net.minecraft.client.Minecraft;
 
 public abstract class SmartStatisticsContext {
 	protected static boolean calculateHorizontalStats = false;

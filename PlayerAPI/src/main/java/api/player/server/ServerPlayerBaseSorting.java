@@ -18,7 +18,8 @@
 
 package api.player.server;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class ServerPlayerBaseSorting
 {

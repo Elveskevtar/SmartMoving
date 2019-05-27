@@ -1,5 +1,5 @@
 // ==================================================================
-// This file is part of Smart Moving.
+// This file is part of Smart Render.
 //
 // Smart Moving is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -17,11 +17,17 @@
 
 package net.smart.properties;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-import net.smart.utilities.*;
+import net.smart.utilities.Reflect;
 
 public class Properties extends java.util.Properties {
 	private static final long serialVersionUID = 5319578641402091067L;
@@ -73,8 +79,7 @@ public class Properties extends java.util.Properties {
 		return addProperties(properties, getClass(), true);
 	}
 
-	private List<Property<?>> addProperties(List<Property<?>> list,
-			Class<?> type, boolean base) {
+	private List<Property<?>> addProperties(List<Property<?>> list, Class<?> type, boolean base) {
 		if (base && type.getSuperclass() != null)
 			addProperties(list, type.getSuperclass(), base);
 
@@ -107,8 +112,7 @@ public class Properties extends java.util.Properties {
 			Property<?> property = propertiesToWrite.get(i);
 			if (property.isPersistent())
 				properties.put(property.getCurrentKey(),
-						key == null ? property.getValueString()
-								: property.getKeyValueString(key));
+				        key == null ? property.getValueString() : property.getKeyValueString(key));
 		}
 	}
 
@@ -124,14 +128,11 @@ public class Properties extends java.util.Properties {
 
 	public static int getBaseType(int type) {
 		if (type == Properties.Boolean || type == Properties.Unmodified
-				|| type == Properties.Modified)
+		        || type == Properties.Modified)
 			return Properties.Boolean;
-		if (type == Properties.Float || type == Properties.Positive
-				|| type == Properties.Negative
-				|| type == Properties.PositiveFactor
-				|| type == Properties.NegativeFactor
-				|| type == Properties.IncreasingFactor
-				|| type == Properties.DecreasingFactor)
+		if (type == Properties.Float || type == Properties.Positive || type == Properties.Negative
+		        || type == Properties.PositiveFactor || type == Properties.NegativeFactor
+		        || type == Properties.IncreasingFactor || type == Properties.DecreasingFactor)
 			return Properties.Float;
 		if (type == Properties.Integer)
 			return Properties.Integer;
@@ -265,8 +266,7 @@ public class Properties extends java.util.Properties {
 		return Property(PositiveFactor);
 	}
 
-	public static Property<Float> PositiveFactor(String key,
-			String... versions) {
+	public static Property<Float> PositiveFactor(String key, String... versions) {
 		return PositiveFactor().key(key, versions);
 	}
 
@@ -274,8 +274,7 @@ public class Properties extends java.util.Properties {
 		return Property(NegativeFactor);
 	}
 
-	public static Property<Float> NegativeFactor(String key,
-			String... versions) {
+	public static Property<Float> NegativeFactor(String key, String... versions) {
 		return NegativeFactor().key(key, versions);
 	}
 
@@ -283,8 +282,7 @@ public class Properties extends java.util.Properties {
 		return Property(IncreasingFactor);
 	}
 
-	public static Property<Float> IncreasingFactor(String key,
-			String... versions) {
+	public static Property<Float> IncreasingFactor(String key, String... versions) {
 		return IncreasingFactor().key(key, versions);
 	}
 
@@ -292,8 +290,7 @@ public class Properties extends java.util.Properties {
 		return Property(DecreasingFactor);
 	}
 
-	public static Property<Float> DecreasingFactor(String key,
-			String... versions) {
+	public static Property<Float> DecreasingFactor(String key, String... versions) {
 		return DecreasingFactor().key(key, versions);
 	}
 
@@ -317,8 +314,7 @@ public class Properties extends java.util.Properties {
 		return Property(StringMap);
 	}
 
-	public static Property<Map<String, String>> StringMap(String key,
-			String... versions) {
+	public static Property<Map<String, String>> StringMap(String key, String... versions) {
 		return StringMap().key(key, versions);
 	}
 
@@ -326,8 +322,7 @@ public class Properties extends java.util.Properties {
 		return Property(IntegerMap);
 	}
 
-	public static Property<Map<String, Integer>> IntegerMap(String key,
-			String... versions) {
+	public static Property<Map<String, Integer>> IntegerMap(String key, String... versions) {
 		return IntegerMap().key(key, versions);
 	}
 

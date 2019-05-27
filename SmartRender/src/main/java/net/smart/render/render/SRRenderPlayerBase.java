@@ -18,6 +18,7 @@
 package net.smart.render.render;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import api.player.model.ModelPlayerAPI;
 import api.player.render.RenderPlayerAPI;
@@ -25,21 +26,25 @@ import api.player.render.RenderPlayerBase;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelPlayer;
+import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerArmorBase;
+import net.minecraft.client.renderer.entity.layers.LayerElytra;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.smart.render.SRContext;
 import net.smart.render.SRInstall;
 import net.smart.render.model.IModelPlayer;
 import net.smart.utilities.Reflect;
 
-public class SRRenderPlayerBase extends RenderPlayerBase
-		implements IRenderPlayer {
+public class SRRenderPlayerBase extends RenderPlayerBase implements IRenderPlayer {
 	private SRRenderer renderer;
 	private ModelBiped[] allModelPlayers;
 	private IModelPlayer[] allIModelPlayers;
 
-	private final static Field _modelArmor = Reflect.GetField(
-			LayerArmorBase.class, SRInstall.LayerArmorBase_modelArmor);
+	private final static Field _modelArmor = Reflect.GetField(LayerArmorBase.class,
+	        SRInstall.LayerArmorBase_modelArmor);
+	private final static Field _layerRenderers = Reflect.GetField(RenderLivingBase.class,
+	        SRInstall.RenderLivingBase_layerRenderers);
 
 	public SRRenderPlayerBase(RenderPlayerAPI renderPlayerAPI) {
 		super(renderPlayerAPI);
@@ -63,53 +68,60 @@ public class SRRenderPlayerBase extends RenderPlayerBase
 
 	@Override
 	public void initialize(ModelPlayer modelBipedMain, ModelBiped modelArmor) {
+		/* Add custom Elytra layer for special rendering */
+		List<LayerRenderer<AbstractClientPlayer>> layerRenderers = (List<LayerRenderer<AbstractClientPlayer>>) Reflect
+		        .GetField(_layerRenderers, renderPlayer);
+
+		for (LayerRenderer<AbstractClientPlayer> layer : layerRenderers)
+			if (layer.getClass() == LayerElytra.class)
+				layerRenderers.remove(layer);
+
+		renderPlayer.addLayer(new SRLayerElytra(renderPlayer, this));
 	}
 
 	@Override
-	public void doRender(AbstractClientPlayer entityplayer, double d, double d1,
-			double d2, float f, float renderPartialTicks) {
+	public void doRender(AbstractClientPlayer entityplayer, double d, double d1, double d2, float f,
+	        float renderPartialTicks) {
 		getRenderer().doRender(entityplayer, d, d1, d2, f, renderPartialTicks);
 	}
 
 	@Override
-	public void superDoRender(AbstractClientPlayer entityplayer, double d,
-			double d1, double d2, float f, float renderPartialTicks) {
+	public void superDoRender(AbstractClientPlayer entityplayer, double d, double d1, double d2,
+	        float f, float renderPartialTicks) {
 		super.doRender(entityplayer, d, d1, d2, f, renderPartialTicks);
 	}
 
 	@Override
 	public void rotateCorpse(AbstractClientPlayer entityplayer, float totalTime,
-			float actualRotation, float f2) {
+	        float actualRotation, float f2) {
 		getRenderer().rotateCorpse(entityplayer, totalTime, actualRotation, f2);
 	}
 
 	@Override
-	public void superRotateCorpse(AbstractClientPlayer entityplayer,
-			float totalTime, float actualRotation, float f2) {
+	public void superRotateCorpse(AbstractClientPlayer entityplayer, float totalTime,
+	        float actualRotation, float f2) {
 		super.rotateCorpse(entityplayer, totalTime, actualRotation, f2);
 	}
 
 	@Override
-	public void renderLayers(AbstractClientPlayer entityPlayer, float f1,
-			float f2, float f3, float f4, float f5, float f6, float f7) {
+	public void renderLayers(AbstractClientPlayer entityPlayer, float f1, float f2, float f3,
+	        float f4, float f5, float f6, float f7) {
 		getRenderer().renderSpecials(entityPlayer, f1, f2, f3, f4, f5, f6, f7);
 	}
 
 	@Override
-	public void superRenderSpecials(AbstractClientPlayer entityPlayer, float f1,
-			float f2, float f3, float f4, float f5, float f6, float f7) {
+	public void superRenderSpecials(AbstractClientPlayer entityPlayer, float f1, float f2, float f3,
+	        float f4, float f5, float f6, float f7) {
 		super.renderLayers(entityPlayer, f1, f2, f3, f4, f5, f6, f7);
 	}
 
 	@Override
-	public void beforeHandleRotationFloat(AbstractClientPlayer entityliving,
-			float f) {
+	public void beforeHandleRotationFloat(AbstractClientPlayer entityliving, float f) {
 		getRenderer().beforeHandleRotationFloat(entityliving, f);
 	}
 
 	@Override
-	public void afterHandleRotationFloat(AbstractClientPlayer entityliving,
-			float f) {
+	public void afterHandleRotationFloat(AbstractClientPlayer entityliving, float f) {
 		getRenderer().afterHandleRotationFloat(entityliving, f);
 	}
 
@@ -135,7 +147,7 @@ public class SRRenderPlayerBase extends RenderPlayerBase
 	public IModelPlayer[] getRenderModels() {
 		ModelBiped[] modelPlayers = ModelPlayerAPI.getAllInstances();
 		if (allModelPlayers != null && (allModelPlayers == modelPlayers
-				|| modelPlayers.length == 0 && allModelPlayers.length == 0))
+		        || modelPlayers.length == 0 && allModelPlayers.length == 0))
 			return allIModelPlayers;
 
 		allModelPlayers = modelPlayers;

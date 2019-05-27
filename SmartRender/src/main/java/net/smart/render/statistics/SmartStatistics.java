@@ -17,7 +17,7 @@
 
 package net.smart.render.statistics;
 
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.MathHelper;
 
 public class SmartStatistics extends SmartStatisticsContext {
@@ -52,11 +52,10 @@ public class SmartStatistics extends SmartStatisticsContext {
 			data = datas[currentDataIndex] = new SmartStatisticsDatas();
 		data.initialize(previous);
 
-		data.horizontal
-				.calculate(MathHelper.sqrt(diffX * diffX + diffZ * diffZ));
+		data.horizontal.calculate(MathHelper.sqrt(diffX * diffX + diffZ * diffZ));
 		data.vertical.calculate((float) Math.abs(diffY));
-		tickDistance = data.all.calculate(
-				MathHelper.sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ));
+		tickDistance = data.all
+		        .calculate(MathHelper.sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ));
 
 		if (calculateHorizontalStats && !remote)
 			data.horizontal.apply(sp);
@@ -140,8 +139,7 @@ public class SmartStatistics extends SmartStatisticsContext {
 		return data;
 	}
 
-	public float getCurrentHorizontalSpeedFlattened(float renderPartialTicks,
-			int strength) {
+	public float getCurrentHorizontalSpeedFlattened(float renderPartialTicks, int strength) {
 		strength = Math.min(strength, datas.length);
 		if (strength < 0)
 			strength = datas.length;
@@ -163,8 +161,7 @@ public class SmartStatistics extends SmartStatisticsContext {
 		return sum / count;
 	}
 
-	public float getCurrentVerticalSpeedFlattened(float renderPartialTicks,
-			int strength) {
+	public float getCurrentVerticalSpeedFlattened(float renderPartialTicks, int strength) {
 		strength = Math.min(strength, datas.length);
 		if (strength < 0)
 			strength = datas.length;
@@ -186,8 +183,7 @@ public class SmartStatistics extends SmartStatisticsContext {
 		return sum / count;
 	}
 
-	public float getCurrentSpeedFlattened(float renderPartialTicks,
-			int strength) {
+	public float getCurrentSpeedFlattened(float renderPartialTicks, int strength) {
 		strength = Math.min(strength, datas.length);
 		if (strength < 0)
 			strength = datas.length;

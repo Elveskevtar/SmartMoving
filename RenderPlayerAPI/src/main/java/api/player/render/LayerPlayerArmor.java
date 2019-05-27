@@ -18,9 +18,10 @@
 
 package api.player.render;
 
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.entity.layers.*;
-import api.player.model.*;
+import api.player.model.ModelPlayerArmor;
+import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.client.renderer.entity.layers.LayerArmorBase;
+import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
 
 public class LayerPlayerArmor extends LayerBipedArmor
 {

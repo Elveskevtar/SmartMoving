@@ -35,8 +35,6 @@ minecraft {
     version = "${config.minecraft.version}-${config.forge.version}"
     runDir = "run"
 
-    // snapshot_YYYYMMDD   snapshot are built nightly.
-    // stable_#            stables are built at the discretion of the MCP team.
     mappings = "${config.minecraft.mappings}"
 
     replace "@VERSION@", project.simpleVersion
@@ -60,11 +58,13 @@ processResources {
         expand 'version': project.simpleVersion, 'mcversion': config.minecraft.version
     }
     from(sourceSets.main.resources.srcDirs) {
+        include 'application.conf'
         filter { line ->
             line.replaceAll("@VERSION@", project.simpleVersion)
         }
     }
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+        exclude 'application.conf'
     }
 }

@@ -273,5 +273,4 @@ public interface IRenderPlayer
 	void setShadowSizeField(float shadowSize);
 
 	boolean getSmallArmsField();
-
 }

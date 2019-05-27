@@ -18,11 +18,15 @@
 
 package api.player.forge;
 
-import java.util.*;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Stack;
 
-import net.minecraft.launchwrapper.*;
-import api.player.model.*;
-import api.player.render.*;
+import api.player.model.ModelPlayerArmorClassVisitor;
+import api.player.model.ModelPlayerClassVisitor;
+import api.player.render.LayerPlayerArmorClassVisitor;
+import api.player.render.RenderPlayerClassVisitor;
+import net.minecraft.launchwrapper.IClassTransformer;
 
 public class RenderPlayerAPITransformer implements IClassTransformer
 {

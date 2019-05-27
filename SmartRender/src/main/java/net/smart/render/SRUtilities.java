@@ -29,8 +29,7 @@ public class SRUtilities {
 	public static final float RadiantToAngle = 360F / Whole;
 
 	public static float getHorizontalCollisionAngle(boolean isCollidedPositiveX,
-			boolean isCollidedNegativeX, boolean isCollidedPositiveZ,
-			boolean isCollidedNegativeZ) {
+	        boolean isCollidedNegativeX, boolean isCollidedPositiveZ, boolean isCollidedNegativeZ) {
 		if (isCollidedPositiveX)
 			if (isCollidedNegativeX)
 				if (isCollidedPositiveZ)

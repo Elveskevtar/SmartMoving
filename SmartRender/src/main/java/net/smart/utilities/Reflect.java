@@ -18,7 +18,8 @@
 
 package net.smart.utilities;
 
-import java.lang.reflect.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 public class Reflect {
 	public static Object NewInstance(Class<?> base, Name name) {
@@ -36,8 +37,7 @@ public class Reflect {
 		return true;
 	}
 
-	public static Class<?> LoadClass(Class<?> base, Name name,
-			boolean throwException) {
+	public static Class<?> LoadClass(Class<?> base, Name name, boolean throwException) {
 		ClassLoader loader = base.getClassLoader();
 
 		if (name.obfuscated != null)
@@ -71,8 +71,7 @@ public class Reflect {
 		}
 	}
 
-	public static void SetField(Class<?> theClass, Object object, Name name,
-			Object value) {
+	public static void SetField(Class<?> theClass, Object object, Name name, Object value) {
 		try {
 			GetField(theClass, name).set(object, value);
 		} catch (IllegalAccessException e) {
@@ -92,8 +91,7 @@ public class Reflect {
 		return GetField(theClass, name, true);
 	}
 
-	public static Field GetField(Class<?> theClass, Name name,
-			boolean throwException) {
+	public static Field GetField(Class<?> theClass, Name name, boolean throwException) {
 		if (theClass == null && !throwException)
 			return null;
 
@@ -116,8 +114,7 @@ public class Reflect {
 		return message.toString();
 	}
 
-	private static Field GetRawField(Class<?> theClass, Name name)
-			throws NoSuchFieldException {
+	private static Field GetRawField(Class<?> theClass, Name name) throws NoSuchFieldException {
 		if (name.obfuscated != null)
 			try {
 				return theClass.getDeclaredField(name.obfuscated);
@@ -133,13 +130,12 @@ public class Reflect {
 		return theClass.getDeclaredField(name.deobfuscated);
 	}
 
-	public static Method GetMethod(Class<?> theClass, Name name,
-			Class<?>... paramArrayOfClass) {
+	public static Method GetMethod(Class<?> theClass, Name name, Class<?>... paramArrayOfClass) {
 		return GetMethod(theClass, name, true, paramArrayOfClass);
 	}
 
-	public static Method GetMethod(Class<?> theClass, Name name,
-			boolean throwException, Class<?>... paramArrayOfClass) {
+	public static Method GetMethod(Class<?> theClass, Name name, boolean throwException,
+	        Class<?>... paramArrayOfClass) {
 		if (theClass == null && !throwException)
 			return null;
 
@@ -149,8 +145,7 @@ public class Reflect {
 			method.setAccessible(true);
 		} catch (NoSuchMethodException oe) {
 			if (throwException)
-				throw new RuntimeException(GetMethodMessage(theClass, name),
-						oe);
+				throw new RuntimeException(GetMethodMessage(theClass, name), oe);
 		}
 		return method;
 	}
@@ -163,27 +158,24 @@ public class Reflect {
 		return message.toString();
 	}
 
-	private static Method GetRawMethod(Class<?> theClass, Name name,
-			Class<?>... paramArrayOfClass) throws NoSuchMethodException {
+	private static Method GetRawMethod(Class<?> theClass, Name name, Class<?>... paramArrayOfClass)
+	        throws NoSuchMethodException {
 		if (name.obfuscated != null)
 			try {
-				return theClass.getDeclaredMethod(name.obfuscated,
-						paramArrayOfClass);
+				return theClass.getDeclaredMethod(name.obfuscated, paramArrayOfClass);
 			} catch (NoSuchMethodException oe) {
 			}
 
 		if (name.forgefuscated != null)
 			try {
-				return theClass.getDeclaredMethod(name.forgefuscated,
-						paramArrayOfClass);
+				return theClass.getDeclaredMethod(name.forgefuscated, paramArrayOfClass);
 			} catch (NoSuchMethodException oe) {
 			}
 
 		return theClass.getDeclaredMethod(name.deobfuscated, paramArrayOfClass);
 	}
 
-	public static Object Invoke(Method method, Object paramObject,
-			Object... paramArrayOfObject) {
+	public static Object Invoke(Method method, Object paramObject, Object... paramArrayOfObject) {
 		try {
 			return method.invoke(paramObject, paramArrayOfObject);
 		} catch (Exception e) {
@@ -191,25 +183,22 @@ public class Reflect {
 		}
 	}
 
-	private static StringBuffer GetMessage(Class<?> theClass, Name name,
-			String elementName) {
-		StringBuffer message = new StringBuffer().append("Can not find ")
-				.append(elementName).append(" \"").append(name.deobfuscated)
-				.append("\"");
+	private static StringBuffer GetMessage(Class<?> theClass, Name name, String elementName) {
+		StringBuffer message = new StringBuffer().append("Can not find ").append(elementName)
+		        .append(" \"").append(name.deobfuscated).append("\"");
 
 		if (name.obfuscated != null)
-			message.append(" (ofuscated \"").append(name.obfuscated)
-					.append("\")");
+			message.append(" (ofuscated \"").append(name.obfuscated).append("\")");
 
-		message.append(" in class \"").append(theClass.getName())
-				.append("\".\nExisting ").append(elementName).append("s are:");
+		message.append(" in class \"").append(theClass.getName()).append("\".\nExisting ")
+		        .append(elementName).append("s are:");
 
 		return message;
 	}
 
 	private static void AppendMethod(StringBuffer message, Method method) {
-		message.append("\n\t\t").append(method.getReturnType().getName())
-				.append(" ").append(method.getName()).append("(");
+		message.append("\n\t\t").append(method.getReturnType().getName()).append(" ")
+		        .append(method.getName()).append("(");
 
 		Class<?>[] types = method.getParameterTypes();
 		for (int i = 0; i < types.length; i++) {
@@ -223,6 +212,6 @@ public class Reflect {
 
 	private static void AppendField(StringBuffer message, Field field) {
 		message.append("\n\t\t").append(field.getType().getName()).append(" ")
-				.append(field.getName());
+		        .append(field.getName());
 	}
 }

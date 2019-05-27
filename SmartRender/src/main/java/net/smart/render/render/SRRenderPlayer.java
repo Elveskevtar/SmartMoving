@@ -33,15 +33,14 @@ import net.smart.render.model.SRModelPlayer;
 import net.smart.utilities.Reflect;
 
 public class SRRenderPlayer extends RenderPlayer implements IRenderPlayer {
-
 	private IModelPlayer[] allIModelPlayers;
 
 	private final SRRenderer render;
 
-	private final static Field _modelArmor = Reflect.GetField(
-			LayerArmorBase.class, SRInstall.LayerArmorBase_modelArmor);
-	private final static Field _playerHead = Reflect.GetField(
-			LayerCustomHead.class, SRInstall.LayerCustomHead_playerHead);
+	private final static Field _modelArmor = Reflect.GetField(LayerArmorBase.class,
+	        SRInstall.LayerArmorBase_modelArmor);
+	private final static Field _playerHead = Reflect.GetField(LayerCustomHead.class,
+	        SRInstall.LayerCustomHead_playerHead);
 
 	public SRRenderPlayer(RenderManager renderManager) {
 		this(renderManager, false);
@@ -62,7 +61,7 @@ public class SRRenderPlayer extends RenderPlayer implements IRenderPlayer {
 	@Override
 	public boolean getSmallArms() {
 		return (Boolean) Reflect.GetField(RenderPlayer.class, this,
-				SRInstall.RenderPlayer_smallArms);
+		        SRInstall.RenderPlayer_smallArms);
 	}
 
 	@Override
@@ -78,44 +77,43 @@ public class SRRenderPlayer extends RenderPlayer implements IRenderPlayer {
 	}
 
 	@Override
-	public void doRender(AbstractClientPlayer entityplayer, double d, double d1,
-			double d2, float f, float renderPartialTicks) {
+	public void doRender(AbstractClientPlayer entityplayer, double d, double d1, double d2, float f,
+	        float renderPartialTicks) {
 		render.doRender(entityplayer, d, d1, d2, f, renderPartialTicks);
 	}
 
 	@Override
-	public void superDoRender(AbstractClientPlayer entityplayer, double d,
-			double d1, double d2, float f, float renderPartialTicks) {
+	public void superDoRender(AbstractClientPlayer entityplayer, double d, double d1, double d2,
+	        float f, float renderPartialTicks) {
 		super.doRender(entityplayer, d, d1, d2, f, renderPartialTicks);
 	}
 
 	@Override
-	protected void applyRotations(AbstractClientPlayer entityplayer,
-			float totalTime, float actualRotation, float f2) {
+	protected void applyRotations(AbstractClientPlayer entityplayer, float totalTime,
+	        float actualRotation, float f2) {
 		render.rotateCorpse(entityplayer, totalTime, actualRotation, f2);
 	}
 
 	@Override
-	public void superRotateCorpse(AbstractClientPlayer entityplayer,
-			float totalTime, float actualRotation, float f2) {
+	public void superRotateCorpse(AbstractClientPlayer entityplayer, float totalTime,
+	        float actualRotation, float f2) {
 		super.applyRotations(entityplayer, totalTime, actualRotation, f2);
 	}
 
 	@Override
-	protected void renderLayers(AbstractClientPlayer entityPlayer, float f1,
-			float f2, float f3, float f4, float f5, float f6, float f7) {
+	protected void renderLayers(AbstractClientPlayer entityPlayer, float f1, float f2, float f3,
+	        float f4, float f5, float f6, float f7) {
 		render.renderSpecials(entityPlayer, f1, f2, f3, f4, f5, f6, f7);
 	}
 
 	@Override
-	public void superRenderSpecials(AbstractClientPlayer entityPlayer, float f1,
-			float f2, float f3, float f4, float f5, float f6, float f7) {
+	public void superRenderSpecials(AbstractClientPlayer entityPlayer, float f1, float f2, float f3,
+	        float f4, float f5, float f6, float f7) {
 		super.renderLayers(entityPlayer, f1, f2, f3, f4, f5, f6, f7);
 	}
 
 	@Override
-	protected float handleRotationFloat(AbstractClientPlayer entityPlayer,
-			float f) {
+	protected float handleRotationFloat(AbstractClientPlayer entityPlayer, float f) {
 		render.beforeHandleRotationFloat(entityPlayer, f);
 		float result = super.handleRotationFloat(entityPlayer, f);
 		render.afterHandleRotationFloat(entityPlayer, f);
@@ -152,7 +150,7 @@ public class SRRenderPlayer extends RenderPlayer implements IRenderPlayer {
 	public IModelPlayer[] getRenderModels() {
 		if (allIModelPlayers == null)
 			allIModelPlayers = new IModelPlayer[] { getRenderModelBipedMain(),
-					getRenderModelArmor() };
+			        getRenderModelArmor() };
 		return allIModelPlayers;
 	}
 }

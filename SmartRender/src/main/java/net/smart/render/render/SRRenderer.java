@@ -46,30 +46,24 @@ public class SRRenderer {
 	public SRRenderer(IRenderPlayer irp) {
 		this.irp = irp;
 
-		modelBipedMain = irp
-				.createModel(irp.getModelBipedMain(), 0.0F, irp.getSmallArms())
-				.getRenderModel();
-		SRModel modelArmor = irp.createModel(irp.getModelArmor(), 0.5F, false)
-				.getRenderModel();
+		modelBipedMain = irp.createModel(irp.getModelBipedMain(), 0.0F, irp.getSmallArms())
+		        .getRenderModel();
+		SRModel modelArmor = irp.createModel(irp.getModelArmor(), 0.5F, false).getRenderModel();
 
 		irp.initialize((ModelPlayer) modelBipedMain.mp, modelArmor.mp);
 	}
 
-	public void doRender(AbstractClientPlayer entityplayer, double d, double d1,
-			double d2, float f, float renderPartialTicks) {
-		SmartStatistics statistics = SmartStatisticsFactory
-				.getInstance(entityplayer);
+	public void doRender(AbstractClientPlayer entityplayer, double d, double d1, double d2, float f,
+	        float renderPartialTicks) {
+		SmartStatistics statistics = SmartStatisticsFactory.getInstance(entityplayer);
 		if (statistics != null) {
-			boolean isInventory = d == 0.0F && d1 == 0.0F && d2 == 0.0F
-					&& f == 0.0F && renderPartialTicks == 1.0F;
+			boolean isInventory = d == 0.0F && d1 == 0.0F && d2 == 0.0F && f == 0.0F
+			        && renderPartialTicks == 1.0F;
 			boolean isSleeping = entityplayer.isPlayerSleeping();
 
-			float totalVerticalDistance = statistics
-					.getTotalVerticalDistance(renderPartialTicks);
-			float currentVerticalSpeed = statistics
-					.getCurrentVerticalSpeed(renderPartialTicks);
-			float totalDistance = statistics
-					.getTotalDistance(renderPartialTicks);
+			float totalVerticalDistance = statistics.getTotalVerticalDistance(renderPartialTicks);
+			float currentVerticalSpeed = statistics.getCurrentVerticalSpeed(renderPartialTicks);
+			float totalDistance = statistics.getTotalDistance(renderPartialTicks);
 			float currentSpeed = statistics.getCurrentSpeed(renderPartialTicks);
 
 			double distance = 0;
@@ -87,12 +81,10 @@ public class SRRenderer {
 				verticalDistance = Math.abs(yDiff);
 				horizontalDistance = Math.sqrt(xDiff * xDiff + zDiff * zDiff);
 				distance = Math.sqrt(horizontalDistance * horizontalDistance
-						+ verticalDistance * verticalDistance);
+				        + verticalDistance * verticalDistance);
 
-				currentCameraAngle = entityplayer.rotationYaw
-						/ SRUtilities.RadiantToAngle;
-				currentVerticalAngle = (float) Math
-						.atan(yDiff / horizontalDistance);
+				currentCameraAngle = entityplayer.rotationYaw / SRUtilities.RadiantToAngle;
+				currentVerticalAngle = (float) Math.atan(yDiff / horizontalDistance);
 				if (Float.isNaN(currentVerticalAngle))
 					currentVerticalAngle = SRUtilities.Quarter;
 
@@ -126,8 +118,7 @@ public class SRRenderer {
 				modelPlayer.currentCameraAngle = currentCameraAngle;
 				modelPlayer.currentVerticalAngle = currentVerticalAngle;
 				modelPlayer.currentHorizontalAngle = currentHorizontalAngle;
-				modelPlayer.prevOuterRenderData = getPreviousRendererData(
-						entityplayer);
+				modelPlayer.prevOuterRenderData = getPreviousRendererData(entityplayer);
 				modelPlayer.isSleeping = isSleeping;
 			}
 		}
@@ -138,14 +129,14 @@ public class SRRenderer {
 	}
 
 	public void rotateCorpse(AbstractClientPlayer entityplayer, float totalTime,
-			float actualRotation, float f2) {
+	        float actualRotation, float f2) {
 		boolean isLocal = entityplayer instanceof EntityPlayerSP;
-		boolean isInventory = f2 == 1.0F && isLocal && Minecraft
-				.getMinecraft().currentScreen instanceof GuiInventory;
+		boolean isInventory = f2 == 1.0F && isLocal
+		        && Minecraft.getMinecraft().currentScreen instanceof GuiInventory;
+		float forwardRotation = 0;
 		if (!isInventory) {
-			float forwardRotation = entityplayer.prevRotationYaw
-					+ (entityplayer.rotationYaw - entityplayer.prevRotationYaw)
-							* f2;
+			forwardRotation = entityplayer.prevRotationYaw
+			        + (entityplayer.rotationYaw - entityplayer.prevRotationYaw) * f2;
 
 			if (entityplayer.isPlayerSleeping()) {
 				actualRotation = 0;
@@ -158,13 +149,11 @@ public class SRRenderer {
 				workingAngle = -entityplayer.rotationYaw;
 				workingAngle += minecraft.getRenderViewEntity().rotationYaw;
 			} else
-				workingAngle = actualRotation
-						- getPreviousRendererData(entityplayer).rotateAngleY
-								* SRUtilities.RadiantToAngle;
+				workingAngle = actualRotation - getPreviousRendererData(entityplayer).rotateAngleY
+				        * SRUtilities.RadiantToAngle;
 
 			if (minecraft.gameSettings.thirdPersonView == 2
-					&& !((EntityPlayer) minecraft.getRenderViewEntity())
-							.isPlayerSleeping())
+			        && !((EntityPlayer) minecraft.getRenderViewEntity()).isPlayerSleeping())
 				workingAngle += 180F;
 
 			IModelPlayer[] modelPlayers = irp.getRenderModels();
@@ -183,8 +172,8 @@ public class SRRenderer {
 		irp.superRotateCorpse(entityplayer, totalTime, actualRotation, f2);
 	}
 
-	public void renderSpecials(AbstractClientPlayer entityPlayer, float f1,
-			float f2, float f3, float f4, float f5, float f6, float f7) {
+	public void renderSpecials(AbstractClientPlayer entityPlayer, float f1, float f2, float f3,
+	        float f4, float f5, float f6, float f7) {
 		modelBipedMain.bipedEars.beforeRender(entityPlayer);
 		modelBipedMain.bipedCloak.beforeRender(entityPlayer, f3);
 		irp.superRenderSpecials(entityPlayer, f1, f2, f3, f4, f5, f6, f7);
@@ -192,29 +181,23 @@ public class SRRenderer {
 		modelBipedMain.bipedEars.afterRender();
 	}
 
-	public void beforeHandleRotationFloat(AbstractClientPlayer entityPlayer,
-			float f) {
-		SmartStatistics statistics = SmartStatisticsFactory
-				.getInstance(entityPlayer);
+	public void beforeHandleRotationFloat(AbstractClientPlayer entityPlayer, float f) {
+		SmartStatistics statistics = SmartStatisticsFactory.getInstance(entityPlayer);
 		if (statistics != null)
 			entityPlayer.ticksExisted += statistics.ticksRiding;
 	}
 
-	public void afterHandleRotationFloat(AbstractClientPlayer entityPlayer,
-			float f) {
-		SmartStatistics statistics = SmartStatisticsFactory
-				.getInstance(entityPlayer);
+	public void afterHandleRotationFloat(AbstractClientPlayer entityPlayer, float f) {
+		SmartStatistics statistics = SmartStatisticsFactory.getInstance(entityPlayer);
 		if (statistics != null)
 			entityPlayer.ticksExisted -= statistics.ticksRiding;
 	}
 
-	public static SRRenderData getPreviousRendererData(
-			EntityPlayer entityplayer) {
+	public static SRRenderData getPreviousRendererData(EntityPlayer entityplayer) {
 		if (++previousRendererDataAccessCounter > 1000) {
 			List<?> players = Minecraft.getMinecraft().world.playerEntities;
 
-			Iterator<EntityPlayer> iterator = previousRendererData.keySet()
-					.iterator();
+			Iterator<EntityPlayer> iterator = previousRendererData.keySet().iterator();
 			while (iterator.hasNext())
 				if (!players.contains(iterator.next()))
 					iterator.remove();

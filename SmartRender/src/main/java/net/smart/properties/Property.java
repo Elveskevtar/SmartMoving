@@ -1,5 +1,5 @@
 // ==================================================================
-// This file is part of Smart Moving.
+// This file is part of Smart Render.
 //
 // Smart Moving is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -17,8 +17,12 @@
 
 package net.smart.properties;
 
-import java.io.*;
-import java.util.*;
+import java.io.PrintWriter;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class Property<T> {
 	private static final int printWidth = 69;
@@ -699,8 +703,7 @@ public class Property<T> {
 		printErrorPostfix(printer, true);
 	}
 
-	private static void printErrorPostfix(PrintWriter printer,
-			boolean warning) {
+	private static void printErrorPostfix(PrintWriter printer, boolean warning) {
 		printer.print(" !");
 		if (!warning)
 			printer.print("!!");

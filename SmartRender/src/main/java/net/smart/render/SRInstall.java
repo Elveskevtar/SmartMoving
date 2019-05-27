@@ -20,26 +20,25 @@ package net.smart.render;
 import net.smart.utilities.Name;
 
 public class SRInstall {
-	public final static Name ModelRenderer_compiled = new Name("compiled",
-			"field_78812_q", "t");
-	public final static Name ModelRenderer_compileDisplayList = new Name(
-			"compileDisplayList", "func_78788_d", "d");
-	public final static Name ModelRenderer_displayList = new Name("displayList",
-			"field_78811_r", "u");
-	public final static Name ModelRenderer_textureOffsetX = new Name(
-			"textureOffsetX", "field_78803_o", "r");
-	public final static Name ModelRenderer_textureOffsetY = new Name(
-			"textureOffsetY", "field_78813_p", "s");
+	public final static Name ModelRenderer_compiled = new Name("compiled", "field_78812_q", "t");
+	public final static Name ModelRenderer_compileDisplayList = new Name("compileDisplayList",
+	        "func_78788_d", "d");
+	public final static Name ModelRenderer_displayList = new Name("displayList", "field_78811_r",
+	        "u");
+	public final static Name ModelRenderer_textureOffsetX = new Name("textureOffsetX",
+	        "field_78803_o", "r");
+	public final static Name ModelRenderer_textureOffsetY = new Name("textureOffsetY",
+	        "field_78813_p", "s");
 
-	public final static Name RenderPlayer_smallArms = new Name("smallArms",
-			"field_177140_a", "a");
-	public final static Name LayerCustomHead_playerHead = new Name(
-			"field_177209_a", "field_177209_a", "a");
-	public final static Name LayerArmorBase_modelArmor = new Name("modelArmor",
-			"field_177189_c", "c");
+	public final static Name RenderPlayer_smallArms = new Name("smallArms", "field_177140_a", "a");
+	public final static Name RenderLivingBase_layerRenderers = new Name("layerRenderers",
+	        "field_177097_h", "h");
+	public final static Name LayerCustomHead_playerHead = new Name("field_177209_a",
+	        "field_177209_a", "a");
+	public final static Name LayerArmorBase_modelArmor = new Name("modelArmor", "field_177189_c",
+	        "c");
 
-	public final static Name ModelPlayer_bipedCape = new Name("bipedCape",
-			"field_178729_w", "w");
-	public final static Name ModelPlayer_bipedDeadmau5Head = new Name(
-			"bipedDeadmau5Head", "field_178736_x", "x");
+	public final static Name ModelPlayer_bipedCape = new Name("bipedCape", "field_178729_w", "w");
+	public final static Name ModelPlayer_bipedDeadmau5Head = new Name("bipedDeadmau5Head",
+	        "field_178736_x", "x");
 }

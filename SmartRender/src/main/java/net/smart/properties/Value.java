@@ -1,5 +1,5 @@
 // ==================================================================
-// This file is part of Smart Moving.
+// This file is part of Smart Render.
 //
 // Smart Moving is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -17,11 +17,22 @@
 
 package net.smart.properties;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.util.*;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-import net.smart.utilities.*;
+import net.smart.utilities.Name;
+import net.smart.utilities.Reflect;
 
 public class Value<T> {
 	private int type;
@@ -97,8 +108,7 @@ public class Value<T> {
 		Iterator<String> iterator = GetAllKeys(this, dependency);
 		while (iterator.hasNext()) {
 			String key = iterator.next();
-			if (get(key, defaultValue).equals(true)
-					&& dependency.get(key).equals(false))
+			if (get(key, defaultValue).equals(true) && dependency.get(key).equals(false))
 				put(key, (T) (Object) false);
 		}
 	}
@@ -108,7 +118,7 @@ public class Value<T> {
 		while (iterator.hasNext()) {
 			String key = iterator.next();
 			put(key, (T) (Object) Math.max((Float) get(key, defaultValue),
-					(Float) minimum.get(key)));
+			        (Float) minimum.get(key)));
 		}
 	}
 
@@ -117,7 +127,7 @@ public class Value<T> {
 		while (iterator.hasNext()) {
 			String key = iterator.next();
 			put(key, (T) (Object) Math.min((Float) get(key, defaultValue),
-					(Float) maximum.get(key)));
+			        (Float) maximum.get(key)));
 		}
 	}
 
@@ -128,10 +138,8 @@ public class Value<T> {
 			String key = iterator.next();
 			T leftValue = get(key);
 			T rightValue = right.get(key);
-			result.put(key,
-					leftValue == null && rightValue == null
-							|| leftValue != null && rightValue != null
-									&& leftValue.equals(rightValue));
+			result.put(key, leftValue == null && rightValue == null
+			        || leftValue != null && rightValue != null && leftValue.equals(rightValue));
 		}
 		return result;
 	}
@@ -181,8 +189,7 @@ public class Value<T> {
 		Iterator<String> iterator = GetAllKeys(this, left, right);
 		while (iterator.hasNext()) {
 			String key = iterator.next();
-			result.put(key,
-					((Boolean) get(key)) ? left.get(key) : right.get(key));
+			result.put(key, ((Boolean) get(key)) ? left.get(key) : right.get(key));
 		}
 		return result;
 	}
@@ -236,8 +243,7 @@ public class Value<T> {
 		return GetAllKeys(null, values);
 	}
 
-	public static Iterator<String> GetAllKeys(String[] sorted,
-			Value<?>... values) {
+	public static Iterator<String> GetAllKeys(String[] sorted, Value<?>... values) {
 		_allkeys.clear();
 		for (int i = 0; i < values.length; i++) {
 			Value<?> value = values[i];
@@ -272,9 +278,8 @@ public class Value<T> {
 			return false;
 		if (value != null && !valuesEqual(value, otherValue.value))
 			return false;
-		if ((keyValues == null ? 0
-				: keyValues.size()) != (otherValue.keyValues == null ? 0
-						: otherValue.keyValues.size()))
+		if ((keyValues == null ? 0 : keyValues.size()) != (otherValue.keyValues == null ? 0
+		        : otherValue.keyValues.size()))
 			return false;
 		if (keyValues != null && keyValues.size() != 0) {
 			Enumeration<String> keys = keyValues.keys();
@@ -450,7 +455,7 @@ public class Value<T> {
 		try {
 			if (value != null)
 				return value.equals("true") ? Boolean.TRUE
-						: value.equals("false") ? Boolean.FALSE : null;
+				        : value.equals("false") ? Boolean.FALSE : null;
 		} catch (Exception e) {
 		}
 		return null;
@@ -479,8 +484,7 @@ public class Value<T> {
 	}
 
 	public static String[] tryParseStrings(String value) {
-		return value == null ? null
-				: (value.isEmpty() ? new String[0] : value.split(","));
+		return value == null ? null : (value.isEmpty() ? new String[0] : value.split(","));
 	}
 
 	public static Map<String, String> tryParseStringMap(String value) {
@@ -529,23 +533,23 @@ public class Value<T> {
 	private final static List<String> _allkeys = new LinkedList<String>();
 
 	public final static Class<?> keyboard = Reflect.LoadClass(Value.class,
-			new Name("org.lwjgl.input.Keyboard"), false);
+	        new Name("org.lwjgl.input.Keyboard"), false);
 	public final static Class<?> mouse = Reflect.LoadClass(Value.class,
-			new Name("org.lwjgl.input.Mouse"), false);
+	        new Name("org.lwjgl.input.Mouse"), false);
 
 	public final static Method _getKeyName = keyboard != null
-			? Reflect.GetMethod(keyboard, new Name("getKeyName"), int.class)
-			: null;
+	        ? Reflect.GetMethod(keyboard, new Name("getKeyName"), int.class)
+	        : null;
 	public final static Method _getKeyIndex = keyboard != null
-			? Reflect.GetMethod(keyboard, new Name("getKeyIndex"), String.class)
-			: null;
+	        ? Reflect.GetMethod(keyboard, new Name("getKeyIndex"), String.class)
+	        : null;
 
 	public final static Method _getButtonName = mouse != null
-			? Reflect.GetMethod(mouse, new Name("getButtonName"), int.class)
-			: null;
+	        ? Reflect.GetMethod(mouse, new Name("getButtonName"), int.class)
+	        : null;
 	public final static Method _getButtonIndex = mouse != null
-			? Reflect.GetMethod(mouse, new Name("getButtonIndex"), String.class)
-			: null;
+	        ? Reflect.GetMethod(mouse, new Name("getButtonIndex"), String.class)
+	        : null;
 
 	public static String toKeyName(Integer keyCode) {
 		if (keyCode == null)

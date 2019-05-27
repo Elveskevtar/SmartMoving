@@ -17,27 +17,22 @@
 
 package net.smart.render.statistics.playerapi;
 
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.smart.render.statistics.IEntityPlayerSP;
 
-import net.smart.render.statistics.*;
-
-public class SmartStatisticsFactory
-		extends net.smart.render.statistics.SmartStatisticsFactory {
+public class SmartStatisticsFactory extends net.smart.render.statistics.SmartStatisticsFactory {
 	public static void initialize() {
 		if (!isInitialized())
 			new SmartStatisticsFactory();
 	}
 
 	@Override
-	protected net.smart.render.statistics.SmartStatistics doGetInstance(
-			EntityPlayer entityPlayer) {
-		net.smart.render.statistics.SmartStatistics statistics = super.doGetInstance(
-				entityPlayer);
+	protected net.smart.render.statistics.SmartStatistics doGetInstance(EntityPlayer entityPlayer) {
+		net.smart.render.statistics.SmartStatistics statistics = super.doGetInstance(entityPlayer);
 		if (statistics != null)
 			return statistics;
 
-		IEntityPlayerSP playerBase = SmartStatistics
-				.getPlayerBase(entityPlayer);
+		IEntityPlayerSP playerBase = SmartStatistics.getPlayerBase(entityPlayer);
 		if (playerBase != null)
 			return playerBase.getStatistics();
 

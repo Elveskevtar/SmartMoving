@@ -18,7 +18,8 @@
 
 package api.player.client;
 
-import org.objectweb.asm.*;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 public final class ClientPlayerConstructorVisitor extends MethodVisitor
 {

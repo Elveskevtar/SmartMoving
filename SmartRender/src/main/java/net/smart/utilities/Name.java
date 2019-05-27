@@ -31,8 +31,7 @@ public class Name {
 		this(deobfuscatedName, null, obfuscatedName);
 	}
 
-	public Name(String deobfuscatedName, String forgefuscatedName,
-			String obfuscatedName) {
+	public Name(String deobfuscatedName, String forgefuscatedName, String obfuscatedName) {
 		deobfuscated = deobfuscatedName;
 		forgefuscated = forgefuscatedName;
 		obfuscated = obfuscatedName;

@@ -25,7 +25,7 @@ public class SRModelSpecialRenderer extends SRModelRotationRenderer {
 	public boolean doPopPush;
 
 	public SRModelSpecialRenderer(ModelBase modelBase, int i, int j,
-			SRModelRotationRenderer baseRenderer) {
+	        SRModelRotationRenderer baseRenderer) {
 		super(modelBase, i, j, baseRenderer);
 		ignoreRender = true;
 	}

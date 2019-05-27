@@ -29,31 +29,25 @@ public class SRModelBiped extends ModelBiped implements IModelPlayer {
 	public SRModelBiped(ModelBiped existing, float f) {
 		super(f);
 
-		model = new SRModel(false, this, this, existing.bipedBody, null,
-				existing.bipedHead, existing.bipedHeadwear,
-				existing.bipedRightArm, null, existing.bipedLeftArm, null,
-				existing.bipedRightLeg, null, existing.bipedLeftLeg, null, null,
-				null);
+		model = new SRModel(false, this, this, existing.bipedBody, null, existing.bipedHead,
+		        existing.bipedHeadwear, existing.bipedRightArm, null, existing.bipedLeftArm, null,
+		        existing.bipedRightLeg, null, existing.bipedLeftLeg, null, null, null);
 	}
 
 	@Override
-	public void render(Entity entity, float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
-		model.render(entity, totalHorizontalDistance, currentHorizontalSpeed,
-				totalTime, viewHorizontalAngelOffset, viewVerticalAngelOffset,
-				factor);
+	public void render(Entity entity, float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
+		model.render(entity, totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
 	}
 
 	@Override
 	public void superRender(Entity entity, float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
-		super.render(entity, totalHorizontalDistance, currentHorizontalSpeed,
-				totalTime, viewHorizontalAngelOffset, viewVerticalAngelOffset,
-				factor);
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
+		super.render(entity, totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
 	}
 
 	@Override
@@ -62,19 +56,13 @@ public class SRModelBiped extends ModelBiped implements IModelPlayer {
 	}
 
 	@Override
-	public void initialize(SRModelRotationRenderer bipedBody,
-			SRModelRotationRenderer bipedBodywear,
-			SRModelRotationRenderer bipedHead,
-			SRModelRotationRenderer bipedHeadwear,
-			SRModelRotationRenderer bipedRightArm,
-			SRModelRotationRenderer bipedRightArmwear,
-			SRModelRotationRenderer bipedLeftArm,
-			SRModelRotationRenderer bipedLeftArmwear,
-			SRModelRotationRenderer bipedRightLeg,
-			SRModelRotationRenderer bipedRightLegwear,
-			SRModelRotationRenderer bipedLeftLeg,
-			SRModelRotationRenderer bipedLeftLegwear,
-			SRModelCapeRenderer bipedCloak, SRModelEarsRenderer bipedEars) {
+	public void initialize(SRModelRotationRenderer bipedBody, SRModelRotationRenderer bipedBodywear,
+	        SRModelRotationRenderer bipedHead, SRModelRotationRenderer bipedHeadwear,
+	        SRModelRotationRenderer bipedRightArm, SRModelRotationRenderer bipedRightArmwear,
+	        SRModelRotationRenderer bipedLeftArm, SRModelRotationRenderer bipedLeftArmwear,
+	        SRModelRotationRenderer bipedRightLeg, SRModelRotationRenderer bipedRightLegwear,
+	        SRModelRotationRenderer bipedLeftLeg, SRModelRotationRenderer bipedLeftLegwear,
+	        SRModelCapeRenderer bipedCloak, SRModelEarsRenderer bipedEars) {
 		this.bipedBody = bipedBody;
 		this.bipedHead = bipedHead;
 		this.bipedHeadwear = bipedHeadwear;
@@ -85,23 +73,19 @@ public class SRModelBiped extends ModelBiped implements IModelPlayer {
 	}
 
 	@Override
-	public void setRotationAngles(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor, Entity entity) {
-		model.setRotationAngles(totalHorizontalDistance, currentHorizontalSpeed,
-				totalTime, viewHorizontalAngelOffset, viewVerticalAngelOffset,
-				factor, entity);
+	public void setRotationAngles(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor, Entity entity) {
+		model.setRotationAngles(totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor, entity);
 	}
 
 	@Override
-	public void superSetRotationAngles(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor, Entity entity) {
-		super.setRotationAngles(totalHorizontalDistance, currentHorizontalSpeed,
-				totalTime, viewHorizontalAngelOffset, viewVerticalAngelOffset,
-				factor, entity);
+	public void superSetRotationAngles(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor, Entity entity) {
+		super.setRotationAngles(totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor, entity);
 	}
 
 	@Override
@@ -194,92 +178,79 @@ public class SRModelBiped extends ModelBiped implements IModelPlayer {
 	}
 
 	@Override
-	public void animateHeadRotation(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
-		model.animateHeadRotation(viewHorizontalAngelOffset,
-				viewVerticalAngelOffset);
+	public void animateHeadRotation(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
+		model.animateHeadRotation(viewHorizontalAngelOffset, viewVerticalAngelOffset);
 	}
 
 	@Override
-	public void animateSleeping(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateSleeping(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		model.animateSleeping();
 	}
 
 	@Override
-	public void animateArmSwinging(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
-		model.animateArmSwinging(totalHorizontalDistance,
-				currentHorizontalSpeed);
+	public void animateArmSwinging(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
+		model.animateArmSwinging(totalHorizontalDistance, currentHorizontalSpeed);
 	}
 
 	@Override
-	public void animateRiding(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateRiding(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		model.animateRiding();
 	}
 
 	@Override
 	public void animateLeftArmItemHolding(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
 		model.animateLeftArmItemHolding();
 	}
 
 	@Override
 	public void animateRightArmItemHolding(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
 		model.animateRightArmItemHolding();
 	}
 
 	@Override
-	public void animateWorkingBody(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateWorkingBody(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		model.animateWorkingBody();
 	}
 
 	@Override
-	public void animateWorkingArms(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateWorkingArms(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		model.animateWorkingArms();
 	}
 
 	@Override
-	public void animateSneaking(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateSneaking(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		model.animateSneaking();
 	}
 
 	@Override
-	public void animateArms(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateArms(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		model.animateArms(totalTime);
 	}
 
 	@Override
-	public void animateBowAiming(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateBowAiming(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		model.animateBowAiming(totalTime);
 	}
 }

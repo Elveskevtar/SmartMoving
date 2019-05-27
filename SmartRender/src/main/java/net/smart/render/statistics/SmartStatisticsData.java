@@ -17,7 +17,7 @@
 
 package net.smart.render.statistics;
 
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.player.EntityPlayer;
 
 public class SmartStatisticsData {
 	public float prevLegYaw;
@@ -25,8 +25,7 @@ public class SmartStatisticsData {
 	public float total;
 
 	public float getCurrentSpeed(float renderPartialTicks) {
-		return Math.min(1.0F,
-				prevLegYaw + (legYaw - prevLegYaw) * renderPartialTicks);
+		return Math.min(1.0F, prevLegYaw + (legYaw - prevLegYaw) * renderPartialTicks);
 	}
 
 	public float getTotalDistance(float renderPartialTicks) {

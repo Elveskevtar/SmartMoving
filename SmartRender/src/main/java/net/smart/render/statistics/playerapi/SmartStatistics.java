@@ -34,7 +34,7 @@ public abstract class SmartStatistics {
 	public static IEntityPlayerSP getPlayerBase(EntityPlayer entityPlayer) {
 		if (entityPlayer instanceof EntityPlayerSP)
 			return (SmartStatisticsPlayerBase) ((IClientPlayerAPI) entityPlayer)
-					.getClientPlayerBase(ID);
+			        .getClientPlayerBase(ID);
 		return null;
 	}
 }

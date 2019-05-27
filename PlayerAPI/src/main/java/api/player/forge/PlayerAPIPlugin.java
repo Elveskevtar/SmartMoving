@@ -18,11 +18,11 @@
 
 package api.player.forge;
 
-import java.util.*;
+import java.util.Map;
 
-import net.minecraftforge.fml.relauncher.*;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
-@IFMLLoadingPlugin.MCVersion("@MCVERSION@")
+@IFMLLoadingPlugin.MCVersion("1.12.2")
 @IFMLLoadingPlugin.TransformerExclusions("api.player.forge")
 public class PlayerAPIPlugin implements IFMLLoadingPlugin
 {

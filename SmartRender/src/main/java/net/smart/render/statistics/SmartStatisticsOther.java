@@ -17,7 +17,7 @@
 
 package net.smart.render.statistics;
 
-import net.minecraft.client.entity.*;
+import net.minecraft.client.entity.EntityOtherPlayerMP;
 
 public class SmartStatisticsOther extends SmartStatistics {
 	public boolean foundAlive;

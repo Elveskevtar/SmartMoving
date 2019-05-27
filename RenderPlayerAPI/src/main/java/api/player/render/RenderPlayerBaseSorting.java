@@ -18,7 +18,8 @@
 
 package api.player.render;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class RenderPlayerBaseSorting
 {
@@ -2766,5 +2767,4 @@ public final class RenderPlayerBaseSorting
 	{
 		afterUnsetScoreTeamColorInferiors = value;
 	}
-
 }

@@ -18,19 +18,23 @@
 
 package api.player.render;
 
-import java.io.*;
-import java.util.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.Map;
+import java.util.Stack;
 
-import org.objectweb.asm.*;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
 
 public final class LayerPlayerArmorClassVisitor extends ClassVisitor
 {
 	public static final String targetClassName = "api.player.render.LayerPlayerArmor";
 	public static final String obfuscatedClassReference = "api/player/render/LayerPlayerArmor";
-	public static final String obfuscatedSuperClassReference = "ccb";
+	public static final String obfuscatedSuperClassReference = "cbn";
 	public static final String deobfuscatedClassReference = "api/player/render/LayerPlayerArmor";
 	public static final String deobfuscateSuperClassReference = "net/minecraft/client/renderer/entity/layers/LayerBipedArmor";
-
 
 	public static byte[] transform(byte[] bytes, boolean isObfuscated, Map<String, Stack<String>> constructorReplacements)
 	{
@@ -74,9 +78,6 @@ public final class LayerPlayerArmorClassVisitor extends ClassVisitor
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions)
 	{
-		if(name.equals("<init>"))
-			return new LayerPlayerArmorConstructorVisitor(super.visitMethod(access, name, desc, signature, exceptions), isObfuscated, constructorReplacements);
-
 		return new LayerPlayerArmorConstructorVisitor(super.visitMethod(access, name, desc, signature, exceptions), isObfuscated, constructorReplacements);
 	}
 }

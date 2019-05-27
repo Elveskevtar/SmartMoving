@@ -18,9 +18,11 @@
 
 package api.player.render;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Stack;
 
-import org.objectweb.asm.*;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 public final class RenderPlayerConstructorVisitor extends MethodVisitor
 {

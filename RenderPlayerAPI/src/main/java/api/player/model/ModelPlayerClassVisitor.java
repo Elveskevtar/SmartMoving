@@ -18,9 +18,14 @@
 
 package api.player.model;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
-import org.objectweb.asm.*;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 public final class ModelPlayerClassVisitor extends ClassVisitor
 {

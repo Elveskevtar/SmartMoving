@@ -17,12 +17,11 @@
 
 package net.smart.render.statistics.playerapi;
 
-import api.player.client.*;
+import api.player.client.ClientPlayerAPI;
+import api.player.client.ClientPlayerBase;
+import net.smart.render.statistics.IEntityPlayerSP;
 
-import net.smart.render.statistics.*;
-
-public class SmartStatisticsPlayerBase extends ClientPlayerBase
-		implements IEntityPlayerSP {
+public class SmartStatisticsPlayerBase extends ClientPlayerBase implements IEntityPlayerSP {
 	public SmartStatisticsPlayerBase(ClientPlayerAPI playerApi) {
 		super(playerApi);
 		statistics = new net.smart.render.statistics.SmartStatistics(player);

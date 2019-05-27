@@ -34,74 +34,55 @@ public class SRModelPlayerBase extends ModelPlayerBase implements IModelPlayer {
 	@Override
 	public SRModel getRenderModel() {
 		if (model == null) {
-			ModelRenderer bipedBodyWear = modelPlayer != null
-					? modelPlayer.bipedBodyWear
-					: null;
-			ModelRenderer bipedRightArmwear = modelPlayer != null
-					? modelPlayer.bipedRightArmwear
-					: null;
-			ModelRenderer bipedLeftArmwear = modelPlayer != null
-					? modelPlayer.bipedLeftArmwear
-					: null;
-			ModelRenderer bipedRightLegwear = modelPlayer != null
-					? modelPlayer.bipedRightLegwear
-					: null;
-			ModelRenderer bipedLeftLegwear = modelPlayer != null
-					? modelPlayer.bipedLeftLegwear
-					: null;
-			ModelRenderer bipedCape = modelPlayer != null
-					? modelPlayerAPI.getBipedCapeField()
-					: null;
+			ModelRenderer bipedBodyWear = modelPlayer != null ? modelPlayer.bipedBodyWear : null;
+			ModelRenderer bipedRightArmwear = modelPlayer != null ? modelPlayer.bipedRightArmwear
+			        : null;
+			ModelRenderer bipedLeftArmwear = modelPlayer != null ? modelPlayer.bipedLeftArmwear
+			        : null;
+			ModelRenderer bipedRightLegwear = modelPlayer != null ? modelPlayer.bipedRightLegwear
+			        : null;
+			ModelRenderer bipedLeftLegwear = modelPlayer != null ? modelPlayer.bipedLeftLegwear
+			        : null;
+			ModelRenderer bipedCape = modelPlayer != null ? modelPlayerAPI.getBipedCapeField()
+			        : null;
 			ModelRenderer bipedDeadmau5Head = modelPlayer != null
-					? modelPlayerAPI.getBipedDeadmau5HeadField()
-					: null;
+			        ? modelPlayerAPI.getBipedDeadmau5HeadField()
+			        : null;
 
-			model = new SRModel(modelPlayerAPI.getSmallArmsParameter(),
-					modelBiped, this, modelBiped.bipedBody, bipedBodyWear,
-					modelBiped.bipedHead, modelBiped.bipedHeadwear,
-					modelBiped.bipedRightArm, bipedRightArmwear,
-					modelBiped.bipedLeftArm, bipedLeftArmwear,
-					modelBiped.bipedRightLeg, bipedRightLegwear,
-					modelBiped.bipedLeftLeg, bipedLeftLegwear, bipedCape,
-					bipedDeadmau5Head);
+			model = new SRModel(modelPlayerAPI.getSmallArmsParameter(), modelBiped, this,
+			        modelBiped.bipedBody, bipedBodyWear, modelBiped.bipedHead,
+			        modelBiped.bipedHeadwear, modelBiped.bipedRightArm, bipedRightArmwear,
+			        modelBiped.bipedLeftArm, bipedLeftArmwear, modelBiped.bipedRightLeg,
+			        bipedRightLegwear, modelBiped.bipedLeftLeg, bipedLeftLegwear, bipedCape,
+			        bipedDeadmau5Head);
 		}
 		return model;
 	}
 
 	@Override
-	public void render(Entity entity, float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
-		getRenderModel().render(entity, totalHorizontalDistance,
-				currentHorizontalSpeed, totalTime, viewHorizontalAngelOffset,
-				viewVerticalAngelOffset, factor);
+	public void render(Entity entity, float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
+		getRenderModel().render(entity, totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
 	}
 
 	@Override
 	public void superRender(Entity entity, float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
-		super.render(entity, totalHorizontalDistance, currentHorizontalSpeed,
-				totalTime, viewHorizontalAngelOffset, viewVerticalAngelOffset,
-				factor);
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
+		super.render(entity, totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
 	}
 
 	@Override
-	public void initialize(SRModelRotationRenderer bipedBody,
-			SRModelRotationRenderer bipedBodywear,
-			SRModelRotationRenderer bipedHead,
-			SRModelRotationRenderer bipedHeadwear,
-			SRModelRotationRenderer bipedRightArm,
-			SRModelRotationRenderer bipedRightArmwear,
-			SRModelRotationRenderer bipedLeftArm,
-			SRModelRotationRenderer bipedLeftArmwear,
-			SRModelRotationRenderer bipedRightLeg,
-			SRModelRotationRenderer bipedRightLegwear,
-			SRModelRotationRenderer bipedLeftLeg,
-			SRModelRotationRenderer bipedLeftLegwear,
-			SRModelCapeRenderer bipedCloak, SRModelEarsRenderer bipedEars) {
+	public void initialize(SRModelRotationRenderer bipedBody, SRModelRotationRenderer bipedBodywear,
+	        SRModelRotationRenderer bipedHead, SRModelRotationRenderer bipedHeadwear,
+	        SRModelRotationRenderer bipedRightArm, SRModelRotationRenderer bipedRightArmwear,
+	        SRModelRotationRenderer bipedLeftArm, SRModelRotationRenderer bipedLeftArmwear,
+	        SRModelRotationRenderer bipedRightLeg, SRModelRotationRenderer bipedRightLegwear,
+	        SRModelRotationRenderer bipedLeftLeg, SRModelRotationRenderer bipedLeftLegwear,
+	        SRModelCapeRenderer bipedCloak, SRModelEarsRenderer bipedEars) {
 		modelBiped.bipedBody = bipedBody;
 		modelBiped.bipedHead = bipedHead;
 		modelBiped.bipedRightArm = bipedRightArm;
@@ -120,23 +101,19 @@ public class SRModelPlayerBase extends ModelPlayerBase implements IModelPlayer {
 	}
 
 	@Override
-	public void setRotationAngles(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor, Entity entity) {
-		getRenderModel().setRotationAngles(totalHorizontalDistance,
-				currentHorizontalSpeed, totalTime, viewHorizontalAngelOffset,
-				viewVerticalAngelOffset, factor, entity);
+	public void setRotationAngles(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor, Entity entity) {
+		getRenderModel().setRotationAngles(totalHorizontalDistance, currentHorizontalSpeed,
+		        totalTime, viewHorizontalAngelOffset, viewVerticalAngelOffset, factor, entity);
 	}
 
 	@Override
-	public void superSetRotationAngles(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor, Entity entity) {
-		super.setRotationAngles(totalHorizontalDistance, currentHorizontalSpeed,
-				totalTime, viewHorizontalAngelOffset, viewVerticalAngelOffset,
-				factor, entity);
+	public void superSetRotationAngles(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor, Entity entity) {
+		super.setRotationAngles(totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor, entity);
 	}
 
 	@Override
@@ -235,202 +212,167 @@ public class SRModelPlayerBase extends ModelPlayerBase implements IModelPlayer {
 	}
 
 	@Override
-	public void animateHeadRotation(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateHeadRotation(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		modelPlayerAPI.dynamic("animateHeadRotation",
-				new Object[] { totalHorizontalDistance, currentHorizontalSpeed,
-						totalTime, viewHorizontalAngelOffset,
-						viewVerticalAngelOffset, factor });
+		        new Object[] { totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		                viewHorizontalAngelOffset, viewVerticalAngelOffset, factor });
 	}
 
 	public void dynamicVirtualAnimateHeadRotation(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
-		getRenderModel().animateHeadRotation(viewHorizontalAngelOffset,
-				viewVerticalAngelOffset);
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
+		getRenderModel().animateHeadRotation(viewHorizontalAngelOffset, viewVerticalAngelOffset);
 	}
 
 	@Override
-	public void animateSleeping(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateSleeping(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		modelPlayerAPI.dynamic("animateSleeping",
-				new Object[] { totalHorizontalDistance, currentHorizontalSpeed,
-						totalTime, viewHorizontalAngelOffset,
-						viewVerticalAngelOffset, factor });
+		        new Object[] { totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		                viewHorizontalAngelOffset, viewVerticalAngelOffset, factor });
 	}
 
 	public void dynamicVirtualAnimateSleeping(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
 		getRenderModel().animateSleeping();
 	}
 
 	@Override
-	public void animateArmSwinging(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateArmSwinging(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		modelPlayerAPI.dynamic("animateArmSwinging",
-				new Object[] { totalHorizontalDistance, currentHorizontalSpeed,
-						totalTime, viewHorizontalAngelOffset,
-						viewVerticalAngelOffset, factor });
+		        new Object[] { totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		                viewHorizontalAngelOffset, viewVerticalAngelOffset, factor });
 	}
 
 	public void dynamicVirtualAnimateArmSwinging(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
-		getRenderModel().animateArmSwinging(totalHorizontalDistance,
-				currentHorizontalSpeed);
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
+		getRenderModel().animateArmSwinging(totalHorizontalDistance, currentHorizontalSpeed);
 	}
 
 	@Override
-	public void animateRiding(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateRiding(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		modelPlayerAPI.dynamic("animateRiding",
-				new Object[] { totalHorizontalDistance, currentHorizontalSpeed,
-						totalTime, viewHorizontalAngelOffset,
-						viewVerticalAngelOffset, factor });
+		        new Object[] { totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		                viewHorizontalAngelOffset, viewVerticalAngelOffset, factor });
 	}
 
 	public void dynamicVirtualAnimateRiding(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
 		getRenderModel().animateRiding();
 	}
 
 	@Override
 	public void animateLeftArmItemHolding(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
 		modelPlayerAPI.dynamic("animateLeftArmItemHolding",
-				new Object[] { totalHorizontalDistance, currentHorizontalSpeed,
-						totalTime, viewHorizontalAngelOffset,
-						viewVerticalAngelOffset, factor });
+		        new Object[] { totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		                viewHorizontalAngelOffset, viewVerticalAngelOffset, factor });
 	}
 
-	public void dynamicVirtualAnimateLeftArmItemHolding(
-			float totalHorizontalDistance, float currentHorizontalSpeed,
-			float totalTime, float viewHorizontalAngelOffset,
-			float viewVerticalAngelOffset, float factor) {
+	public void dynamicVirtualAnimateLeftArmItemHolding(float totalHorizontalDistance,
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
 		getRenderModel().animateLeftArmItemHolding();
 	}
 
 	@Override
 	public void animateRightArmItemHolding(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
 		modelPlayerAPI.dynamic("animateRightArmItemHolding",
-				new Object[] { totalHorizontalDistance, currentHorizontalSpeed,
-						totalTime, viewHorizontalAngelOffset,
-						viewVerticalAngelOffset, factor });
+		        new Object[] { totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		                viewHorizontalAngelOffset, viewVerticalAngelOffset, factor });
 	}
 
-	public void dynamicVirtualAnimateRightArmItemHolding(
-			float totalHorizontalDistance, float currentHorizontalSpeed,
-			float totalTime, float viewHorizontalAngelOffset,
-			float viewVerticalAngelOffset, float factor) {
+	public void dynamicVirtualAnimateRightArmItemHolding(float totalHorizontalDistance,
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
 		getRenderModel().animateRightArmItemHolding();
 	}
 
 	@Override
-	public void animateWorkingBody(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateWorkingBody(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		modelPlayerAPI.dynamic("animateWorkingBody",
-				new Object[] { totalHorizontalDistance, currentHorizontalSpeed,
-						totalTime, viewHorizontalAngelOffset,
-						viewVerticalAngelOffset, factor });
+		        new Object[] { totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		                viewHorizontalAngelOffset, viewVerticalAngelOffset, factor });
 	}
 
 	public void dynamicVirtualAnimateWorkingBody(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
 		getRenderModel().animateWorkingBody();
 	}
 
 	@Override
-	public void animateWorkingArms(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateWorkingArms(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		modelPlayerAPI.dynamic("animateWorkingArms",
-				new Object[] { totalHorizontalDistance, currentHorizontalSpeed,
-						totalTime, viewHorizontalAngelOffset,
-						viewVerticalAngelOffset, factor });
+		        new Object[] { totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		                viewHorizontalAngelOffset, viewVerticalAngelOffset, factor });
 	}
 
 	public void dynamicVirtualAnimateWorkingArms(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
 		getRenderModel().animateWorkingArms();
 	}
 
 	@Override
-	public void animateSneaking(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateSneaking(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		modelPlayerAPI.dynamic("animateSneaking",
-				new Object[] { totalHorizontalDistance, currentHorizontalSpeed,
-						totalTime, viewHorizontalAngelOffset,
-						viewVerticalAngelOffset, factor });
+		        new Object[] { totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		                viewHorizontalAngelOffset, viewVerticalAngelOffset, factor });
 	}
 
 	public void dynamicVirtualAnimateSneaking(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
 		getRenderModel().animateSneaking();
 	}
 
 	@Override
-	public void animateArms(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateArms(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		modelPlayerAPI.dynamic("animateArms",
-				new Object[] { totalHorizontalDistance, currentHorizontalSpeed,
-						totalTime, viewHorizontalAngelOffset,
-						viewVerticalAngelOffset, factor });
+		        new Object[] { totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		                viewHorizontalAngelOffset, viewVerticalAngelOffset, factor });
 	}
 
 	public void dynamicVirtualAnimateArms(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
 		getRenderModel().animateArms(totalTime);
 	}
 
 	@Override
-	public void animateBowAiming(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	public void animateBowAiming(float totalHorizontalDistance, float currentHorizontalSpeed,
+	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
+	        float factor) {
 		modelPlayerAPI.dynamic("animateBowAiming",
-				new Object[] { totalHorizontalDistance, currentHorizontalSpeed,
-						totalTime, viewHorizontalAngelOffset,
-						viewVerticalAngelOffset, factor });
+		        new Object[] { totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+		                viewHorizontalAngelOffset, viewVerticalAngelOffset, factor });
 	}
 
 	public void dynamicVirtualAnimateBowAiming(float totalHorizontalDistance,
-			float currentHorizontalSpeed, float totalTime,
-			float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-			float factor) {
+	        float currentHorizontalSpeed, float totalTime, float viewHorizontalAngelOffset,
+	        float viewVerticalAngelOffset, float factor) {
 		getRenderModel().animateBowAiming(totalTime);
 	}
 }

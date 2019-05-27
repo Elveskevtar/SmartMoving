@@ -17,12 +17,13 @@
 
 package net.smart.render.statistics;
 
-import java.util.*;
+import java.util.Hashtable;
+import java.util.Iterator;
 
-import net.minecraft.client.*;
-import net.minecraft.client.entity.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityOtherPlayerMP;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 
 public class SmartStatisticsFactory {
 	private static SmartStatisticsFactory factory;
@@ -32,7 +33,7 @@ public class SmartStatisticsFactory {
 	public SmartStatisticsFactory() {
 		if (factory != null)
 			throw new RuntimeException(
-					"FATAL: Can only create one instance of type 'StatisticsFactory'");
+			        "FATAL: Can only create one instance of type 'StatisticsFactory'");
 		factory = this;
 	}
 
@@ -57,8 +58,7 @@ public class SmartStatisticsFactory {
 		return factory.doGetOtherStatistics(entityId);
 	}
 
-	public static SmartStatisticsOther getOtherStatistics(
-			EntityOtherPlayerMP entity) {
+	public static SmartStatisticsOther getOtherStatistics(EntityOtherPlayerMP entity) {
 		return factory.doGetOtherStatistics(entity);
 	}
 
@@ -68,8 +68,7 @@ public class SmartStatisticsFactory {
 			Entity player = (Entity) others.next();
 			if (player instanceof EntityOtherPlayerMP) {
 				EntityOtherPlayerMP otherPlayer = (EntityOtherPlayerMP) player;
-				SmartStatisticsOther statistics = doGetOtherStatistics(
-						otherPlayer);
+				SmartStatisticsOther statistics = doGetOtherStatistics(otherPlayer);
 				statistics.calculateAllStats(true);
 				statistics.foundAlive = true;
 			}
@@ -100,18 +99,15 @@ public class SmartStatisticsFactory {
 	protected SmartStatisticsOther doGetOtherStatistics(int entityId) {
 		SmartStatisticsOther statistics = tryGetOtherStatistics(entityId);
 		if (statistics == null) {
-			Entity entity = Minecraft.getMinecraft().world
-					.getEntityByID(entityId);
+			Entity entity = Minecraft.getMinecraft().world.getEntityByID(entityId);
 			if (entity != null && entity instanceof EntityOtherPlayerMP)
 				statistics = addOtherStatistics((EntityOtherPlayerMP) entity);
 		}
 		return statistics;
 	}
 
-	protected SmartStatisticsOther doGetOtherStatistics(
-			EntityOtherPlayerMP entity) {
-		SmartStatisticsOther statistics = tryGetOtherStatistics(
-				entity.getEntityId());
+	protected SmartStatisticsOther doGetOtherStatistics(EntityOtherPlayerMP entity) {
+		SmartStatisticsOther statistics = tryGetOtherStatistics(entity.getEntityId());
 		if (statistics == null)
 			statistics = addOtherStatistics(entity);
 		return statistics;
@@ -123,8 +119,7 @@ public class SmartStatisticsFactory {
 		return otherStatistics.get(entityId);
 	}
 
-	protected final SmartStatisticsOther addOtherStatistics(
-			EntityOtherPlayerMP entity) {
+	protected final SmartStatisticsOther addOtherStatistics(EntityOtherPlayerMP entity) {
 		SmartStatisticsOther statistics = new SmartStatisticsOther(entity);
 		otherStatistics.put(entity.getEntityId(), statistics);
 		return statistics;

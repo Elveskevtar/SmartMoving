@@ -56,10 +56,4 @@ public class SRMod {
 	public void tickStart(ClientTickEvent event) {
 		SmartStatisticsContext.onTickInGame();
 	}
-
-	public static SRModelPlayerBase getPlayerBase(
-			net.minecraft.client.model.ModelBiped modelPlayer) {
-		return (SRModelPlayerBase) ((IModelPlayerAPI) modelPlayer)
-				.getModelPlayerBase(SRInfo.ModName);
-	}
 }

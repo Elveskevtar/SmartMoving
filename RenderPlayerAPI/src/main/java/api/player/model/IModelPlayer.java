@@ -201,5 +201,4 @@ public interface IModelPlayer
 	int getTextureWidthField();
 
 	void setTextureWidthField(int textureWidth);
-
 }

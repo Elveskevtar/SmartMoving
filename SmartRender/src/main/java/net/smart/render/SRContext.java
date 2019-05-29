@@ -21,9 +21,7 @@ import api.player.model.IModelPlayerAPI;
 import net.smart.render.model.SRModelPlayerBase;
 
 public class SRContext {
-	public static SRModelPlayerBase getPlayerBase(
-	        net.minecraft.client.model.ModelBiped modelPlayer) {
-		return (SRModelPlayerBase) ((IModelPlayerAPI) modelPlayer)
-		        .getModelPlayerBase(SRInfo.ModName);
+	public static SRModelPlayerBase getPlayerBase(net.minecraft.client.model.ModelBiped modelPlayer) {
+		return (SRModelPlayerBase) ((IModelPlayerAPI) modelPlayer).getModelPlayerBase(SRInfo.ModName);
 	}
 }

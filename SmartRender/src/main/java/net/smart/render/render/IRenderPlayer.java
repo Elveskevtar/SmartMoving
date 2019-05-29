@@ -29,13 +29,12 @@ public interface IRenderPlayer {
 	void initialize(ModelPlayer modelBipedMain, ModelBiped mb);
 
 	void superDoRender(AbstractClientPlayer entityplayer, double d, double d1, double d2, float f,
-	        float renderPartialTicks);
+			float renderPartialTicks);
 
-	void superRotateCorpse(AbstractClientPlayer entityplayer, float totalTime, float actualRotation,
-	        float f2);
+	void superRotateCorpse(AbstractClientPlayer entityplayer, float totalTime, float actualRotation, float f2);
 
-	void superRenderSpecials(AbstractClientPlayer entityPlayer, float f1, float f2, float f3,
-	        float f4, float f5, float f6, float f7);
+	void superRenderSpecials(AbstractClientPlayer entityPlayer, float f1, float f2, float f3, float f4, float f5,
+			float f6, float f7);
 
 	RenderManager getRenderRenderManager();
 

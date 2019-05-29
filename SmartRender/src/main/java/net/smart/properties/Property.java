@@ -149,8 +149,7 @@ public class Property<T> {
 	}
 
 	public Property<Integer> toKeyCode(Integer defaultValue) {
-		return new Property<Integer>(this, ToKeyCode, null)
-				.defaults(defaultValue);
+		return new Property<Integer>(this, ToKeyCode, null).defaults(defaultValue);
 	}
 
 	public Property<T> depends(Property<Boolean>... conditions) {
@@ -163,8 +162,7 @@ public class Property<T> {
 		return this;
 	}
 
-	public Property<T> values(Object defaultValue, Object minValue,
-			Object maxValue) {
+	public Property<T> values(Object defaultValue, Object minValue, Object maxValue) {
 		return defaults(defaultValue).range(minValue, maxValue);
 	}
 
@@ -265,20 +263,17 @@ public class Property<T> {
 
 		if (type == Properties.Operator) {
 			if (operator == EitherOr) {
-				if (getValue(left) == null || getValue(right) == null
-						|| getValue(local) == null)
+				if (getValue(left) == null || getValue(right) == null || getValue(local) == null)
 					return false;
 			}
 
-			if (operator == Is || operator == And || operator == Or
-					|| operator == Plus || operator == Maximum
+			if (operator == Is || operator == And || operator == Or || operator == Plus || operator == Maximum
 					|| operator == Minimum) {
 				if (getValue(left) == null || getValue(right) == null)
 					return false;
 			}
 
-			if (operator == Not || operator == ToKeyName
-					|| operator == ToKeyCode) {
+			if (operator == Not || operator == ToKeyName || operator == ToKeyCode) {
 				if (getValue(left) == null)
 					return false;
 			}
@@ -295,8 +290,7 @@ public class Property<T> {
 			else if (operator == Plus)
 				operatorValue = getValue(left).plus(getValue(right));
 			else if (operator == EitherOr)
-				operatorValue = getValue(local).eitherOr(getValue(left),
-						getValue(right));
+				operatorValue = getValue(local).eitherOr(getValue(left), getValue(right));
 			else if (operator == Maximum)
 				operatorValue = getValue(left).maximum(getValue(right));
 			else if (operator == Minimum)
@@ -307,8 +301,7 @@ public class Property<T> {
 				operatorValue = getValue(left).toKeyCode();
 
 			if (operatorValue == null)
-				throw new RuntimeException(
-						"Unknown operator '" + operator + "' found");
+				throw new RuntimeException("Unknown operator '" + operator + "' found");
 
 			return set(getValue(operatorValue));
 		}
@@ -338,14 +331,12 @@ public class Property<T> {
 			Object source = getVersionSource(properties.version);
 			if (source != null) {
 				String key = getKey(source);
-				aquiredValue = key != null ? getPropertyValue(properties, key)
-						: getValue(source);
+				aquiredValue = key != null ? getPropertyValue(properties, key) : getValue(source);
 				if (aquiredValue != null) {
 					Value<T> initValue = aquiredValue.clone();
 					if (depends != null)
 						for (int n = 0; n < depends.size(); n++)
-							initValue.withDependency(getValue(depends.get(n)),
-									defaultValue);
+							initValue.withDependency(getValue(depends.get(n)), defaultValue);
 
 					if (minObject != null)
 						initValue.withMinimum(minValue, defaultValue);
@@ -367,8 +358,7 @@ public class Property<T> {
 		return true;
 	}
 
-	private static Map<String, Object> addVersioned(
-			Map<String, Object> versioned, Object value, String... versions) {
+	private static Map<String, Object> addVersioned(Map<String, Object> versioned, Object value, String... versions) {
 		if (versioned == null)
 			versioned = new Hashtable<String, Object>(1);
 
@@ -451,14 +441,13 @@ public class Property<T> {
 			stringToParse = propertyString.trim();
 			explicitlyModified = stringToParse.endsWith("!");
 			if (explicitlyModified)
-				stringToParse = stringToParse.substring(0,
-						stringToParse.length() - 1);
+				stringToParse = stringToParse.substring(0, stringToParse.length() - 1);
 			stringToParse = stringToParse.trim();
 		}
 
 		Value<T> value = parsePropertyValue(stringToParse);
-		implicitlyModified = stringToParse != null && (value == null || !value
-				.equals(getValue(getDefaultValue(properties.version))));
+		implicitlyModified = stringToParse != null
+				&& (value == null || !value.equals(getValue(getDefaultValue(properties.version))));
 		if (!explicitlyModified && !implicitlyModified)
 			return getValue(getDefaultValue());
 		return value;
@@ -470,8 +459,7 @@ public class Property<T> {
 		return null;
 	}
 
-	public boolean print(PrintWriter printer, String[] sorted, String version,
-			boolean comments) {
+	public boolean print(PrintWriter printer, String[] sorted, String version, boolean comments) {
 		if (!isPersistent() || systemValue == null)
 			return false;
 
@@ -505,13 +493,9 @@ public class Property<T> {
 			printer.print("Could not interpret string \"");
 			printer.print(unparsableString);
 			printer.print("\" as ");
-			printer.print(
-					Properties.getBaseTypeName(Properties.getBaseType(type)));
+			printer.print(Properties.getBaseTypeName(Properties.getBaseType(type)));
 			printer.print(" value, used ");
-			printer.print(
-					!aquiredString.isEmpty() && aquiredValue.get(null) != null
-							? "local"
-							: "system");
+			printer.print(!aquiredString.isEmpty() && aquiredValue.get(null) != null ? "local" : "system");
 			printer.print(" default");
 			printValuePostfix(printer, null);
 			printErrorPostfix(printer);
@@ -548,8 +532,7 @@ public class Property<T> {
 				// local keyed value "parsedSingleValue" invalid
 			}
 
-			if (Properties.getBaseType(type) == Properties.Boolean
-					&& depends != null && !depends.isEmpty()) {
+			if (Properties.getBaseType(type) == Properties.Boolean && depends != null && !depends.isEmpty()) {
 				String dependKey = null;
 				for (int i = 0; i < depends.size(); i++) {
 					Property<Boolean> depend = depends.get(i);
@@ -576,8 +559,7 @@ public class Property<T> {
 					printer.print(dependKey);
 					printer.print("\" is \"false\"");
 				} else
-					printer.print(
-							"one of the restricting expressions evaluated to \"false\"");
+					printer.print("one of the restricting expressions evaluated to \"false\"");
 
 				printWarnPostfix(printer);
 				error = true;
@@ -586,11 +568,9 @@ public class Property<T> {
 				printValuePrefix(printer, key);
 				printer.print("was out of range, used ");
 
-				if (minValue != null
-						&& usedSingleValue.equals(minValue.get(key)))
+				if (minValue != null && usedSingleValue.equals(minValue.get(key)))
 					printer.print("minimum");
-				else if (maxValue != null
-						&& usedSingleValue.equals(maxValue.get(key)))
+				else if (maxValue != null && usedSingleValue.equals(maxValue.get(key)))
 					printer.print("maximum");
 				else
 					printer.print("in-range");
@@ -605,15 +585,13 @@ public class Property<T> {
 		return true;
 	}
 
-	private void printValue(PrintWriter printer, String[] sorted,
-			boolean error) {
+	private void printValue(PrintWriter printer, String[] sorted, boolean error) {
 		printer.print(getCurrentKey());
 		printer.print(":");
 
 		if (aquiredString != null && (error || explicitlyModified))
 			printer.print(aquiredString);
-		else if (implicitlyModified
-				&& systemValue.equals(getValue(getDefaultValue()))) {
+		else if (implicitlyModified && systemValue.equals(getValue(getDefaultValue()))) {
 			printer.print(aquiredString);
 			printer.print("!");
 		} else
@@ -650,8 +628,7 @@ public class Property<T> {
 		printer.println();
 	}
 
-	private static void printSeparation(PrintWriter printer, char seperator,
-			int length) {
+	private static void printSeparation(PrintWriter printer, char seperator, int length) {
 		printer.print("# ");
 		for (int i = 0; i < length; i++)
 			printer.print(seperator);
@@ -674,9 +651,8 @@ public class Property<T> {
 
 	private void printValuePostfix(PrintWriter printer, String key) {
 		printer.print(" value \"");
-		printer.print(aquiredString == null || aquiredString.isEmpty()
-				? getValue(getDefaultValue())
-				: getKeyValue(key));
+		printer.print(
+				aquiredString == null || aquiredString.isEmpty() ? getValue(getDefaultValue()) : getKeyValue(key));
 		printer.print("\" instead");
 	}
 

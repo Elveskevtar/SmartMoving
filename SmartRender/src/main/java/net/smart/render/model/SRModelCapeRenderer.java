@@ -29,8 +29,8 @@ public class SRModelCapeRenderer extends SRModelSpecialRenderer {
 	private EntityPlayer entityplayer;
 	private float setFactor;
 
-	public SRModelCapeRenderer(ModelBase modelBase, int i, int j,
-	        SRModelRotationRenderer baseRenderer, SRModelRotationRenderer outerRenderer) {
+	public SRModelCapeRenderer(ModelBase modelBase, int i, int j, SRModelRotationRenderer baseRenderer,
+			SRModelRotationRenderer outerRenderer) {
 		super(modelBase, i, j, baseRenderer);
 		outer = outerRenderer;
 	}
@@ -50,16 +50,16 @@ public class SRModelCapeRenderer extends SRModelSpecialRenderer {
 		super.preTransform(factor, push);
 
 		double d = (entityplayer.prevChasingPosX
-		        + (entityplayer.chasingPosX - entityplayer.prevChasingPosX) * setFactor)
-		        - (entityplayer.prevPosX + (entityplayer.posX - entityplayer.prevPosX) * setFactor);
+				+ (entityplayer.chasingPosX - entityplayer.prevChasingPosX) * setFactor)
+				- (entityplayer.prevPosX + (entityplayer.posX - entityplayer.prevPosX) * setFactor);
 		double d1 = (entityplayer.prevChasingPosY
-		        + (entityplayer.chasingPosY - entityplayer.prevChasingPosY) * setFactor)
-		        - (entityplayer.prevPosY + (entityplayer.posY - entityplayer.prevPosY) * setFactor);
+				+ (entityplayer.chasingPosY - entityplayer.prevChasingPosY) * setFactor)
+				- (entityplayer.prevPosY + (entityplayer.posY - entityplayer.prevPosY) * setFactor);
 		double d2 = (entityplayer.prevChasingPosZ
-		        + (entityplayer.chasingPosZ - entityplayer.prevChasingPosZ) * setFactor)
-		        - (entityplayer.prevPosZ + (entityplayer.posZ - entityplayer.prevPosZ) * setFactor);
+				+ (entityplayer.chasingPosZ - entityplayer.prevChasingPosZ) * setFactor)
+				- (entityplayer.prevPosZ + (entityplayer.posZ - entityplayer.prevPosZ) * setFactor);
 		float f1 = entityplayer.prevRenderYawOffset
-		        + (entityplayer.renderYawOffset - entityplayer.prevRenderYawOffset) * setFactor;
+				+ (entityplayer.renderYawOffset - entityplayer.prevRenderYawOffset) * setFactor;
 		double d3 = MathHelper.sin((f1 * 3.141593F) / 180F);
 		double d4 = -MathHelper.cos((f1 * 3.141593F) / 180F);
 		float f2 = (float) d1 * 10F;
@@ -74,12 +74,10 @@ public class SRModelCapeRenderer extends SRModelSpecialRenderer {
 		if (f3 < 0.0F) {
 			f3 = 0.0F;
 		}
-		float f5 = entityplayer.prevCameraYaw
-		        + (entityplayer.cameraYaw - entityplayer.prevCameraYaw) * setFactor;
+		float f5 = entityplayer.prevCameraYaw + (entityplayer.cameraYaw - entityplayer.prevCameraYaw) * setFactor;
 		f2 += MathHelper.sin((entityplayer.prevDistanceWalkedModified
-		        + (entityplayer.distanceWalkedModified - entityplayer.prevDistanceWalkedModified)
-		                * setFactor)
-		        * 6F) * 32F * f5;
+				+ (entityplayer.distanceWalkedModified - entityplayer.prevDistanceWalkedModified) * setFactor) * 6F)
+				* 32F * f5;
 
 		if (entityplayer.isSneaking()) {
 			GlStateManager.translate(0.0F, 0.009F, 0.044F);

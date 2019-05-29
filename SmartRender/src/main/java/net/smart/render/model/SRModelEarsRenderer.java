@@ -27,8 +27,7 @@ public class SRModelEarsRenderer extends SRModelSpecialRenderer {
 	private int _i = 0;
 	private EntityPlayer entityplayer;
 
-	public SRModelEarsRenderer(ModelBase modelBase, int i, int j,
-	        SRModelRotationRenderer baseRenderer) {
+	public SRModelEarsRenderer(ModelBase modelBase, int i, int j, SRModelRotationRenderer baseRenderer) {
 		super(modelBase, i, j, baseRenderer);
 	}
 
@@ -47,10 +46,10 @@ public class SRModelEarsRenderer extends SRModelSpecialRenderer {
 	public void preTransform(float factor, boolean push) {
 		if (entityplayer.isSneaking())
 			GL11.glTranslated(0.0F,
-			        0.2F * (entityplayer instanceof EntityPlayerSP
-			                ? Math.cos(entityplayer.rotationPitch / RadiantToAngle)
-			                : 1),
-			        0.0F);
+					0.2F * (entityplayer instanceof EntityPlayerSP
+							? Math.cos(entityplayer.rotationPitch / RadiantToAngle)
+							: 1),
+					0.0F);
 
 		super.preTransform(factor, push);
 

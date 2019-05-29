@@ -89,18 +89,17 @@ public class SRModel {
 	public boolean isSleeping;
 
 	private static final Field _textureOffsetX = Reflect.GetField(ModelRenderer.class,
-	        SRInstall.ModelRenderer_textureOffsetX);
+			SRInstall.ModelRenderer_textureOffsetX);
 	private static final Field _textureOffsetY = Reflect.GetField(ModelRenderer.class,
-	        SRInstall.ModelRenderer_textureOffsetY);
+			SRInstall.ModelRenderer_textureOffsetY);
 
 	public SRModel(boolean b, ModelBiped mb, IModelPlayer imp, ModelRenderer originalBipedBody,
-	        ModelRenderer originalBipedBodywear, ModelRenderer originalBipedHead,
-	        ModelRenderer originalBipedHeadwear, ModelRenderer originalBipedRightArm,
-	        ModelRenderer originalBipedRightArmwear, ModelRenderer originalBipedLeftArm,
-	        ModelRenderer originalBipedLeftArmwear, ModelRenderer originalBipedRightLeg,
-	        ModelRenderer originalBipedRightLegwear, ModelRenderer originalBipedLeftLeg,
-	        ModelRenderer originalBipedLeftLegwear, ModelRenderer originalBipedCape,
-	        ModelRenderer originalBipedDeadmau5Head) {
+			ModelRenderer originalBipedBodywear, ModelRenderer originalBipedHead, ModelRenderer originalBipedHeadwear,
+			ModelRenderer originalBipedRightArm, ModelRenderer originalBipedRightArmwear,
+			ModelRenderer originalBipedLeftArm, ModelRenderer originalBipedLeftArmwear,
+			ModelRenderer originalBipedRightLeg, ModelRenderer originalBipedRightLegwear,
+			ModelRenderer originalBipedLeftLeg, ModelRenderer originalBipedLeftLegwear, ModelRenderer originalBipedCape,
+			ModelRenderer originalBipedDeadmau5Head) {
 		this.imp = imp;
 		this.mp = mb;
 
@@ -145,9 +144,9 @@ public class SRModel {
 
 		reset(); // set default rotation points
 
-		imp.initialize(bipedBody, bipedBodywear, bipedHead, bipedHeadwear, bipedRightArm,
-		        bipedRightArmwear, bipedLeftArm, bipedLeftArmwear, bipedRightLeg, bipedRightLegwear,
-		        bipedLeftLeg, bipedLeftLegwear, bipedCloak, bipedEars);
+		imp.initialize(bipedBody, bipedBodywear, bipedHead, bipedHeadwear, bipedRightArm, bipedRightArmwear,
+				bipedLeftArm, bipedLeftArmwear, bipedRightLeg, bipedRightLegwear, bipedLeftLeg, bipedLeftLegwear,
+				bipedCloak, bipedEars);
 
 		if (SRRenderer.CurrentMainModel != null) {
 			isInventory = SRRenderer.CurrentMainModel.isInventory;
@@ -182,8 +181,7 @@ public class SRModel {
 
 		int textureOffsetX = (int) Reflect.GetField(_textureOffsetX, original);
 		int textureOffsetY = (int) Reflect.GetField(_textureOffsetY, original);
-		SRModelRotationRenderer local = new SRModelRotationRenderer(mp, textureOffsetX,
-		        textureOffsetY, base);
+		SRModelRotationRenderer local = new SRModelRotationRenderer(mp, textureOffsetX, textureOffsetY, base);
 		copy(local, original);
 		return local;
 	}
@@ -200,9 +198,8 @@ public class SRModel {
 		local.showModel = original.showModel;
 	}
 
-	public void render(Entity entity, float totalHorizontalDistance, float currentHorizontalSpeed,
-	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-	        float factor) {
+	public void render(Entity entity, float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor) {
 		GL11.glPushMatrix();
 		if (entity.isSneaking())
 			GL11.glTranslatef(0.0F, 0.2F, 0.0F);
@@ -210,8 +207,8 @@ public class SRModel {
 		bipedBody.ignoreRender = bipedHead.ignoreRender = bipedRightArm.ignoreRender = bipedLeftArm.ignoreRender = bipedRightLeg.ignoreRender = bipedLeftLeg.ignoreRender = true;
 		if (isModelPlayer)
 			bipedBodywear.ignoreRender = bipedHeadwear.ignoreRender = bipedRightArmwear.ignoreRender = bipedLeftArmwear.ignoreRender = bipedRightLegwear.ignoreRender = bipedLeftLegwear.ignoreRender = true;
-		imp.superRender(entity, totalHorizontalDistance, currentHorizontalSpeed, totalTime,
-		        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
+		imp.superRender(entity, totalHorizontalDistance, currentHorizontalSpeed, totalTime, viewHorizontalAngelOffset,
+				viewVerticalAngelOffset, factor);
 		if (isModelPlayer)
 			bipedBodywear.ignoreRender = bipedHeadwear.ignoreRender = bipedRightArmwear.ignoreRender = bipedLeftArmwear.ignoreRender = bipedRightLegwear.ignoreRender = bipedLeftLegwear.ignoreRender = false;
 		bipedBody.ignoreRender = bipedHead.ignoreRender = bipedRightArm.ignoreRender = bipedLeftArm.ignoreRender = bipedRightLeg.ignoreRender = bipedLeftLeg.ignoreRender = false;
@@ -243,9 +240,8 @@ public class SRModel {
 		GL11.glPopMatrix();
 	}
 
-	public void setRotationAngles(float totalHorizontalDistance, float currentHorizontalSpeed,
-	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-	        float factor, Entity entity) {
+	public void setRotationAngles(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor, Entity entity) {
 		reset();
 
 		if (isInventory) {
@@ -291,7 +287,7 @@ public class SRModel {
 			bipedLeftLeg.setRotationPoint(2.0F, 12F, 0.0F);
 
 			imp.superSetRotationAngles(totalHorizontalDistance, currentHorizontalSpeed, totalTime,
-			        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor, entity);
+					viewHorizontalAngelOffset, viewVerticalAngelOffset, factor, entity);
 			return;
 		}
 
@@ -306,45 +302,45 @@ public class SRModel {
 		bipedOuter.rotateAngleY = actualRotation / SRUtilities.RadiantToAngle;
 		bipedOuter.fadeRotateAngleY = !entity.isRiding();
 
-		imp.animateHeadRotation(totalHorizontalDistance, currentHorizontalSpeed, totalTime,
-		        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
+		imp.animateHeadRotation(totalHorizontalDistance, currentHorizontalSpeed, totalTime, viewHorizontalAngelOffset,
+				viewVerticalAngelOffset, factor);
 
 		if (isSleeping)
-			imp.animateSleeping(totalHorizontalDistance, currentHorizontalSpeed, totalTime,
-			        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
+			imp.animateSleeping(totalHorizontalDistance, currentHorizontalSpeed, totalTime, viewHorizontalAngelOffset,
+					viewVerticalAngelOffset, factor);
 
-		imp.animateArmSwinging(totalHorizontalDistance, currentHorizontalSpeed, totalTime,
-		        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
+		imp.animateArmSwinging(totalHorizontalDistance, currentHorizontalSpeed, totalTime, viewHorizontalAngelOffset,
+				viewVerticalAngelOffset, factor);
 
 		if (mp.isRiding)
-			imp.animateRiding(totalHorizontalDistance, currentHorizontalSpeed, totalTime,
-			        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
+			imp.animateRiding(totalHorizontalDistance, currentHorizontalSpeed, totalTime, viewHorizontalAngelOffset,
+					viewVerticalAngelOffset, factor);
 
 		if (mp.leftArmPose != ArmPose.EMPTY)
-			imp.animateLeftArmItemHolding(totalHorizontalDistance, currentHorizontalSpeed,
-			        totalTime, viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
+			imp.animateLeftArmItemHolding(totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+					viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
 
 		if (mp.rightArmPose != ArmPose.EMPTY)
-			imp.animateRightArmItemHolding(totalHorizontalDistance, currentHorizontalSpeed,
-			        totalTime, viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
+			imp.animateRightArmItemHolding(totalHorizontalDistance, currentHorizontalSpeed, totalTime,
+					viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
 
 		if (mp.swingProgress > -9990F) {
 			imp.animateWorkingBody(totalHorizontalDistance, currentHorizontalSpeed, totalTime,
-			        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
+					viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
 			imp.animateWorkingArms(totalHorizontalDistance, currentHorizontalSpeed, totalTime,
-			        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
+					viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
 		}
 
 		if (mp.isSneak)
-			imp.animateSneaking(totalHorizontalDistance, currentHorizontalSpeed, totalTime,
-			        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
+			imp.animateSneaking(totalHorizontalDistance, currentHorizontalSpeed, totalTime, viewHorizontalAngelOffset,
+					viewVerticalAngelOffset, factor);
 
-		imp.animateArms(totalHorizontalDistance, currentHorizontalSpeed, totalTime,
-		        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
+		imp.animateArms(totalHorizontalDistance, currentHorizontalSpeed, totalTime, viewHorizontalAngelOffset,
+				viewVerticalAngelOffset, factor);
 
 		if (mp.rightArmPose == ArmPose.BOW_AND_ARROW || mp.leftArmPose == ArmPose.BOW_AND_ARROW)
-			imp.animateBowAiming(totalHorizontalDistance, currentHorizontalSpeed, totalTime,
-			        viewHorizontalAngelOffset, viewVerticalAngelOffset, factor);
+			imp.animateBowAiming(totalHorizontalDistance, currentHorizontalSpeed, totalTime, viewHorizontalAngelOffset,
+					viewVerticalAngelOffset, factor);
 
 		if (bipedOuter.previous != null && !bipedOuter.fadeRotateAngleX)
 			bipedOuter.previous.rotateAngleX = bipedOuter.rotateAngleX;
@@ -361,11 +357,9 @@ public class SRModel {
 		}
 	}
 
-	public void animateHeadRotation(float viewHorizontalAngelOffset,
-	        float viewVerticalAngelOffset) {
+	public void animateHeadRotation(float viewHorizontalAngelOffset, float viewVerticalAngelOffset) {
 		bipedNeck.ignoreBase = true;
-		bipedHead.rotateAngleY = (actualRotation + viewHorizontalAngelOffset)
-		        / SRUtilities.RadiantToAngle;
+		bipedHead.rotateAngleY = (actualRotation + viewHorizontalAngelOffset) / SRUtilities.RadiantToAngle;
 		bipedHead.rotateAngleX = viewVerticalAngelOffset / SRUtilities.RadiantToAngle;
 	}
 
@@ -377,17 +371,14 @@ public class SRModel {
 	}
 
 	public void animateArmSwinging(float totalHorizontalDistance, float currentHorizontalSpeed) {
-		bipedRightArm.rotateAngleX = MathHelper
-		        .cos(totalHorizontalDistance * 0.6662F + SRUtilities.Half) * 2.0F
-		        * currentHorizontalSpeed * 0.5F;
-		bipedLeftArm.rotateAngleX = MathHelper.cos(totalHorizontalDistance * 0.6662F) * 2.0F
-		        * currentHorizontalSpeed * 0.5F;
+		bipedRightArm.rotateAngleX = MathHelper.cos(totalHorizontalDistance * 0.6662F + SRUtilities.Half) * 2.0F
+				* currentHorizontalSpeed * 0.5F;
+		bipedLeftArm.rotateAngleX = MathHelper.cos(totalHorizontalDistance * 0.6662F) * 2.0F * currentHorizontalSpeed
+				* 0.5F;
 
-		bipedRightLeg.rotateAngleX = MathHelper.cos(totalHorizontalDistance * 0.6662F) * 1.4F
-		        * currentHorizontalSpeed;
-		bipedLeftLeg.rotateAngleX = MathHelper
-		        .cos(totalHorizontalDistance * 0.6662F + SRUtilities.Half) * 1.4F
-		        * currentHorizontalSpeed;
+		bipedRightLeg.rotateAngleX = MathHelper.cos(totalHorizontalDistance * 0.6662F) * 1.4F * currentHorizontalSpeed;
+		bipedLeftLeg.rotateAngleX = MathHelper.cos(totalHorizontalDistance * 0.6662F + SRUtilities.Half) * 1.4F
+				* currentHorizontalSpeed;
 	}
 
 	public void animateRiding() {
@@ -418,11 +409,9 @@ public class SRModel {
 		float f6 = 1.0F - mp.swingProgress;
 		f6 = 1.0F - f6 * f6 * f6;
 		float f7 = MathHelper.sin(f6 * SRUtilities.Half);
-		float f8 = MathHelper.sin(mp.swingProgress * SRUtilities.Half)
-		        * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
+		float f8 = MathHelper.sin(mp.swingProgress * SRUtilities.Half) * -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
 		bipedRightArm.rotateAngleX -= f7 * 1.2D + f8;
-		bipedRightArm.rotateAngleY += MathHelper
-		        .sin(MathHelper.sqrt(mp.swingProgress) * SRUtilities.Whole) * 0.4F;
+		bipedRightArm.rotateAngleY += MathHelper.sin(MathHelper.sqrt(mp.swingProgress) * SRUtilities.Whole) * 0.4F;
 		bipedRightArm.rotateAngleZ -= MathHelper.sin(mp.swingProgress * SRUtilities.Half) * 0.4F;
 	}
 
@@ -535,7 +524,7 @@ public class SRModel {
 
 	private static boolean canBeRandomBoxSource(ModelRenderer renderer) {
 		return renderer.cubeList != null && renderer.cubeList.size() > 0
-		        && (!(renderer instanceof SRModelRotationRenderer)
-		                || ((SRModelRotationRenderer) renderer).canBeRandomBoxSource());
+				&& (!(renderer instanceof SRModelRotationRenderer)
+						|| ((SRModelRotationRenderer) renderer).canBeRandomBoxSource());
 	}
 }

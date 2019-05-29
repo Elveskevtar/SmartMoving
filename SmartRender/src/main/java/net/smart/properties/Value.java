@@ -117,8 +117,7 @@ public class Value<T> {
 		Iterator<String> iterator = GetAllKeys(this, minimum);
 		while (iterator.hasNext()) {
 			String key = iterator.next();
-			put(key, (T) (Object) Math.max((Float) get(key, defaultValue),
-			        (Float) minimum.get(key)));
+			put(key, (T) (Object) Math.max((Float) get(key, defaultValue), (Float) minimum.get(key)));
 		}
 	}
 
@@ -126,8 +125,7 @@ public class Value<T> {
 		Iterator<String> iterator = GetAllKeys(this, maximum);
 		while (iterator.hasNext()) {
 			String key = iterator.next();
-			put(key, (T) (Object) Math.min((Float) get(key, defaultValue),
-			        (Float) maximum.get(key)));
+			put(key, (T) (Object) Math.min((Float) get(key, defaultValue), (Float) maximum.get(key)));
 		}
 	}
 
@@ -139,7 +137,7 @@ public class Value<T> {
 			T leftValue = get(key);
 			T rightValue = right.get(key);
 			result.put(key, leftValue == null && rightValue == null
-			        || leftValue != null && rightValue != null && leftValue.equals(rightValue));
+					|| leftValue != null && rightValue != null && leftValue.equals(rightValue));
 		}
 		return result;
 	}
@@ -279,7 +277,7 @@ public class Value<T> {
 		if (value != null && !valuesEqual(value, otherValue.value))
 			return false;
 		if ((keyValues == null ? 0 : keyValues.size()) != (otherValue.keyValues == null ? 0
-		        : otherValue.keyValues.size()))
+				: otherValue.keyValues.size()))
 			return false;
 		if (keyValues != null && keyValues.size() != 0) {
 			Enumeration<String> keys = keyValues.keys();
@@ -454,8 +452,7 @@ public class Value<T> {
 	public static Boolean tryParseBoolean(String value) {
 		try {
 			if (value != null)
-				return value.equals("true") ? Boolean.TRUE
-				        : value.equals("false") ? Boolean.FALSE : null;
+				return value.equals("true") ? Boolean.TRUE : value.equals("false") ? Boolean.FALSE : null;
 		} catch (Exception e) {
 		}
 		return null;
@@ -532,24 +529,22 @@ public class Value<T> {
 	public final static String Null = "null";
 	private final static List<String> _allkeys = new LinkedList<String>();
 
-	public final static Class<?> keyboard = Reflect.LoadClass(Value.class,
-	        new Name("org.lwjgl.input.Keyboard"), false);
-	public final static Class<?> mouse = Reflect.LoadClass(Value.class,
-	        new Name("org.lwjgl.input.Mouse"), false);
+	public final static Class<?> keyboard = Reflect.LoadClass(Value.class, new Name("org.lwjgl.input.Keyboard"), false);
+	public final static Class<?> mouse = Reflect.LoadClass(Value.class, new Name("org.lwjgl.input.Mouse"), false);
 
 	public final static Method _getKeyName = keyboard != null
-	        ? Reflect.GetMethod(keyboard, new Name("getKeyName"), int.class)
-	        : null;
+			? Reflect.GetMethod(keyboard, new Name("getKeyName"), int.class)
+			: null;
 	public final static Method _getKeyIndex = keyboard != null
-	        ? Reflect.GetMethod(keyboard, new Name("getKeyIndex"), String.class)
-	        : null;
+			? Reflect.GetMethod(keyboard, new Name("getKeyIndex"), String.class)
+			: null;
 
 	public final static Method _getButtonName = mouse != null
-	        ? Reflect.GetMethod(mouse, new Name("getButtonName"), int.class)
-	        : null;
+			? Reflect.GetMethod(mouse, new Name("getButtonName"), int.class)
+			: null;
 	public final static Method _getButtonIndex = mouse != null
-	        ? Reflect.GetMethod(mouse, new Name("getButtonIndex"), String.class)
-	        : null;
+			? Reflect.GetMethod(mouse, new Name("getButtonIndex"), String.class)
+			: null;
 
 	public static String toKeyName(Integer keyCode) {
 		if (keyCode == null)

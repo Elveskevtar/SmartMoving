@@ -32,8 +32,7 @@ public class SmartStatisticsFactory {
 
 	public SmartStatisticsFactory() {
 		if (factory != null)
-			throw new RuntimeException(
-			        "FATAL: Can only create one instance of type 'StatisticsFactory'");
+			throw new RuntimeException("FATAL: Can only create one instance of type 'StatisticsFactory'");
 		factory = this;
 	}
 

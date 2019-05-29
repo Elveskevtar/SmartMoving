@@ -135,7 +135,7 @@ public class Reflect {
 	}
 
 	public static Method GetMethod(Class<?> theClass, Name name, boolean throwException,
-	        Class<?>... paramArrayOfClass) {
+			Class<?>... paramArrayOfClass) {
 		if (theClass == null && !throwException)
 			return null;
 
@@ -159,7 +159,7 @@ public class Reflect {
 	}
 
 	private static Method GetRawMethod(Class<?> theClass, Name name, Class<?>... paramArrayOfClass)
-	        throws NoSuchMethodException {
+			throws NoSuchMethodException {
 		if (name.obfuscated != null)
 			try {
 				return theClass.getDeclaredMethod(name.obfuscated, paramArrayOfClass);
@@ -184,21 +184,21 @@ public class Reflect {
 	}
 
 	private static StringBuffer GetMessage(Class<?> theClass, Name name, String elementName) {
-		StringBuffer message = new StringBuffer().append("Can not find ").append(elementName)
-		        .append(" \"").append(name.deobfuscated).append("\"");
+		StringBuffer message = new StringBuffer().append("Can not find ").append(elementName).append(" \"")
+				.append(name.deobfuscated).append("\"");
 
 		if (name.obfuscated != null)
 			message.append(" (ofuscated \"").append(name.obfuscated).append("\")");
 
-		message.append(" in class \"").append(theClass.getName()).append("\".\nExisting ")
-		        .append(elementName).append("s are:");
+		message.append(" in class \"").append(theClass.getName()).append("\".\nExisting ").append(elementName)
+				.append("s are:");
 
 		return message;
 	}
 
 	private static void AppendMethod(StringBuffer message, Method method) {
-		message.append("\n\t\t").append(method.getReturnType().getName()).append(" ")
-		        .append(method.getName()).append("(");
+		message.append("\n\t\t").append(method.getReturnType().getName()).append(" ").append(method.getName())
+				.append("(");
 
 		Class<?>[] types = method.getParameterTypes();
 		for (int i = 0; i < types.length; i++) {
@@ -211,7 +211,6 @@ public class Reflect {
 	}
 
 	private static void AppendField(StringBuffer message, Field field) {
-		message.append("\n\t\t").append(field.getType().getName()).append(" ")
-		        .append(field.getName());
+		message.append("\n\t\t").append(field.getType().getName()).append(" ").append(field.getName());
 	}
 }

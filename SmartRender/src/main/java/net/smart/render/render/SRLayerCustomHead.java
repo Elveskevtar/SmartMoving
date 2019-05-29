@@ -15,14 +15,14 @@ public class SRLayerCustomHead extends LayerCustomHead {
 	}
 
 	@Override
-	public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing,
-	        float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw,
-	        float headPitch, float scale) {
+	public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount,
+			float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		GL11.glPushMatrix();
 		GL11.glRotatef(head.rotateAngleX, 1.0F, 0.0F, 0.0F);
 		GL11.glRotatef(head.rotateAngleY, 0.0F, 1.0F, 0.0F);
 		GL11.glRotatef(head.rotateAngleZ, 0.0F, 0.0F, 1.0F);
-		super.doRenderLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
+		super.doRenderLayer(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw,
+				headPitch, scale);
 		GL11.glPopMatrix();
 	}
 }

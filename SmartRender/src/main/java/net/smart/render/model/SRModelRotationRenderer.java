@@ -76,15 +76,12 @@ public class SRModelRotationRenderer extends ModelRenderer {
 
 	public SRRenderData previous;
 
-	private static Field _compiled = Reflect.GetField(ModelRenderer.class,
-	        SRInstall.ModelRenderer_compiled);
+	private static Field _compiled = Reflect.GetField(ModelRenderer.class, SRInstall.ModelRenderer_compiled);
 	private static Method _compileDisplayList = Reflect.GetMethod(ModelRenderer.class,
-	        SRInstall.ModelRenderer_compileDisplayList, float.class);
-	private static Field _displayList = Reflect.GetField(ModelRenderer.class,
-	        SRInstall.ModelRenderer_displayList);
+			SRInstall.ModelRenderer_compileDisplayList, float.class);
+	private static Field _displayList = Reflect.GetField(ModelRenderer.class, SRInstall.ModelRenderer_displayList);
 
-	public SRModelRotationRenderer(ModelBase modelBase, int i, int j,
-	        SRModelRotationRenderer baseRenderer) {
+	public SRModelRotationRenderer(ModelBase modelBase, int i, int j, SRModelRotationRenderer baseRenderer) {
 		super(modelBase, i, j);
 		rotationOrder = XYZ;
 		compiled = false;
@@ -148,8 +145,7 @@ public class SRModelRotationRenderer extends ModelRenderer {
 	}
 
 	public void preTransform(float f, boolean push) {
-		if (rotateAngleX != 0.0F || rotateAngleY != 0.0F || rotateAngleZ != 0.0F
-		        || ignoreSuperRotation) {
+		if (rotateAngleX != 0.0F || rotateAngleY != 0.0F || rotateAngleZ != 0.0F || ignoreSuperRotation) {
 			if (push)
 				GL11.glPushMatrix();
 
@@ -161,44 +157,40 @@ public class SRModelRotationRenderer extends ModelRenderer {
 				buffer.get(array);
 
 				GL11.glLoadIdentity();
-				GL11.glTranslatef(array[12] / array[15], array[13] / array[15],
-				        array[14] / array[15]);
+				GL11.glTranslatef(array[12] / array[15], array[13] / array[15], array[14] / array[15]);
 			}
 
 			rotate(rotationOrder, rotateAngleX, rotateAngleY, rotateAngleZ);
 
 			GL11.glScalef(scaleX, scaleY, scaleZ);
 			GL11.glTranslatef(offsetX, offsetY, offsetZ);
-		} else if (rotationPointX != 0.0F || rotationPointY != 0.0F || rotationPointZ != 0.0F
-		        || scaleX != 1.0F || scaleY != 1.0F || scaleZ != 1.0F || offsetX != 0.0F
-		        || offsetY != 0.0F || offsetZ != 0.0F) {
+		} else if (rotationPointX != 0.0F || rotationPointY != 0.0F || rotationPointZ != 0.0F || scaleX != 1.0F
+				|| scaleY != 1.0F || scaleZ != 1.0F || offsetX != 0.0F || offsetY != 0.0F || offsetZ != 0.0F) {
 			GL11.glTranslatef(rotationPointX * f, rotationPointY * f, rotationPointZ * f);
 			GL11.glScalef(scaleX, scaleY, scaleZ);
 			GL11.glTranslatef(offsetX, offsetY, offsetZ);
 		}
 	}
 
-	private static void rotate(int rotationOrder, float rotateAngleX, float rotateAngleY,
-	        float rotateAngleZ) {
+	private static void rotate(int rotationOrder, float rotateAngleX, float rotateAngleY, float rotateAngleZ) {
 		if ((rotationOrder == ZXY) && rotateAngleY != 0.0F)
 			GL11.glRotatef(rotateAngleY * RadiantToAngle, 0.0F, 1.0F, 0.0F);
 
 		if ((rotationOrder == YXZ) && rotateAngleZ != 0.0F)
 			GL11.glRotatef(rotateAngleZ * RadiantToAngle, 0.0F, 0.0F, 1.0F);
 
-		if ((rotationOrder == YZX || rotationOrder == YXZ || rotationOrder == ZXY
-		        || rotationOrder == ZYX) && rotateAngleX != 0.0F)
+		if ((rotationOrder == YZX || rotationOrder == YXZ || rotationOrder == ZXY || rotationOrder == ZYX)
+				&& rotateAngleX != 0.0F)
 			GL11.glRotatef(rotateAngleX * RadiantToAngle, 1.0F, 0.0F, 0.0F);
 
 		if ((rotationOrder == XZY || rotationOrder == ZYX) && rotateAngleY != 0.0F)
 			GL11.glRotatef(rotateAngleY * RadiantToAngle, 0.0F, 1.0F, 0.0F);
 
-		if ((rotationOrder == XYZ || rotationOrder == XZY || rotationOrder == YZX
-		        || rotationOrder == ZXY || rotationOrder == ZYX) && rotateAngleZ != 0.0F)
+		if ((rotationOrder == XYZ || rotationOrder == XZY || rotationOrder == YZX || rotationOrder == ZXY
+				|| rotationOrder == ZYX) && rotateAngleZ != 0.0F)
 			GL11.glRotatef(rotateAngleZ * RadiantToAngle, 0.0F, 0.0F, 1.0F);
 
-		if ((rotationOrder == XYZ || rotationOrder == YXZ || rotationOrder == YZX)
-		        && rotateAngleY != 0.0F)
+		if ((rotationOrder == XYZ || rotationOrder == YXZ || rotationOrder == YZX) && rotateAngleY != 0.0F)
 			GL11.glRotatef(rotateAngleY * RadiantToAngle, 0.0F, 1.0F, 0.0F);
 
 		if ((rotationOrder == XYZ || rotationOrder == XZY) && rotateAngleX != 0.0F)
@@ -206,13 +198,11 @@ public class SRModelRotationRenderer extends ModelRenderer {
 	}
 
 	public void postTransform(float f, boolean pop) {
-		if (rotateAngleX != 0.0F || rotateAngleY != 0.0F || rotateAngleZ != 0.0F
-		        || ignoreSuperRotation) {
+		if (rotateAngleX != 0.0F || rotateAngleY != 0.0F || rotateAngleZ != 0.0F || ignoreSuperRotation) {
 			if (pop)
 				GL11.glPopMatrix();
-		} else if (rotationPointX != 0.0F || rotationPointY != 0.0F || rotationPointZ != 0.0F
-		        || scaleX != 1.0F || scaleY != 1.0F || scaleZ != 1.0F || offsetX != 0.0F
-		        || offsetY != 0.0F || offsetZ != 0.0F) {
+		} else if (rotationPointX != 0.0F || rotationPointY != 0.0F || rotationPointZ != 0.0F || scaleX != 1.0F
+				|| scaleY != 1.0F || scaleZ != 1.0F || offsetX != 0.0F || offsetY != 0.0F || offsetZ != 0.0F) {
 			GL11.glTranslatef(-offsetX, -offsetY, -offsetZ);
 			GL11.glScalef(1F / scaleX, 1F / scaleY, 1F / scaleZ);
 			GL11.glTranslatef(-rotationPointX * f, -rotationPointY * f, -rotationPointZ * f);
@@ -310,26 +300,23 @@ public class SRModelRotationRenderer extends ModelRenderer {
 
 	public void fadeIntermediate(float totalTime) {
 		if (previous != null && totalTime - previous.totalTime <= 2F) {
-			offsetX = GetIntermediatePosition(previous.offsetX, offsetX, fadeOffsetX,
-			        previous.totalTime, totalTime);
-			offsetY = GetIntermediatePosition(previous.offsetY, offsetY, fadeOffsetY,
-			        previous.totalTime, totalTime);
-			offsetZ = GetIntermediatePosition(previous.offsetZ, offsetZ, fadeOffsetZ,
-			        previous.totalTime, totalTime);
+			offsetX = GetIntermediatePosition(previous.offsetX, offsetX, fadeOffsetX, previous.totalTime, totalTime);
+			offsetY = GetIntermediatePosition(previous.offsetY, offsetY, fadeOffsetY, previous.totalTime, totalTime);
+			offsetZ = GetIntermediatePosition(previous.offsetZ, offsetZ, fadeOffsetZ, previous.totalTime, totalTime);
 
-			rotateAngleX = GetIntermediateAngle(previous.rotateAngleX, rotateAngleX,
-			        fadeRotateAngleX, previous.totalTime, totalTime);
-			rotateAngleY = GetIntermediateAngle(previous.rotateAngleY, rotateAngleY,
-			        fadeRotateAngleY, previous.totalTime, totalTime);
-			rotateAngleZ = GetIntermediateAngle(previous.rotateAngleZ, rotateAngleZ,
-			        fadeRotateAngleZ, previous.totalTime, totalTime);
+			rotateAngleX = GetIntermediateAngle(previous.rotateAngleX, rotateAngleX, fadeRotateAngleX,
+					previous.totalTime, totalTime);
+			rotateAngleY = GetIntermediateAngle(previous.rotateAngleY, rotateAngleY, fadeRotateAngleY,
+					previous.totalTime, totalTime);
+			rotateAngleZ = GetIntermediateAngle(previous.rotateAngleZ, rotateAngleZ, fadeRotateAngleZ,
+					previous.totalTime, totalTime);
 
-			rotationPointX = GetIntermediatePosition(previous.rotationPointX, rotationPointX,
-			        fadeRotationPointX, previous.totalTime, totalTime);
-			rotationPointY = GetIntermediatePosition(previous.rotationPointY, rotationPointY,
-			        fadeRotationPointY, previous.totalTime, totalTime);
-			rotationPointZ = GetIntermediatePosition(previous.rotationPointZ, rotationPointZ,
-			        fadeRotationPointZ, previous.totalTime, totalTime);
+			rotationPointX = GetIntermediatePosition(previous.rotationPointX, rotationPointX, fadeRotationPointX,
+					previous.totalTime, totalTime);
+			rotationPointY = GetIntermediatePosition(previous.rotationPointY, rotationPointY, fadeRotationPointY,
+					previous.totalTime, totalTime);
+			rotationPointZ = GetIntermediatePosition(previous.rotationPointZ, rotationPointZ, fadeRotationPointZ,
+					previous.totalTime, totalTime);
 		}
 	}
 
@@ -337,16 +324,16 @@ public class SRModelRotationRenderer extends ModelRenderer {
 		return true;
 	}
 
-	private static float GetIntermediatePosition(float prevPosition, float shouldPosition,
-	        boolean fade, float lastTotalTime, float totalTime) {
+	private static float GetIntermediatePosition(float prevPosition, float shouldPosition, boolean fade,
+			float lastTotalTime, float totalTime) {
 		if (!fade || shouldPosition == prevPosition)
 			return shouldPosition;
 
 		return prevPosition + (shouldPosition - prevPosition) * (totalTime - lastTotalTime) * 0.2F;
 	}
 
-	private static float GetIntermediateAngle(float prevAngle, float shouldAngle, boolean fade,
-	        float lastTotalTime, float totalTime) {
+	private static float GetIntermediateAngle(float prevAngle, float shouldAngle, boolean fade, float lastTotalTime,
+			float totalTime) {
 		if (!fade || shouldAngle == prevAngle)
 			return shouldAngle;
 

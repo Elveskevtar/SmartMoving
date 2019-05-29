@@ -54,8 +54,7 @@ public class SmartStatistics extends SmartStatisticsContext {
 
 		data.horizontal.calculate(MathHelper.sqrt(diffX * diffX + diffZ * diffZ));
 		data.vertical.calculate((float) Math.abs(diffY));
-		tickDistance = data.all
-		        .calculate(MathHelper.sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ));
+		tickDistance = data.all.calculate(MathHelper.sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ));
 
 		if (calculateHorizontalStats && !remote)
 			data.horizontal.apply(sp);

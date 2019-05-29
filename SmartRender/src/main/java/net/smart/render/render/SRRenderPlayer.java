@@ -38,9 +38,9 @@ public class SRRenderPlayer extends RenderPlayer implements IRenderPlayer {
 	private final SRRenderer render;
 
 	private final static Field _modelArmor = Reflect.GetField(LayerArmorBase.class,
-	        SRInstall.LayerArmorBase_modelArmor);
+			SRInstall.LayerArmorBase_modelArmor);
 	private final static Field _playerHead = Reflect.GetField(LayerCustomHead.class,
-	        SRInstall.LayerCustomHead_playerHead);
+			SRInstall.LayerCustomHead_playerHead);
 
 	public SRRenderPlayer(RenderManager renderManager) {
 		this(renderManager, false);
@@ -60,8 +60,7 @@ public class SRRenderPlayer extends RenderPlayer implements IRenderPlayer {
 
 	@Override
 	public boolean getSmallArms() {
-		return (Boolean) Reflect.GetField(RenderPlayer.class, this,
-		        SRInstall.RenderPlayer_smallArms);
+		return (Boolean) Reflect.GetField(RenderPlayer.class, this, SRInstall.RenderPlayer_smallArms);
 	}
 
 	@Override
@@ -78,37 +77,35 @@ public class SRRenderPlayer extends RenderPlayer implements IRenderPlayer {
 
 	@Override
 	public void doRender(AbstractClientPlayer entityplayer, double d, double d1, double d2, float f,
-	        float renderPartialTicks) {
+			float renderPartialTicks) {
 		render.doRender(entityplayer, d, d1, d2, f, renderPartialTicks);
 	}
 
 	@Override
-	public void superDoRender(AbstractClientPlayer entityplayer, double d, double d1, double d2,
-	        float f, float renderPartialTicks) {
+	public void superDoRender(AbstractClientPlayer entityplayer, double d, double d1, double d2, float f,
+			float renderPartialTicks) {
 		super.doRender(entityplayer, d, d1, d2, f, renderPartialTicks);
 	}
 
 	@Override
-	protected void applyRotations(AbstractClientPlayer entityplayer, float totalTime,
-	        float actualRotation, float f2) {
+	protected void applyRotations(AbstractClientPlayer entityplayer, float totalTime, float actualRotation, float f2) {
 		render.rotateCorpse(entityplayer, totalTime, actualRotation, f2);
 	}
 
 	@Override
-	public void superRotateCorpse(AbstractClientPlayer entityplayer, float totalTime,
-	        float actualRotation, float f2) {
+	public void superRotateCorpse(AbstractClientPlayer entityplayer, float totalTime, float actualRotation, float f2) {
 		super.applyRotations(entityplayer, totalTime, actualRotation, f2);
 	}
 
 	@Override
-	protected void renderLayers(AbstractClientPlayer entityPlayer, float f1, float f2, float f3,
-	        float f4, float f5, float f6, float f7) {
+	protected void renderLayers(AbstractClientPlayer entityPlayer, float f1, float f2, float f3, float f4, float f5,
+			float f6, float f7) {
 		render.renderSpecials(entityPlayer, f1, f2, f3, f4, f5, f6, f7);
 	}
 
 	@Override
-	public void superRenderSpecials(AbstractClientPlayer entityPlayer, float f1, float f2, float f3,
-	        float f4, float f5, float f6, float f7) {
+	public void superRenderSpecials(AbstractClientPlayer entityPlayer, float f1, float f2, float f3, float f4, float f5,
+			float f6, float f7) {
 		super.renderLayers(entityPlayer, f1, f2, f3, f4, f5, f6, f7);
 	}
 
@@ -149,8 +146,7 @@ public class SRRenderPlayer extends RenderPlayer implements IRenderPlayer {
 	@Override
 	public IModelPlayer[] getRenderModels() {
 		if (allIModelPlayers == null)
-			allIModelPlayers = new IModelPlayer[] { getRenderModelBipedMain(),
-			        getRenderModelArmor() };
+			allIModelPlayers = new IModelPlayer[] { getRenderModelBipedMain(), getRenderModelArmor() };
 		return allIModelPlayers;
 	}
 }

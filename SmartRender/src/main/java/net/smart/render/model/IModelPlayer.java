@@ -24,20 +24,18 @@ public interface IModelPlayer {
 	SRModel getRenderModel();
 
 	void initialize(SRModelRotationRenderer bipedBody, SRModelRotationRenderer bipedBodywear,
-	        SRModelRotationRenderer bipedHead, SRModelRotationRenderer bipedHeadwear,
-	        SRModelRotationRenderer bipedRightArm, SRModelRotationRenderer bipedRightArmwear,
-	        SRModelRotationRenderer bipedLeftArm, SRModelRotationRenderer bipedLeftArmwear,
-	        SRModelRotationRenderer bipedRightLeg, SRModelRotationRenderer bipedRightLegwear,
-	        SRModelRotationRenderer bipedLeftLeg, SRModelRotationRenderer bipedLeftLegwear,
-	        SRModelCapeRenderer bipedCloak, SRModelEarsRenderer bipedEars);
+			SRModelRotationRenderer bipedHead, SRModelRotationRenderer bipedHeadwear,
+			SRModelRotationRenderer bipedRightArm, SRModelRotationRenderer bipedRightArmwear,
+			SRModelRotationRenderer bipedLeftArm, SRModelRotationRenderer bipedLeftArmwear,
+			SRModelRotationRenderer bipedRightLeg, SRModelRotationRenderer bipedRightLegwear,
+			SRModelRotationRenderer bipedLeftLeg, SRModelRotationRenderer bipedLeftLegwear,
+			SRModelCapeRenderer bipedCloak, SRModelEarsRenderer bipedEars);
 
-	void superRender(Entity entity, float totalHorizontalDistance, float currentHorizontalSpeed,
-	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-	        float factor);
+	void superRender(Entity entity, float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
 
-	void superSetRotationAngles(float totalHorizontalDistance, float currentHorizontalSpeed,
-	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-	        float factor, Entity entity);
+	void superSetRotationAngles(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor, Entity entity);
 
 	void superRenderCloak(float f);
 
@@ -73,45 +71,36 @@ public interface IModelPlayer {
 
 	ModelRenderer getCloak();
 
-	void animateHeadRotation(float totalHorizontalDistance, float currentHorizontalSpeed,
-	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-	        float factor);
+	void animateHeadRotation(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
 
-	void animateSleeping(float totalHorizontalDistance, float currentHorizontalSpeed,
-	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-	        float factor);
+	void animateSleeping(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
 
-	void animateArmSwinging(float totalHorizontalDistance, float currentHorizontalSpeed,
-	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-	        float factor);
+	void animateArmSwinging(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
 
 	void animateRiding(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime,
-	        float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
 
-	void animateLeftArmItemHolding(float totalHorizontalDistance, float currentHorizontalSpeed,
-	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-	        float factor);
+	void animateLeftArmItemHolding(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
 
-	void animateRightArmItemHolding(float totalHorizontalDistance, float currentHorizontalSpeed,
-	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-	        float factor);
+	void animateRightArmItemHolding(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
 
-	void animateWorkingBody(float totalHorizontalDistance, float currentHorizontalSpeed,
-	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-	        float factor);
+	void animateWorkingBody(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
 
-	void animateWorkingArms(float totalHorizontalDistance, float currentHorizontalSpeed,
-	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-	        float factor);
+	void animateWorkingArms(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
 
-	void animateSneaking(float totalHorizontalDistance, float currentHorizontalSpeed,
-	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-	        float factor);
+	void animateSneaking(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
 
 	void animateArms(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime,
-	        float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
 
-	void animateBowAiming(float totalHorizontalDistance, float currentHorizontalSpeed,
-	        float totalTime, float viewHorizontalAngelOffset, float viewVerticalAngelOffset,
-	        float factor);
+	void animateBowAiming(float totalHorizontalDistance, float currentHorizontalSpeed, float totalTime,
+			float viewHorizontalAngelOffset, float viewVerticalAngelOffset, float factor);
 }

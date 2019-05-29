@@ -18,7 +18,6 @@ public class BlockWallUtil {
 		Material otherMaterial = iblockstate.getMaterial();
 		Block other = iblockstate.getBlock();
 		return (other != Blocks.BARRIER && other != wall && !(other instanceof BlockFenceGate))
-		        && (otherMaterial.isOpaque() && iblockstate.isFullCube())
-		        && otherMaterial != Material.GOURD;
+				&& (otherMaterial.isOpaque() && iblockstate.isFullCube()) && otherMaterial != Material.GOURD;
 	}
 }

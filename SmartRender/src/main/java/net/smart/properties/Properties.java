@@ -112,7 +112,7 @@ public class Properties extends java.util.Properties {
 			Property<?> property = propertiesToWrite.get(i);
 			if (property.isPersistent())
 				properties.put(property.getCurrentKey(),
-				        key == null ? property.getValueString() : property.getKeyValueString(key));
+						key == null ? property.getValueString() : property.getKeyValueString(key));
 		}
 	}
 
@@ -127,12 +127,11 @@ public class Properties extends java.util.Properties {
 	}
 
 	public static int getBaseType(int type) {
-		if (type == Properties.Boolean || type == Properties.Unmodified
-		        || type == Properties.Modified)
+		if (type == Properties.Boolean || type == Properties.Unmodified || type == Properties.Modified)
 			return Properties.Boolean;
 		if (type == Properties.Float || type == Properties.Positive || type == Properties.Negative
-		        || type == Properties.PositiveFactor || type == Properties.NegativeFactor
-		        || type == Properties.IncreasingFactor || type == Properties.DecreasingFactor)
+				|| type == Properties.PositiveFactor || type == Properties.NegativeFactor
+				|| type == Properties.IncreasingFactor || type == Properties.DecreasingFactor)
 			return Properties.Float;
 		if (type == Properties.Integer)
 			return Properties.Integer;

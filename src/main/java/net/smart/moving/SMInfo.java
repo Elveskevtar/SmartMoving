@@ -17,22 +17,16 @@
 
 package net.smart.moving;
 
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
+import net.minecraftforge.fml.common.Mod;
 
-public interface IPacketReceiver {
-	boolean processStatePacket(FMLProxyPacket packet, IEntityPlayerMP player, int entityId, long state);
+public class SMInfo {
+	private static final Mod Mod = SMMod.class.getAnnotation(Mod.class);
 
-	boolean processConfigInfoPacket(FMLProxyPacket packet, IEntityPlayerMP player, String info);
+	public static final String ModId = Mod.modid();
+	public static final String ModName = Mod.name();
+	public static final String ModVersion = Mod.version();
+	public static final String ModComVersion = SMMod.ModComVersion;
 
-	boolean processConfigContentPacket(FMLProxyPacket packet, IEntityPlayerMP player, String[] content,
-			String username);
-
-	boolean processConfigChangePacket(FMLProxyPacket packet, IEntityPlayerMP player);
-
-	boolean processSpeedChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, int difference, String username);
-
-	boolean processHungerChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, float hunger);
-
-	boolean processSoundPacket(FMLProxyPacket packet, IEntityPlayerMP player, String soundId, float distance,
-			float pitch);
+	public static final String ModComMessage = ModName + " uses communication protocol " + ModComVersion;
+	public static final String ModComId = ModName.replace(" ", "") + " " + ModComVersion;
 }

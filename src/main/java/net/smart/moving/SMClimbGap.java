@@ -17,22 +17,26 @@
 
 package net.smart.moving;
 
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
+import net.minecraft.block.Block;
 
-public interface IPacketReceiver {
-	boolean processStatePacket(FMLProxyPacket packet, IEntityPlayerMP player, int entityId, long state);
+public class SMClimbGap {
+	public Block Block;
+	public int Meta;
+	public boolean CanStand;
+	public boolean MustCrawl;
+	public SMOrientation Direction;
+	public boolean SkipGaps;
 
-	boolean processConfigInfoPacket(FMLProxyPacket packet, IEntityPlayerMP player, String info);
+	public SMClimbGap() {
+		reset();
+	}
 
-	boolean processConfigContentPacket(FMLProxyPacket packet, IEntityPlayerMP player, String[] content,
-			String username);
-
-	boolean processConfigChangePacket(FMLProxyPacket packet, IEntityPlayerMP player);
-
-	boolean processSpeedChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, int difference, String username);
-
-	boolean processHungerChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, float hunger);
-
-	boolean processSoundPacket(FMLProxyPacket packet, IEntityPlayerMP player, String soundId, float distance,
-			float pitch);
+	public void reset() {
+		Block = null;
+		Meta = -1;
+		CanStand = false;
+		MustCrawl = false;
+		Direction = null;
+		SkipGaps = false;
+	}
 }

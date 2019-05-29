@@ -24,7 +24,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 
 public interface IEntityPlayerSP {
-	SmartMoving getMoving();
+	SMBase getMoving();
 
 	boolean getSleepingField();
 

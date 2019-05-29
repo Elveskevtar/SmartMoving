@@ -17,12 +17,11 @@
 
 package net.smart.moving;
 
+import java.util.List;
+
+import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
-
-import net.minecraft.entity.*;
-
-import java.util.List;
 
 public interface IEntityPlayerMP extends IPacketSender {
 	void sendPacketToTrackedPlayers(FMLProxyPacket packet);
@@ -43,7 +42,7 @@ public interface IEntityPlayerMP extends IPacketSender {
 
 	boolean localIsEntityInsideOpaqueBlock();
 
-	SmartMovingServer getMoving();
+	SMServer getMoving();
 
 	float doGetHealth();
 

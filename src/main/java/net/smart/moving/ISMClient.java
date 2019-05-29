@@ -17,22 +17,20 @@
 
 package net.smart.moving;
 
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
+public interface ISMClient {
+	float getMaximumExhaustion();
 
-public interface IPacketReceiver {
-	boolean processStatePacket(FMLProxyPacket packet, IEntityPlayerMP player, int entityId, long state);
+	float getMaximumUpJumpCharge();
 
-	boolean processConfigInfoPacket(FMLProxyPacket packet, IEntityPlayerMP player, String info);
+	float getMaximumHeadJumpCharge();
 
-	boolean processConfigContentPacket(FMLProxyPacket packet, IEntityPlayerMP player, String[] content,
-			String username);
+	void setMaximumExhaustionValue(String key, float value);
 
-	boolean processConfigChangePacket(FMLProxyPacket packet, IEntityPlayerMP player);
+	float getMaximumExhaustionValue(String key);
 
-	boolean processSpeedChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, int difference, String username);
+	boolean removeMaximumExhaustionValue(String key);
 
-	boolean processHungerChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, float hunger);
+	void setNativeUserInterfaceDrawing(boolean value);
 
-	boolean processSoundPacket(FMLProxyPacket packet, IEntityPlayerMP player, String soundId, float distance,
-			float pitch);
+	boolean getNativeUserInterfaceDrawing();
 }

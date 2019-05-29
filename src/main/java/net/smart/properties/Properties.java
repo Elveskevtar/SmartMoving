@@ -73,8 +73,7 @@ public class Properties extends java.util.Properties {
 		return addProperties(properties, getClass(), true);
 	}
 
-	private List<Property<?>> addProperties(List<Property<?>> list,
-			Class<?> type, boolean base) {
+	private List<Property<?>> addProperties(List<Property<?>> list, Class<?> type, boolean base) {
 		if (base && type.getSuperclass() != null)
 			addProperties(list, type.getSuperclass(), base);
 
@@ -107,8 +106,7 @@ public class Properties extends java.util.Properties {
 			Property<?> property = propertiesToWrite.get(i);
 			if (property.isPersistent())
 				properties.put(property.getCurrentKey(),
-						key == null ? property.getValueString()
-								: property.getKeyValueString(key));
+						key == null ? property.getValueString() : property.getKeyValueString(key));
 		}
 	}
 
@@ -123,15 +121,11 @@ public class Properties extends java.util.Properties {
 	}
 
 	public static int getBaseType(int type) {
-		if (type == Properties.Boolean || type == Properties.Unmodified
-				|| type == Properties.Modified)
+		if (type == Properties.Boolean || type == Properties.Unmodified || type == Properties.Modified)
 			return Properties.Boolean;
-		if (type == Properties.Float || type == Properties.Positive
-				|| type == Properties.Negative
-				|| type == Properties.PositiveFactor
-				|| type == Properties.NegativeFactor
-				|| type == Properties.IncreasingFactor
-				|| type == Properties.DecreasingFactor)
+		if (type == Properties.Float || type == Properties.Positive || type == Properties.Negative
+				|| type == Properties.PositiveFactor || type == Properties.NegativeFactor
+				|| type == Properties.IncreasingFactor || type == Properties.DecreasingFactor)
 			return Properties.Float;
 		if (type == Properties.Integer)
 			return Properties.Integer;
@@ -265,8 +259,7 @@ public class Properties extends java.util.Properties {
 		return Property(PositiveFactor);
 	}
 
-	public static Property<Float> PositiveFactor(String key,
-			String... versions) {
+	public static Property<Float> PositiveFactor(String key, String... versions) {
 		return PositiveFactor().key(key, versions);
 	}
 
@@ -274,8 +267,7 @@ public class Properties extends java.util.Properties {
 		return Property(NegativeFactor);
 	}
 
-	public static Property<Float> NegativeFactor(String key,
-			String... versions) {
+	public static Property<Float> NegativeFactor(String key, String... versions) {
 		return NegativeFactor().key(key, versions);
 	}
 
@@ -283,8 +275,7 @@ public class Properties extends java.util.Properties {
 		return Property(IncreasingFactor);
 	}
 
-	public static Property<Float> IncreasingFactor(String key,
-			String... versions) {
+	public static Property<Float> IncreasingFactor(String key, String... versions) {
 		return IncreasingFactor().key(key, versions);
 	}
 
@@ -292,8 +283,7 @@ public class Properties extends java.util.Properties {
 		return Property(DecreasingFactor);
 	}
 
-	public static Property<Float> DecreasingFactor(String key,
-			String... versions) {
+	public static Property<Float> DecreasingFactor(String key, String... versions) {
 		return DecreasingFactor().key(key, versions);
 	}
 
@@ -317,8 +307,7 @@ public class Properties extends java.util.Properties {
 		return Property(StringMap);
 	}
 
-	public static Property<Map<String, String>> StringMap(String key,
-			String... versions) {
+	public static Property<Map<String, String>> StringMap(String key, String... versions) {
 		return StringMap().key(key, versions);
 	}
 
@@ -326,8 +315,7 @@ public class Properties extends java.util.Properties {
 		return Property(IntegerMap);
 	}
 
-	public static Property<Map<String, Integer>> IntegerMap(String key,
-			String... versions) {
+	public static Property<Map<String, Integer>> IntegerMap(String key, String... versions) {
 		return IntegerMap().key(key, versions);
 	}
 

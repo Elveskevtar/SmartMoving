@@ -17,22 +17,20 @@
 
 package net.smart.moving;
 
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
+import net.minecraft.client.Minecraft;
 
-public interface IPacketReceiver {
-	boolean processStatePacket(FMLProxyPacket packet, IEntityPlayerMP player, int entityId, long state);
+public class SMLocalUserNameProvider implements ILocalUserNameProvider {
+	@Override
+	public String getLocalConfigUserName() {
+		return SMContext.Options._localUserHasChangeConfigRight.value
+				? Minecraft.getMinecraft().player.getGameProfile().getName()
+				: null;
+	}
 
-	boolean processConfigInfoPacket(FMLProxyPacket packet, IEntityPlayerMP player, String info);
-
-	boolean processConfigContentPacket(FMLProxyPacket packet, IEntityPlayerMP player, String[] content,
-			String username);
-
-	boolean processConfigChangePacket(FMLProxyPacket packet, IEntityPlayerMP player);
-
-	boolean processSpeedChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, int difference, String username);
-
-	boolean processHungerChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, float hunger);
-
-	boolean processSoundPacket(FMLProxyPacket packet, IEntityPlayerMP player, String soundId, float distance,
-			float pitch);
+	@Override
+	public String getLocalSpeedUserName() {
+		return SMContext.Options._localUserHasChangeSpeedRight.value
+				? Minecraft.getMinecraft().player.getGameProfile().getName()
+				: null;
+	}
 }

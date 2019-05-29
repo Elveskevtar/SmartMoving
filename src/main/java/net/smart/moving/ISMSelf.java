@@ -17,22 +17,16 @@
 
 package net.smart.moving;
 
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
+public interface ISMSelf {
+	float getExhaustion();
 
-public interface IPacketReceiver {
-	boolean processStatePacket(FMLProxyPacket packet, IEntityPlayerMP player, int entityId, long state);
+	float getUpJumpCharge();
 
-	boolean processConfigInfoPacket(FMLProxyPacket packet, IEntityPlayerMP player, String info);
+	float getHeadJumpCharge();
 
-	boolean processConfigContentPacket(FMLProxyPacket packet, IEntityPlayerMP player, String[] content,
-			String username);
+	void addExhaustion(float factor);
 
-	boolean processConfigChangePacket(FMLProxyPacket packet, IEntityPlayerMP player);
+	void setMaxExhaustionForAction(float maxExhaustionForAction);
 
-	boolean processSpeedChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, int difference, String username);
-
-	boolean processHungerChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, float hunger);
-
-	boolean processSoundPacket(FMLProxyPacket packet, IEntityPlayerMP player, String soundId, float distance,
-			float pitch);
+	void setMaxExhaustionToStartAction(float maxExhaustionToStartAction);
 }

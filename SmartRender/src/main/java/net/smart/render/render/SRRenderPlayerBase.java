@@ -29,6 +29,7 @@ import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerArmorBase;
+import net.minecraft.client.renderer.entity.layers.LayerCustomHead;
 import net.minecraft.client.renderer.entity.layers.LayerElytra;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.smart.render.SRContext;
@@ -68,15 +69,13 @@ public class SRRenderPlayerBase extends RenderPlayerBase implements IRenderPlaye
 
 	@Override
 	public void initialize(ModelPlayer modelBipedMain, ModelBiped modelArmor) {
-		/* Add custom Elytra layer for special rendering */
+		/* Fix broken layer renderers with custom layers */
 		List<LayerRenderer<AbstractClientPlayer>> layerRenderers = (List<LayerRenderer<AbstractClientPlayer>>) Reflect
 		        .GetField(_layerRenderers, renderPlayer);
-
-		for (LayerRenderer<AbstractClientPlayer> layer : layerRenderers)
-			if (layer.getClass() == LayerElytra.class)
-				layerRenderers.remove(layer);
+		layerRenderers.removeIf(layer -> layer.getClass() == LayerElytra.class || layer.getClass() == LayerCustomHead.class);
 
 		renderPlayer.addLayer(new SRLayerElytra(renderPlayer, this));
+		renderPlayer.addLayer(new SRLayerCustomHead(modelBipedMain.bipedHead));
 	}
 
 	@Override

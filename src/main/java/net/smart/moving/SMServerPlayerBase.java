@@ -22,6 +22,7 @@ import java.util.List;
 import api.player.server.IServerPlayerAPI;
 import api.player.server.ServerPlayerAPI;
 import api.player.server.ServerPlayerBase;
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketBuffer;
@@ -177,8 +178,9 @@ public class SMServerPlayerBase extends ServerPlayerBase implements IEntityPlaye
 
 	@Override
 	public void sendPacket(byte[] data) {
+		ByteBuf buf = Unpooled.wrappedBuffer(data);
 		playerAPI.getPlayerNetServerHandlerField()
-				.sendPacket(new FMLProxyPacket(new PacketBuffer(Unpooled.wrappedBuffer(data)), SMPacketStream.Id));
+				.sendPacket(new FMLProxyPacket(new PacketBuffer(buf), SMPacketStream.Id));
 	}
 
 	@Override

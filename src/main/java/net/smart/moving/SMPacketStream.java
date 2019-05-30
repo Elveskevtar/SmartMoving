@@ -24,6 +24,7 @@ import java.io.ObjectOutputStream;
 import java.util.HashSet;
 import java.util.Set;
 
+import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public class SMPacketStream {
@@ -48,7 +49,11 @@ public class SMPacketStream {
 
 	public static void receivePacket(FMLProxyPacket packet, IPacketReceiver comm, IEntityPlayerMP player) {
 		try {
-			ByteArrayInputStream byteInput = new ByteArrayInputStream(packet.payload().array());
+			ByteBuf buf = packet.payload();
+			int length = buf.readableBytes();
+			byte[] bytes = new byte[length];
+			buf.getBytes(buf.readerIndex(), bytes);
+			ByteArrayInputStream byteInput = new ByteArrayInputStream(bytes);
 			ObjectInputStream objectInput = new ObjectInputStream(byteInput);
 			byte packetId = objectInput.readByte();
 			switch (packetId) {

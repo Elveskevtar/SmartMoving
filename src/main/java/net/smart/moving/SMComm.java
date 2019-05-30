@@ -20,6 +20,7 @@ package net.smart.moving;
 import static net.smart.moving.SMContext.Config;
 import static net.smart.moving.SMContext.Options;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
@@ -140,9 +141,12 @@ public class SMComm implements IPacketReceiver, IPacketSender {
 	@Override
 	public void sendPacket(byte[] data) {
 		NetHandlerPlayClient connection = Minecraft.getMinecraft().getConnection();
-		if (connection != null)
-			connection.getNetworkManager().sendPacket(
-					new CPacketCustomPayload(SMPacketStream.Id, new PacketBuffer(Unpooled.wrappedBuffer(data))));
+		if (connection == null)
+			return;
+		
+		ByteBuf buf = Unpooled.wrappedBuffer(data);
+		connection.getNetworkManager().sendPacket(
+				new CPacketCustomPayload(SMPacketStream.Id, new PacketBuffer(buf)));
 	}
 
 	public static boolean processBlockCode(String text) {

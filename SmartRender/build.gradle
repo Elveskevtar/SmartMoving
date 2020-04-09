@@ -34,8 +34,8 @@ configurations {
 }
 
 dependencies {
-    compile project(":PlayerAPI")
-    compile project(":RenderPlayerAPI")
+    provided files("libs/PlayerAPI-1.12.2-1.0.jar")
+    provided files("libs/RenderPlayerAPI-1.12.2-1.0.jar")
 }
 
 idea.module.scopes.PROVIDED.plus += [configurations.provided]

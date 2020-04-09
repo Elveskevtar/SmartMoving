@@ -29,14 +29,15 @@ compileJava {
 }
 
 configurations {
+    provided
     embedded
     compile.extendsFrom provided, embedded
 }
 
 dependencies {
+    provided files("libs/PlayerAPI-1.12.2-1.0.jar")
+    provided files("libs/RenderPlayerAPI-1.12.2-1.0.jar")
     compile project(":SmartRender")
-    compile project(":PlayerAPI")
-    compile project(":RenderPlayerAPI")
 }
 
 minecraft {
@@ -52,6 +53,14 @@ minecraft {
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     
     replace "@VERSION@", project.simpleVersion
+}
+
+jar {
+    configurations.embedded.each { dep ->
+        from(project.zipTree(dep)) {
+            exclude 'META-INF', 'META-INF/**'
+        }
+    }
 }
 
 processResources {

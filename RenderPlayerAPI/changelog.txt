@@ -1,6 +1,0 @@
-== Render Player API core 1.1 ==
-+ readded accidentally removed "RenderLivingBase" hook methods
-+ reverted accidental renaming of hook "renderOffsetLivingLabel"
-
-== Render Player API core 1.0 ==
-+ created Render Player API core for Minecraft 1.10.2

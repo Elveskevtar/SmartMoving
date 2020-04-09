@@ -20,11 +20,14 @@ package net.smart.moving;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 
 public interface IEntityPlayerMP extends IPacketSender {
 	void sendPacketToTrackedPlayers(FMLProxyPacket packet);
+	
+	EntityPlayerMP getEntityPlayerMP();
 
 	String getUsername();
 

@@ -24,7 +24,6 @@ import api.player.model.ModelPlayerAPI;
 import api.player.model.ModelPlayerBaseSorting;
 import api.player.render.RenderPlayerAPI;
 import api.player.render.RenderPlayerBaseSorting;
-import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
@@ -36,9 +35,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
-import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientCustomPacketEvent;
-import net.minecraftforge.fml.common.network.FMLNetworkEvent.ServerCustomPacketEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.smart.moving.config.SMConfig;
 import net.smart.moving.config.SMOptions;
 import net.smart.moving.model.SMModelPlayerBase;
@@ -70,8 +66,8 @@ public class SMMod {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		NetworkRegistry.INSTANCE.newEventDrivenChannel(SMPacketStream.Id).register(this);
-
+		SMPacketHandler.registerPackets();
+		
 		if (isClient) {
 			SMPlayerBase.registerPlayerBase();
 			SMServerPlayerBase.registerPlayerBase();
@@ -94,17 +90,6 @@ public class SMMod {
 	@SubscribeEvent
 	public void tickStart(ClientTickEvent event) {
 		SMContext.onTickInGame();
-	}
-
-	@SubscribeEvent
-	public void onPacketData(ServerCustomPacketEvent event) {
-		SMPacketStream.receivePacket(event.getPacket(), SMServerComm.instance,
-				SMServerPlayerBase.getPlayerBase(((NetHandlerPlayServer) event.getHandler()).player));
-	}
-
-	@SubscribeEvent
-	public void onPacketData(ClientCustomPacketEvent event) {
-		SMPacketStream.receivePacket(event.getPacket(), SMComm.instance, null);
 	}
 
 	private void register() {

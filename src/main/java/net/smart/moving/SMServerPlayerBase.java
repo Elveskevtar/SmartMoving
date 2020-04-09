@@ -25,10 +25,12 @@ import api.player.server.ServerPlayerBase;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.smart.utilities.Reflect;
 import net.smart.utilities.SoundUtil;
 
@@ -177,10 +179,8 @@ public class SMServerPlayerBase extends ServerPlayerBase implements IEntityPlaye
 	}
 
 	@Override
-	public void sendPacket(byte[] data) {
-		ByteBuf buf = Unpooled.wrappedBuffer(data);
-		playerAPI.getPlayerNetServerHandlerField()
-				.sendPacket(new FMLProxyPacket(new PacketBuffer(buf), SMPacketStream.Id));
+	public void sendPacket(IMessage message) {
+		SMPacketHandler.INSTANCE.sendTo(message, player);
 	}
 
 	@Override
@@ -213,5 +213,10 @@ public class SMServerPlayerBase extends ServerPlayerBase implements IEntityPlaye
 	@Override
 	public int getItemInUseCount() {
 		return player.getItemInUseCount();
+	}
+
+	@Override
+	public EntityPlayerMP getEntityPlayerMP() {
+		return player;
 	}
 }

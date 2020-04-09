@@ -31,6 +31,7 @@ import net.minecraft.network.play.client.CPacketCustomPayload;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.smart.moving.config.SMConfig;
 import net.smart.moving.config.SMOptions;
 import net.smart.moving.config.SMServerConfig;
@@ -40,37 +41,38 @@ public class SMComm implements IPacketReceiver, IPacketSender {
 	public static final SMServerConfig ServerConfig = new SMServerConfig();
 
 	@Override
-	public boolean processStatePacket(FMLProxyPacket packet, IEntityPlayerMP player, int entityId, long state) {
+	public boolean processStatePacket(IMessage message, IEntityPlayerMP player, int entityId, long state) {
 		Entity entity = Minecraft.getMinecraft().world.getEntityByID(entityId);
-		if (entity == null)
-			return true;
 
-		SMOther moving = SMFactory.getOtherSmartMoving((EntityOtherPlayerMP) entity);
-		if (moving != null)
-			moving.processStatePacket(state);
+		if (entity != null && entity instanceof EntityOtherPlayerMP) {
+			SMOther moving = SMFactory.getOtherSmartMoving((EntityOtherPlayerMP) entity);
+			if (moving != null)
+				moving.processStatePacket(state);
+		}
+		
 		return true;
 	}
 
 	@Override
-	public boolean processConfigInfoPacket(FMLProxyPacket packet, IEntityPlayerMP player, String info) {
+	public boolean processConfigInfoPacket(IMessage message, IEntityPlayerMP player, String info) {
 		return false;
 	}
 
 	@Override
-	public boolean processConfigContentPacket(FMLProxyPacket packet, IEntityPlayerMP player, String[] content,
+	public boolean processConfigContentPacket(IMessage message, IEntityPlayerMP player, String[] content,
 			String username) {
 		processConfigPacket(content, username, false);
 		return true;
 	}
 
 	@Override
-	public boolean processConfigChangePacket(FMLProxyPacket packet, IEntityPlayerMP player) {
+	public boolean processConfigChangePacket(IMessage message, IEntityPlayerMP player) {
 		SMOptions.writeNoRightsToChangeConfigMessageToChat(isConnectedToRemoteServer());
 		return true;
 	}
 
 	@Override
-	public boolean processSpeedChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, int difference,
+	public boolean processSpeedChangePacket(IMessage message, IEntityPlayerMP player, int difference,
 			String username) {
 		if (difference == 0)
 			SMOptions.writeNoRightsToChangeSpeedMessageToChat(isConnectedToRemoteServer());
@@ -82,13 +84,13 @@ public class SMComm implements IPacketReceiver, IPacketSender {
 	}
 
 	@Override
-	public boolean processHungerChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, float hunger) {
+	public boolean processHungerChangePacket(IMessage message, IEntityPlayerMP player, float hunger) {
 		player.localAddExhaustion(hunger);
 		return true;
 	}
 
 	@Override
-	public boolean processSoundPacket(FMLProxyPacket packet, IEntityPlayerMP player, String soundId, float distance,
+	public boolean processSoundPacket(IMessage message, IEntityPlayerMP player, String soundId, float distance,
 			float pitch) {
 		return false;
 	}
@@ -135,18 +137,12 @@ public class SMComm implements IPacketReceiver, IPacketSender {
 		Config = ServerConfig;
 		Options.writeServerConfigMessageToChat();
 		if (!blockCode)
-			SMPacketStream.sendConfigInfo(SMComm.instance, SMConfig._sm_current);
+			SMPacketHandler.sendConfigInfo(SMComm.instance, SMConfig._sm_current);
 	}
 
 	@Override
-	public void sendPacket(byte[] data) {
-		NetHandlerPlayClient connection = Minecraft.getMinecraft().getConnection();
-		if (connection == null)
-			return;
-		
-		ByteBuf buf = Unpooled.wrappedBuffer(data);
-		connection.getNetworkManager().sendPacket(
-				new CPacketCustomPayload(SMPacketStream.Id, new PacketBuffer(buf)));
+	public void sendPacket(IMessage message) {
+		SMPacketHandler.INSTANCE.sendToServer(message);
 	}
 
 	public static boolean processBlockCode(String text) {

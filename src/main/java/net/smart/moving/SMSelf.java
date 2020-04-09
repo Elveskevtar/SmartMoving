@@ -1251,7 +1251,7 @@ public class SMSelf extends SMBase implements ISMSelf {
 		}
 
 		sp.addExhaustion(hungerIncrease);
-		SMPacketStream.sendHungerChange(SMComm.instance, hungerIncrease);
+		SMPacketHandler.sendHungerChange(SMComm.instance, hungerIncrease);
 	}
 
 	@Override
@@ -1568,7 +1568,7 @@ public class SMSelf extends SMBase implements ISMSelf {
 	private void playSound(SoundEvent soundEvent, float volume, float pitch) {
 		sp.world.playSound(sp, new BlockPos(sp.posX, sp.posY, sp.posZ), soundEvent, sp.getSoundCategory(), volume,
 				pitch);
-		SMPacketStream.sendSound(SMComm.instance, soundEvent.getSoundName().toString(), volume, pitch);
+		SMPacketHandler.sendSound(SMComm.instance, soundEvent.getSoundName().toString(), volume, pitch);
 	}
 
 	private void playSound(String id, float volume, float pitch) {
@@ -1661,7 +1661,7 @@ public class SMSelf extends SMBase implements ISMSelf {
 	}
 
 	public void afterOnUpdate() {
-		correctOnUpdate(isSwimming || isDiving || isDipping || isCrawling, isSwimming);
+		correctOnUpdate(isSwimming || isDiving || isDipping || isCrawling || isCrawlClimbing, isSwimming);
 
 		spawnParticles(isp.getMcField(), sp.motionX, sp.motionZ);
 
@@ -1698,7 +1698,7 @@ public class SMSelf extends SMBase implements ISMSelf {
 		else
 			collidedHorizontallyTickCount = 0;
 
-		addToSendQueue();
+		addToSendQueue(isSwimming || isDiving || isDipping || isCrawling || isCrawlClimbing);
 
 		if (wasInventory)
 			sp.prevRotationYawHead = sp.rotationYawHead;
@@ -2120,7 +2120,7 @@ public class SMSelf extends SMBase implements ISMSelf {
 			if (Config == Options)
 				Config.toggle();
 			else
-				SMPacketStream.sendConfigChange(SMComm.instance);
+				SMPacketHandler.sendConfigChange(SMComm.instance);
 		}
 
 		if (Config.isUserSpeedEnabled() && !Config.isUserSpeedAlwaysDefault()
@@ -2135,7 +2135,7 @@ public class SMSelf extends SMBase implements ISMSelf {
 				if (Config == Options)
 					Config.changeSpeed(difference);
 				else
-					SMPacketStream.sendSpeedChange(SMComm.instance, difference, null);
+					SMPacketHandler.sendSpeedChange(SMComm.instance, difference, null);
 			}
 		}
 
@@ -2181,9 +2181,9 @@ public class SMSelf extends SMBase implements ISMSelf {
 		grabButton.update(Options.keyBindGrab);
 
 		double horizontalSpeedSquare = sp.motionX * sp.motionX + sp.motionZ * sp.motionZ;
-		// double verticalSpeedSquare = (sp.motionY + HoldMotion) * (sp.motionY
-		// + HoldMotion);
-		// double speedSquare = horizontalSpeedSquare + verticalSpeedSquare;
+//		 double verticalSpeedSquare = (sp.motionY + HoldMotion) * (sp.motionY
+//		 + HoldMotion);
+//		 double speedSquare = horizontalSpeedSquare + verticalSpeedSquare;
 
 		boolean blocked = minecraft.currentScreen != null && !minecraft.currentScreen.allowUserInput;
 
@@ -2756,11 +2756,9 @@ public class SMSelf extends SMBase implements ISMSelf {
 	private int lastWorldPlayerEntitiesSize = -1;
 	private int lastWorldPlayerLastEnttyId = -1;
 
-	public void addToSendQueue() {
+	public void addToSendQueue(boolean isSmall) {
 		if (!sp.world.isRemote)
 			return;
-
-		boolean isSmall = sp.height < 1;
 
 		long state = 0;
 		state |= isp.localIsSneaking() ? 1 : 0;
@@ -2862,7 +2860,7 @@ public class SMSelf extends SMBase implements ISMSelf {
 		}
 
 		if (sendStatePacket) {
-			SMPacketStream.sendState(SMComm.instance, sp.getEntityId(), state);
+			SMPacketHandler.sendState(SMComm.instance, sp.getEntityId(), state);
 			prevPacketState = state;
 		}
 	}

@@ -25,7 +25,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.FMLLog;
-import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.smart.moving.config.SMConfig;
 import net.smart.moving.config.SMServerOptions;
 import net.smart.properties.Property;
@@ -56,15 +56,15 @@ public class SMServer {
 
 	public void initialize(boolean alwaysSendMessage) {
 		if (Options._globalConfig.value)
-			SMPacketStream.sendConfigContent(mp, optionsHandler.writeToProperties(), null);
+			SMPacketHandler.sendConfigContent(mp, optionsHandler.writeToProperties(), null);
 		else if (Options._serverConfig.value)
-			SMPacketStream.sendConfigContent(mp, optionsHandler.writeToProperties(mp, false), null);
+			SMPacketHandler.sendConfigContent(mp, optionsHandler.writeToProperties(mp, false), null);
 		else if (alwaysSendMessage)
-			SMPacketStream.sendConfigContent(mp, Options.enabled ? new String[0] : null, null);
+			SMPacketHandler.sendConfigContent(mp, Options.enabled ? new String[0] : null, null);
 		initialized = true;
 	}
 
-	public void processStatePacket(FMLProxyPacket packet, long state) {
+	public void processStatePacket(IMessage message, long state) {
 		if (!initialized)
 			initialize(false);
 
@@ -84,7 +84,7 @@ public class SMServer {
 
 		resetFallDistance = isClimbing || isCrawlClimbing || isCeilingClimbing || isWallJumping;
 		resetTicksForFloatKick = isClimbing || isCrawlClimbing || isCeilingClimbing;
-		mp.sendPacketToTrackedPlayers(packet);
+		SMPacketHandler.INSTANCE.sendToAllTracking(message, mp.getEntityPlayerMP());
 	}
 
 	public void processConfigPacket(String clientConfigurationVersion) {
@@ -129,7 +129,7 @@ public class SMServer {
 				return;
 			}
 
-		SMPacketStream.sendConfigChange(mp);
+		SMPacketHandler.sendConfigChange(mp);
 	}
 
 	public void processSpeedChangePacket(int difference, String localUserName) {
@@ -139,7 +139,7 @@ public class SMServer {
 		}
 
 		if (!hasRight(localUserName, Options._usersWithChangeSpeedRights))
-			SMPacketStream.sendSpeedChange(mp, 0, null);
+			SMPacketHandler.sendSpeedChange(mp, 0, null);
 		else
 			changeSpeed(difference);
 	}
@@ -167,7 +167,7 @@ public class SMServer {
 	}
 
 	public void toggleSingleConfig() {
-		SMPacketStream.sendConfigContent(mp, optionsHandler.writeToProperties(mp, true), mp.getUsername());
+		SMPacketHandler.sendConfigContent(mp, optionsHandler.writeToProperties(mp, true), mp.getUsername());
 	}
 
 	public IEntityPlayerMP[] getAllPlayers() {
@@ -186,19 +186,19 @@ public class SMServer {
 
 		IEntityPlayerMP[] players = getAllPlayers();
 		for (int n = 0; n < players.length; n++)
-			SMPacketStream.sendConfigContent(players[n], config, mp.getUsername());
+			SMPacketHandler.sendConfigContent(players[n], config, mp.getUsername());
 	}
 
 	public void changeSingleSpeed(int difference) {
 		optionsHandler.changeSingleSpeed(mp, difference);
-		SMPacketStream.sendSpeedChange(mp, difference, mp.getUsername());
+		SMPacketHandler.sendSpeedChange(mp, difference, mp.getUsername());
 	}
 
 	public void changeSpeed(int difference) {
 		optionsHandler.changeSpeed(difference, mp);
 		IEntityPlayerMP[] players = getAllPlayers();
 		for (int n = 0; n < players.length; n++)
-			SMPacketStream.sendSpeedChange(players[n], difference, mp.getUsername());
+			SMPacketHandler.sendSpeedChange(players[n], difference, mp.getUsername());
 	}
 
 	public void afterOnUpdate() {

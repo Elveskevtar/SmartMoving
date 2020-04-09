@@ -17,39 +17,40 @@
 
 package net.smart.moving;
 
-import net.minecraftforge.fml.common.network.internal.*;
+import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
 public class SMServerComm implements IPacketReceiver {
 	public static final SMServerComm instance = new SMServerComm();
 	public static ILocalUserNameProvider localUserNameProvider = null;
 
 	@Override
-	public boolean processStatePacket(FMLProxyPacket packet, IEntityPlayerMP player, int entityId, long state) {
-		player.getMoving().processStatePacket(packet, state);
+	public boolean processStatePacket(IMessage message, IEntityPlayerMP player, int entityId, long state) {
+		player.getMoving().processStatePacket(message, state);
 		return true;
 	}
 
 	@Override
-	public boolean processConfigInfoPacket(FMLProxyPacket packet, IEntityPlayerMP player, String info) {
+	public boolean processConfigInfoPacket(IMessage message, IEntityPlayerMP player, String info) {
 		player.getMoving().processConfigPacket(info);
 		return true;
 	}
 
 	@Override
-	public boolean processConfigContentPacket(FMLProxyPacket packet, IEntityPlayerMP player, String[] content,
+	public boolean processConfigContentPacket(IMessage message, IEntityPlayerMP player, String[] content,
 			String username) {
 		return false;
 	}
 
 	@Override
-	public boolean processConfigChangePacket(FMLProxyPacket packet, IEntityPlayerMP player) {
+	public boolean processConfigChangePacket(IMessage message, IEntityPlayerMP player) {
 		player.getMoving().processConfigChangePacket(
 				localUserNameProvider != null ? localUserNameProvider.getLocalConfigUserName() : null);
 		return true;
 	}
 
 	@Override
-	public boolean processSpeedChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, int difference,
+	public boolean processSpeedChangePacket(IMessage message, IEntityPlayerMP player, int difference,
 			String username) {
 		player.getMoving().processSpeedChangePacket(difference,
 				localUserNameProvider != null ? localUserNameProvider.getLocalSpeedUserName() : null);
@@ -57,13 +58,13 @@ public class SMServerComm implements IPacketReceiver {
 	}
 
 	@Override
-	public boolean processHungerChangePacket(FMLProxyPacket packet, IEntityPlayerMP player, float hunger) {
+	public boolean processHungerChangePacket(IMessage message, IEntityPlayerMP player, float hunger) {
 		player.getMoving().processHungerChangePacket(hunger);
 		return true;
 	}
 
 	@Override
-	public boolean processSoundPacket(FMLProxyPacket packet, IEntityPlayerMP player, String soundId, float volume,
+	public boolean processSoundPacket(IMessage message, IEntityPlayerMP player, String soundId, float volume,
 			float pitch) {
 		player.getMoving().processSoundPacket(soundId, volume, pitch);
 		return true;

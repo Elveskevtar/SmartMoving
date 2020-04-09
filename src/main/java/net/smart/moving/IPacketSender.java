@@ -17,6 +17,8 @@
 
 package net.smart.moving;
 
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+
 public interface IPacketSender {
-	void sendPacket(byte[] byteArray);
+	void sendPacket(IMessage message);
 }

@@ -2361,7 +2361,11 @@ public class SMOrientation {
 	}
 
 	private static EnumFacing getValue(IBlockState state, PropertyDirection property) {
-		return state.getValue(property);
+		try {
+			return state.getValue(property);
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
 	}
 
 	private static Enum getValue(IBlockState state, PropertyEnum property) {
